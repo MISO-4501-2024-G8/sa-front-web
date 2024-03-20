@@ -85,6 +85,7 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -94,11 +95,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "c696f111-09b8-45fa-a97e-4271d2c0e9cf"
+    "analytics": "c696f111-09b8-45fa-a97e-4271d2c0e9cf",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
