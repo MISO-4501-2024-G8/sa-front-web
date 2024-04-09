@@ -36,3 +36,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [CLI Docs](https://angular.dev/tools/cli)
 [Angular Language Service](https://angular.dev/tools/language-service)
 [Angular Dev Tools](https://angular.dev/tools/devtools)
+
+```
+ng generate component home
+```

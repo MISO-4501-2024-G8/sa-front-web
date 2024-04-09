@@ -9,4 +9,5 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   actualDate = new Date();
+  title = 'sa-front-web';
 }
