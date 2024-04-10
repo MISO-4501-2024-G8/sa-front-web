@@ -7,6 +7,9 @@ import { ThirdComponent } from './third/third.component';
 import { ThirdSignupComponent } from './third-signup/third-signup.component';
 import { EventComponent } from './event/event.component';
 import { PlanComponent } from './plan/plan.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SessionComponent } from './session/session.component';
+import { PaymentComponent } from './payment/payment.component';
 export const routes: Routes = [
   { path: '',title:"SportApp", component: StartpComponent },
   { path: 'login',title:"SportApp - Login", component: LoginComponent },
@@ -15,6 +18,8 @@ export const routes: Routes = [
   { path: 'third',title:"SportApp - Third", component: ThirdComponent},
   { path: 'third-signup',title:"SportApp - Third Signup", component: ThirdSignupComponent},
   { path: 'event',title:"SportApp - Event", component: EventComponent},
-  { path: 'plan',title:"SportApp - Plan", component: PlanComponent}
-
+  { path: 'plan',title:"SportApp - Plan", component: PlanComponent},
+  { path: 'profile',title:"SportApp - Profile", component: ProfileComponent},
+  { path: 'session',title:"SportApp - Session", component: SessionComponent},
+  { path: 'payment',title:"SportApp - Payment", component: PaymentComponent}
 ];
