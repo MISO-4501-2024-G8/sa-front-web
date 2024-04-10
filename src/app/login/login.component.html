@@ -1,6 +1,6 @@
 <section class="content">
   <app-navbar></app-navbar>
-  LOGIN
+  <h2>LOGIN</h2>
   <main>
     <div class="container mt-4">
       <form [formGroup]="loginForm" (ngSubmit)="!loginForm.invalid && loginUser(loginForm.value)">
@@ -14,15 +14,15 @@
           ">
             email required
           </div>
-          <div class="alert alert-danger alert-dismissible fade show"
-            *ngIf="loginForm.get('email')!.hasError('email')">
+          <div class="alert alert-danger alert-dismissible fade show" *ngIf="loginForm.get('email')!.hasError('email')">
             email invalid
           </div>
         </div>
         <!--Password-->
         <div class="form-group mx-sm-3 mb-2">
           <label for="password">Password</label>
-          <input novalidate id="password" class="form-control" formControlName="password" placeholder="User's password" />
+          <input novalidate id="password" type="password" class="form-control" formControlName="password"
+            placeholder="User's password" />
           <div class="alert alert-danger alert-dismissible fade show" *ngIf="
             loginForm.get('password')!.hasError('required') &&
             loginForm.get('password')!.touched
@@ -34,6 +34,12 @@
             Name too short
           </div>
         </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
+          Signin
+        </button>
+        <button type="button" class="btn btn-danger ml-3" (click)="cancelCreation()">
+          Cancel
+        </button>
       </form>
     </div>
   </main>

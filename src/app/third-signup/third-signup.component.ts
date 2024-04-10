@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-third-signup',
-  standalone: true,
-  imports: [NavbarComponent],
   templateUrl: './third-signup.component.html',
-  styleUrl: './third-signup.component.scss'
+  styleUrls: ['./third-signup.component.scss']
 })
-export class ThirdSignupComponent {
+export class ThirdSignupComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

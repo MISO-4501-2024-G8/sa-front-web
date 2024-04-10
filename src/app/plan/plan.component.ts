@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-plan',
-  standalone: true,
-  imports: [NavbarComponent],
   templateUrl: './plan.component.html',
-  styleUrl: './plan.component.scss'
+  styleUrls: ['./plan.component.scss']
 })
-export class PlanComponent {
+export class PlanComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

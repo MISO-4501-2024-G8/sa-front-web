@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarUserComponent } from '../navbar-user/navbar-user.component';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-session',
-  standalone: true,
-  imports: [NavbarUserComponent],
   templateUrl: './session.component.html',
-  styleUrl: './session.component.scss'
+  styleUrls: ['./session.component.scss']
 })
-export class SessionComponent {
+export class SessionComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-signup',
-  standalone: true,
-  imports: [NavbarComponent],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

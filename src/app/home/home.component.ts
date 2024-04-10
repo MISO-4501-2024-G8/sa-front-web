@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
-import { NavbarUserComponent } from '../navbar-user/navbar-user.component';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [NavbarUserComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
   actualDate = new Date();
   title = 'sa-front-web';
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
 }

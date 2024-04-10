@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarUserComponent } from '../navbar-user/navbar-user.component';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-payment',
-  standalone: true,
-  imports: [NavbarUserComponent],
   templateUrl: './payment.component.html',
-  styleUrl: './payment.component.scss'
+  styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent {
+export class PaymentComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

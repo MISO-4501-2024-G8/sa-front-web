@@ -3,7 +3,7 @@ Front Web de SportApp desarrollado en Angular JS
 
 # SaFrontWeb
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.11.
 
 ## Development server
 

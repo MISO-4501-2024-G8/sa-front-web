@@ -1,31 +1,29 @@
-import { Component, OnInit} from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // se agrega para el formulario
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 import { LoginUser } from '../models/loginu';
 import { LoginService } from './login.service';
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [NgIf, NavbarComponent, RouterOutlet, RouterLink, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss'],
+  providers: [NavbarComponent]
 })
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-
   constructor(
     private formBuilder: FormBuilder,
+    private toastr: ToastrService,
     private loginService: LoginService
   ) { }
 
   loginUser(loginu: LoginUser) {
     this.loginService.loginUser(loginu).subscribe(loginResponse=>{
       console.info("The user was login: ", loginResponse)
+      this.toastr.success("Confirmation", "Login successfully")
       this.loginForm.reset();
     })
   }

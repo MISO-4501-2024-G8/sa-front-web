@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component, OnInit } from '@angular/core';
+import { NavbarComponent } from '../shared/navbar/navbar.component';
+
 
 @Component({
   selector: 'app-startp',
-  standalone: true,
-  imports: [NavbarComponent],
   templateUrl: './startp.component.html',
-  styleUrl: './startp.component.scss'
+  styleUrls: ['./startp.component.scss'],
+  providers: [NavbarComponent]
 })
-export class StartpComponent {
+export class StartpComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

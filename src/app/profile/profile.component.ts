@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarUserComponent } from '../navbar-user/navbar-user.component';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [NavbarUserComponent],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

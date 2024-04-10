@@ -10,7 +10,6 @@ import { LoginUserResponse } from '../models/loginu_response';
   providedIn: 'root'
 })
 export class LoginService {
-
   private apiUrl: string = "";
   constructor(private http: HttpClient) { }
   loginUser(loginu: LoginUser): Observable<LoginUserResponse> {
@@ -19,4 +18,5 @@ export class LoginService {
     console.log(this.apiUrl);
     return this.http.post<LoginUserResponse>(this.apiUrl, loginu);
   }
+
 }

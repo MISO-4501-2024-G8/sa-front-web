@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-event',
-  standalone: true,
-  imports: [NavbarComponent],
   templateUrl: './event.component.html',
-  styleUrl: './event.component.scss'
+  styleUrls: ['./event.component.scss']
 })
-export class EventComponent {
+export class EventComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

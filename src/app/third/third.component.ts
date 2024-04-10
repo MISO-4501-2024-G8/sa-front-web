@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-third',
-  standalone: true,
-  imports: [RouterOutlet, RouterLink, NavbarComponent],
   templateUrl: './third.component.html',
-  styleUrl: './third.component.scss'
+  styleUrls: ['./third.component.scss']
 })
-export class ThirdComponent {
+export class ThirdComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }
