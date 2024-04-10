@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-
+import { NavbarUserComponent } from '../navbar-user/navbar-user.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [NavbarUserComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

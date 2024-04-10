@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-navbar-user',
   standalone: true,
   imports: [RouterOutlet, RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  templateUrl: './navbar-user.component.html',
+  styleUrl: './navbar-user.component.scss'
 })
-export class NavbarComponent {
+export class NavbarUserComponent {
 
 }
