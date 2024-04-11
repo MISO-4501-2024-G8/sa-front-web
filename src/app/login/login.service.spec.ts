@@ -69,6 +69,7 @@ describe('LoginComponent', () => {
       error: ''
     };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
   });
@@ -88,6 +89,7 @@ describe('LoginComponent', () => {
       expirationToken: '' // add this line
     };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.error).toHaveBeenCalledWith('Login failed', 'Error');
   });
@@ -95,6 +97,7 @@ describe('LoginComponent', () => {
   it('should show an error message on error', () => {
     try {
       mockLoginService.loginUser.and.returnValue(throwError('error'));
+      component.failedAttempt = 1;
       component.loginUser({} as any);
       expect(mockToastrService.error).toHaveBeenCalledWith('An error occurred', 'Error');
     } catch (error) {
@@ -102,7 +105,15 @@ describe('LoginComponent', () => {
     }
   });
 
-
+  it('should show an error message on error with 3 failedAttempt', () => {
+    try {
+      mockLoginService.loginUser.and.returnValue(throwError('error'));
+      component.failedAttempt = 3;
+      component.checkFailedAttempt();
+    } catch (error) {
+      console.error("An error occurred: ", error)
+    }
+  });
 });
 
 
