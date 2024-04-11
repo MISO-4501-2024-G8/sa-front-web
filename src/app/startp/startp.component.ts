@@ -8,12 +8,8 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
   styleUrls: ['./startp.component.scss'],
   providers: [NavbarComponent]
 })
-export class StartpComponent implements OnInit {
+export class StartpComponent {
 
   constructor() { }
-
-  ngOnInit() {
-    const a = 1;
-  }
 
 }
