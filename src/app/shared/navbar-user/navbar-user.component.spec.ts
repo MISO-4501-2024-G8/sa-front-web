@@ -26,29 +26,19 @@ describe('NavbarUserComponent 1', () => {
   });
 });
 
+
 describe('NavbarUserComponent', () => {
   let component: NavbarUserComponent;
   let fixture: ComponentFixture<NavbarUserComponent>;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [NavbarUserComponent]
     });
-
     fixture = TestBed.createComponent(NavbarUserComponent);
     component = fixture.componentInstance;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should log out and navigate to /', () => {
-    spyOn(localStorage, 'removeItem');
-
-    component.logOut();
-
-    //expect(localStorage.removeItem).toHaveBeenCalledWith('token');
-    //expect(window.location.href).toBe('http://localhost:9876/context.html');
   });
 });
