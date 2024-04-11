@@ -101,6 +101,8 @@ describe('LoginComponent', () => {
       console.error("An error occurred: ", error)
     }
   });
+
+
 });
 
 
@@ -135,15 +137,12 @@ describe('LoginService', () => {
       expirationToken: 'expiration-token',
       error: ''
     };
-
     service.loginUser(mockLoginUser).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
-
     const req = httpMock.expectOne(`${environment.baseUrl}login/user`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockLoginUser);
-
     req.flush(mockResponse); // Provide the mockResponse as the response
   });
 });
