@@ -13,6 +13,7 @@ export class StartpComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const a = 1;
   }
 
 }

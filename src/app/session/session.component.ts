@@ -10,6 +10,7 @@ export class SessionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const a = 1;
   }
 
 }

@@ -10,6 +10,7 @@ export class NavbarUserComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const a = 1;
   }
 
   logOut() {

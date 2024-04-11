@@ -10,6 +10,7 @@ export class ThirdSignupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const a = 1;
   }
 
 }

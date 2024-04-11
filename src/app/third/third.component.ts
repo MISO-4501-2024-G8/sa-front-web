@@ -10,6 +10,7 @@ export class ThirdComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const a = 1;
   }
 
 }
