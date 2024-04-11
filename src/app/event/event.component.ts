@@ -10,7 +10,6 @@ export class EventComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    const a = 1;
   }
 
 }

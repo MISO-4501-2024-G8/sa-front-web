@@ -9,7 +9,7 @@ export class HomeComponent implements OnInit {
 
   actualDate = new Date();
   title = 'sa-front-web';
-  token = localStorage.getItem('token') || '';
+  token = localStorage.getItem('token') ?? '';
 
   constructor() { }
 
