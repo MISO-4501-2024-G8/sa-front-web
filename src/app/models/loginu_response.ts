@@ -4,5 +4,7 @@ export class LoginUserResponse {
     public token: string,
     public id: string,
     public expirationToken: string,
+    public code: number,
+    public error: string
   ) { }
 }
