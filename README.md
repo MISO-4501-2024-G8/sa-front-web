@@ -3,7 +3,7 @@ Front Web de SportApp desarrollado en Angular JS
 
 # SaFrontWeb
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.11.
 
 ## Development server
 
@@ -36,3 +36,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 [CLI Docs](https://angular.dev/tools/cli)
 [Angular Language Service](https://angular.dev/tools/language-service)
 [Angular Dev Tools](https://angular.dev/tools/devtools)
+
+```
+ng generate component home
+```

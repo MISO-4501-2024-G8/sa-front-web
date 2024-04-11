@@ -1,0 +1,17 @@
+.center-card{
+  max-width: 600px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+.center-card-body {
+  align-items: center;
+  max-width: 500px;
+  padding-bottom: 100px;
+}
+
+.back-color {
+  background-color: #bdbdbd;
+}
