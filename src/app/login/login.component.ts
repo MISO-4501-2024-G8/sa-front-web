@@ -3,7 +3,7 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // se agrega para el formulario
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+import { SessionStorageService } from '../utils/session-storage.service';
 import { LoginUser } from '../models/loginu';
 import { LoginService } from './login.service';
 @Component({
@@ -19,29 +19,30 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private sessionStorageService: SessionStorageService
   ) { }
 
   failedAttempt: number = 0;
 
   checkFailedAttempt() {
     this.failedAttempt++;
-    localStorage.setItem('failedAttempt', this.failedAttempt.toString());
-    localStorage.setItem('expiration', (Date.now() + (1 * 30 * 1000)).toString()); // 1 minute
+    this.sessionStorageService.setItem('failedAttempt', this.failedAttempt.toString());
+    this.sessionStorageService.setItem('expiration', (Date.now() + (1 * 30 * 1000)).toString()); // 1 minute
     console.log("Failed attempt: ", this.failedAttempt);
     if (this.failedAttempt >= 3) {
       setTimeout(() => {
         this.failedAttempt = 0;
-        localStorage.setItem('failedAttempt', '0');
+        this.sessionStorageService.setItem('failedAttempt', '0');
       }, 1 * 60 * 1000); // 1 minutes
     }
   }
   loginUser(loginu: LoginUser) {
 
-    const expiration = localStorage.getItem('expiration');
+    const expiration = this.sessionStorageService.getItem('expiration');
     if (expiration && Date.now() > Number(expiration)) {
-      localStorage.removeItem('failedAttempt');
-      localStorage.removeItem('expiration');
+      this.sessionStorageService.removeItem('failedAttempt');
+      this.sessionStorageService.removeItem('expiration');
       this.failedAttempt = 0;
     }
 
@@ -59,12 +60,12 @@ export class LoginComponent implements OnInit {
         }
         this.toastr.success("Login successfully", "Confirmation")
         this.loginForm.reset();
-        // Remove failedAttempt and expiration from localStorage and reset failedAttempt
-        localStorage.removeItem('failedAttempt');
-        localStorage.removeItem('expiration');
+        // Remove failedAttempt and expiration from this.sessionStorageService and reset failedAttempt
+        this.sessionStorageService.removeItem('failedAttempt');
+        this.sessionStorageService.removeItem('expiration');
         this.failedAttempt = 0;
         // Save token in local storage and redirect to /home
-        localStorage.setItem('token', loginResponse.token);
+        this.sessionStorageService.setItem('token', loginResponse.token);
         this.router.navigate(['/home']);  // Redirect to /home
       },
       (error) => {
@@ -81,7 +82,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.failedAttempt = localStorage.getItem('failedAttempt') ? parseInt(localStorage.getItem('failedAttempt') || '0') : 0;
+    this.failedAttempt = this.sessionStorageService.getItem('failedAttempt') ? parseInt(this.sessionStorageService.getItem('failedAttempt') || '0') : 0;
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(4)]],
