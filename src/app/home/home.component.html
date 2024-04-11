@@ -1,2 +1,15 @@
-<p>home works!</p>
-<div>Fecha actual es {{ actualDate}} </div>
+<section class="content">
+  <app-navbar-user></app-navbar-user>
+  <header class="brand-name">
+    <img class="brand-logo" src="../../assets/eagle.png" alt="logo" aria-hidden="true" />
+  </header>
+  <h1>Hello, {{ title }}</h1>
+  <p>Congratulations! Your app is running. 🎉</p>
+  <p>home works!</p>
+  <div>Fecha actual es {{ actualDate}} </div>
+  <div>Fecha actual es {{ actualDate | date: 'short' }} </div>
+  <div>Token {{token}}</div>
+</section>
+
+
+
