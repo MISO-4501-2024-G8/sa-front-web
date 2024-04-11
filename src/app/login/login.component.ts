@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       setTimeout(() => {
         this.failedAttempt = 0;
         localStorage.setItem('failedAttempt', '0');
-      }, 5 * 60 * 1000); // 5 minutes
+      }, 1 * 60 * 1000); // 1 minutes
     }
   }
   loginUser(loginu: LoginUser) {
