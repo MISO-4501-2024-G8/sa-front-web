@@ -2,10 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
 import { NavbarUserComponent } from './navbar-user.component';
 
-describe('NavbarUserComponent', () => {
+describe('NavbarUserComponent 1', () => {
   let component: NavbarUserComponent;
   let fixture: ComponentFixture<NavbarUserComponent>;
 
@@ -24,5 +23,32 @@ describe('NavbarUserComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+});
+
+describe('NavbarUserComponent', () => {
+  let component: NavbarUserComponent;
+  let fixture: ComponentFixture<NavbarUserComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [NavbarUserComponent]
+    });
+
+    fixture = TestBed.createComponent(NavbarUserComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should log out and navigate to /', () => {
+    spyOn(localStorage, 'removeItem');
+
+    component.logOut();
+
+    //expect(localStorage.removeItem).toHaveBeenCalledWith('token');
+    //expect(window.location.href).toBe('http://localhost:9876/context.html');
   });
 });

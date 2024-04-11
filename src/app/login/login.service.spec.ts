@@ -1,14 +1,17 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, ComponentFixture, async, inject } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { LoginUserResponse } from '../models/loginu_response';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { environment } from '../../environments/environment';
+
+import { LoginUser } from '../models/loginu';
+import { LoginUserResponse } from '../models/loginu_response';
 
 
 describe('Service: Login', () => {
@@ -90,12 +93,57 @@ describe('LoginComponent', () => {
   });
 
   it('should show an error message on error', () => {
-    try{
-    mockLoginService.loginUser.and.returnValue(throwError('error'));
-    component.loginUser({} as any);
-    expect(mockToastrService.error).toHaveBeenCalledWith('An error occurred', 'Error');
+    try {
+      mockLoginService.loginUser.and.returnValue(throwError('error'));
+      component.loginUser({} as any);
+      expect(mockToastrService.error).toHaveBeenCalledWith('An error occurred', 'Error');
     } catch (error) {
       console.error("An error occurred: ", error)
     }
+  });
+});
+
+
+describe('LoginService', () => {
+  let service: LoginService;
+  let httpMock: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [LoginService]
+    });
+
+    service = TestBed.get(LoginService);
+    httpMock = TestBed.get(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify(); // Ensure that there are no outstanding requests
+  });
+
+  it('should login user and return expected response', () => {
+    const mockLoginUser: LoginUser = {
+      email: 'juan@gmail.com',
+      password: '1234'
+    };
+    const mockResponse: LoginUserResponse = {
+      code: 200,
+      token: 'token',
+      message: 'Login successful',
+      id: 'user-id',
+      expirationToken: 'expiration-token',
+      error: ''
+    };
+
+    service.loginUser(mockLoginUser).subscribe(response => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.baseUrl}login/user`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(mockLoginUser);
+
+    req.flush(mockResponse); // Provide the mockResponse as the response
   });
 });
