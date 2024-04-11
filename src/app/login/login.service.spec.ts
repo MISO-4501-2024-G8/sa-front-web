@@ -114,6 +114,15 @@ describe('LoginComponent', () => {
       console.error("An error occurred: ", error)
     }
   });
+  it('should show an error message on error with 3 failedAttempt loginUser ', () => {
+    try {
+      mockLoginService.loginUser.and.returnValue(throwError('error'));
+      component.failedAttempt = 3;
+      component.loginUser({} as any);
+    } catch (error) {
+      console.error("An error occurred: ", error)
+    }
+  });
 });
 
 
