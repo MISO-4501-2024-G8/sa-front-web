@@ -8,13 +8,14 @@ import { SessionStorageService } from '../utils/session-storage.service';
 import { passwordValidator } from '../utils/password-validator.service';
 import { SignupUser } from '../models/signupu';
 import { SignupService } from './signup.service';
+import { fixToastPosition } from '../utils/fixcss.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit{
+export class SignupComponent implements OnInit {
 
   signupForm!: FormGroup;
   constructor(
@@ -23,30 +24,43 @@ export class SignupComponent implements OnInit{
     private signupService: SignupService,
     private router: Router,
     private sessionStorageService: SessionStorageService
-  ) { }
+  ) {
+  }
 
   signupUser(signupu: SignupUser) {
+    this.toastr.show("Signing up...", "Info");
+    const isFixed = fixToastPosition();
+    console.log('isFixed:', isFixed);
+    if (!isFixed) {
+      setTimeout(() => {
+        console.log('1 second delay...');
+      }, 1000);
+    }
     console.log(signupu);
-    if(signupu.acceptance_notify === false ||
+    if (signupu.acceptance_notify === false ||
       signupu.acceptance_tyc === false ||
       signupu.acceptance_personal_data === false) {
-      this.toastr.error("You must accept the terms and conditions", "Error")
-      return;
+        this.toastr.clear();
+        this.toastr.error("You must accept the terms and conditions", "Error")
+        return;
     }
     this.signupService.signupUser(signupu).subscribe(
       (signupResponse) => {
         console.info("The user was signup: ", signupResponse)
         if (signupResponse.code !== 200) {
+          this.toastr.clear();
           this.toastr.error(signupResponse.error || "Signup failed", "Error")
           return;
         }
+        this.toastr.clear();
         this.toastr.success("Signup success", "Success")
         this.sessionStorageService.setItem('token', signupResponse.token);
         this.router.navigate(['/home']);  // Redirect to /home
       },
       (error) => {
-        console.error("Error: ", error)
-        this.toastr.error("Signup failed", "Error")
+        console.error("Error: ", error);
+        this.toastr.clear();
+        this.toastr.error("Signup failed", "Error");
       }
     )
   }
