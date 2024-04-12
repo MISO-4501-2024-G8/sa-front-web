@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.failedAttempt = this.sessionStorageService.getItem('failedAttempt') ? parseInt(this.sessionStorageService.getItem('failedAttempt') || '0') : 0;
+    this.failedAttempt = this.sessionStorageService.getItem('failedAttempt') ? parseInt(this.sessionStorageService.getItem('failedAttempt') ?? '0') : 0;
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(4)]],
