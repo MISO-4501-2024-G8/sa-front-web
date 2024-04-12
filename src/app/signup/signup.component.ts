@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 import { SessionStorageService } from '../utils/session-storage.service';
+import { passwordValidator } from '../utils/password-validator.service';
 import { SignupUser } from '../models/signupu';
 import { SignupService } from './signup.service';
 
@@ -25,6 +26,13 @@ export class SignupComponent implements OnInit{
   ) { }
 
   signupUser(signupu: SignupUser) {
+    console.log(signupu);
+    if(signupu.acceptance_notify === false ||
+      signupu.acceptance_tyc === false ||
+      signupu.acceptance_personal_data === false) {
+      this.toastr.error("You must accept the terms and conditions", "Error")
+      return;
+    }
     this.signupService.signupUser(signupu).subscribe(
       (signupResponse) => {
         console.info("The user was signup: ", signupResponse)
@@ -46,7 +54,7 @@ export class SignupComponent implements OnInit{
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(4)]],
+      password: ["", [Validators.required, Validators.minLength(8), passwordValidator()]],
       doc_num: ["", Validators.required], // input number
       doc_type: ["", Validators.required], // input string
       name: ["", Validators.required], // input string

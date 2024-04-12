@@ -24,7 +24,7 @@
             <!-- Document Number -->
             <div class="form-group mx-sm-3 mb-2">
               <label for="docNum">Document Number:</label>
-              <input novalidate id="docNum" class="form-control" formControlName="doc_num"
+              <input novalidate id="docNum" type="number" class="form-control" formControlName="doc_num"
                 placeholder="User's document number" />
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
                   signupForm.get('doc_num')!.hasError('required') &&
@@ -75,7 +75,7 @@
 
             <!-- Gender -->
             <div class="form-group mx-sm-3 mb-2">
-              <label for="gender">Gender (M,F,O)</label>
+              <label for="gender">Gender (M: Masculino, F: Femenino, O: Otro)</label>
               <input novalidate id="gender" class="form-control" formControlName="gender" placeholder="User's gender" />
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
                   signupForm.get('gender')!.hasError('required') &&
@@ -214,15 +214,14 @@
               <label for="password">Password</label>
               <input novalidate id="password" type="password" class="form-control" formControlName="password"
                 placeholder="User's password" />
-              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-                signupForm.get('password')!.hasError('required') &&
-                signupForm.get('password')!.touched
-                ">
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="signupForm.get('password')!.hasError('required') && signupForm.get('password')!.touched">
                 Password required
               </div>
-              <div class="alert alert-danger alert-dismissible fade show"
-                *ngIf="signupForm.get('password')!.hasError('minlength')">
-                Password too short
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="signupForm.get('password')!.hasError('minlength')">
+                Password must be at least 8 characters long
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="signupForm.get('password')!.hasError('invalidPassword') && signupForm.get('password')!.touched">
+                Password must contain at least 1 capital letter, 1 number, and 1 special character ($!&?*_@)
               </div>
             </div>
 
@@ -232,8 +231,7 @@
                 formControlName="acceptance_notify" />
               <label for="acceptanceNotify" class="form-check-label">Acceptance Notify</label>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-                  signupForm.get('acceptance_notify')!.hasError('required') &&
-                  signupForm.get('acceptance_notify')!.touched
+                  signupForm.get('acceptance_notify')!.hasError('required')
                 ">
                 Acceptance notify required
               </div>
@@ -245,8 +243,7 @@
                 formControlName="acceptance_tyc" />
               <label for="acceptanceTyc" class="form-check-label">Acceptance Terms and Conditions</label>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-                  signupForm.get('acceptance_tyc')!.hasError('required') &&
-                  signupForm.get('acceptance_tyc')!.touched
+                  signupForm.get('acceptance_tyc')!.hasError('required')
                 ">
                 Acceptance terms and conditions required
               </div>
@@ -258,15 +255,14 @@
                 formControlName="acceptance_personal_data" />
               <label for="acceptancePersonalData" class="form-check-label">Acceptance Personal Data</label>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-                  signupForm.get('acceptance_personal_data')!.hasError('required') &&
-                  signupForm.get('acceptance_personal_data')!.touched
+                  signupForm.get('acceptance_personal_data')!.hasError('required')
                 ">
                 Acceptance personal data required
               </div>
             </div>
             <br>
             <div class="d-grid gap-2">
-              <button class="btn btn-warning" type="submit" [disabled]="!signupForm.valid">Continuar</button>
+              <button id="btnContinueSignup" class="btn btn-warning" type="submit" [disabled]="!signupForm.valid">Continuar</button>
             </div>
           </form>
         </div>

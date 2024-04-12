@@ -17,8 +17,8 @@ export class SignupUser {
     public residence_city: string,
     public residence_seniority: number,
     public sports: string,
-    public acceptance_notify: number,
-    public acceptance_tyc: number,
-    public acceptance_personal_data: number
+    public acceptance_notify: boolean,
+    public acceptance_tyc: boolean,
+    public acceptance_personal_data: boolean
   ) { }
 }
