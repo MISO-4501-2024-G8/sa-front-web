@@ -179,7 +179,7 @@
             <!-- Sports -->
             <div class="form-group mx-sm-3 mb-2">
               <label for="sports">Sports</label>
-              <select novalidate id="sports" class="form-control" formControlName="sports">
+              <select novalidate id="sports" class="form-select" formControlName="sports">
                 <option value="">Select a sport</option>
                 <option value="Atletismo">Atletismo</option>
                 <option value="Ciclismo">Ciclismo</option>
@@ -195,7 +195,7 @@
 
             <!-- Email -->
             <div class="form-group mx-sm-3 mb-2">
-              <label for="email">Email</label>
+              <label for="email" >Email</label>
               <input novalidate id="email" class="form-control" formControlName="email" placeholder="User's email" />
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
                   signupForm.get('email')!.hasError('required') &&
@@ -232,9 +232,9 @@
                 formControlName="acceptance_notify" />
               <label for="acceptanceNotify" class="form-check-label">Acceptance Notify</label>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-      signupForm.get('acceptance_notify')!.hasError('required') &&
-      signupForm.get('acceptance_notify')!.touched
-    ">
+                  signupForm.get('acceptance_notify')!.hasError('required') &&
+                  signupForm.get('acceptance_notify')!.touched
+                ">
                 Acceptance notify required
               </div>
             </div>
@@ -245,9 +245,9 @@
                 formControlName="acceptance_tyc" />
               <label for="acceptanceTyc" class="form-check-label">Acceptance Terms and Conditions</label>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-      signupForm.get('acceptance_tyc')!.hasError('required') &&
-      signupForm.get('acceptance_tyc')!.touched
-    ">
+                  signupForm.get('acceptance_tyc')!.hasError('required') &&
+                  signupForm.get('acceptance_tyc')!.touched
+                ">
                 Acceptance terms and conditions required
               </div>
             </div>
@@ -258,9 +258,9 @@
                 formControlName="acceptance_personal_data" />
               <label for="acceptancePersonalData" class="form-check-label">Acceptance Personal Data</label>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-      signupForm.get('acceptance_personal_data')!.hasError('required') &&
-      signupForm.get('acceptance_personal_data')!.touched
-    ">
+                  signupForm.get('acceptance_personal_data')!.hasError('required') &&
+                  signupForm.get('acceptance_personal_data')!.touched
+                ">
                 Acceptance personal data required
               </div>
             </div>

@@ -3,6 +3,7 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // se agrega para el formulario
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+
 import { SessionStorageService } from '../utils/session-storage.service';
 import { SignupUser } from '../models/signupu';
 import { SignupService } from './signup.service';
