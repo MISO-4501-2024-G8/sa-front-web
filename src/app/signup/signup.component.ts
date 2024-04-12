@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // se agrega para el formulario
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit {
   }
 
   signupUser(signupu: SignupUser) {
+    // fix toast position
     this.toastr.show("Signing up...", "Info");
     const isFixed = fixToastPosition();
     console.log('isFixed:', isFixed);
@@ -36,6 +37,7 @@ export class SignupComponent implements OnInit {
         console.log('1 second delay...');
       }, 1000);
     }
+    // fix toast position
     console.log(signupu);
     if (signupu.acceptance_notify === false ||
       signupu.acceptance_tyc === false ||

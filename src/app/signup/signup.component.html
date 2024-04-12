@@ -21,19 +21,6 @@
               </div>
             </div>
 
-            <!-- Document Number -->
-            <div class="form-group mx-sm-3 mb-2">
-              <label for="docNum">Document Number:</label>
-              <input novalidate id="docNum" type="number" class="form-control" formControlName="doc_num"
-                placeholder="User's document number" />
-              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-                  signupForm.get('doc_num')!.hasError('required') &&
-                  signupForm.get('doc_num')!.touched
-                ">
-                Document number required
-              </div>
-            </div>
-
             <!-- Document Type -->
             <div class="form-group mx-sm-3 mb-2">
               <label for="docType">Document Type (Ej: CC, TI, PA)</label>
@@ -44,6 +31,19 @@
                 signupForm.get('doc_type')!.touched
               ">
                 Document type required
+              </div>
+            </div>
+
+            <!-- Document Number -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="docNum">Document Number:</label>
+              <input novalidate id="docNum" type="number" class="form-control" formControlName="doc_num"
+                placeholder="User's document number" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('doc_num')!.hasError('required') &&
+                  signupForm.get('doc_num')!.touched
+                ">
+                Document number required
               </div>
             </div>
 
