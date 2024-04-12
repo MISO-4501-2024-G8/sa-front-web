@@ -1,0 +1,33 @@
+.brand-logo {
+  width: 100px;
+}
+
+.center-card{
+  max-width: 600px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+.center-card-body {
+  align-items: center;
+  max-width: 500px;
+  padding-bottom: 100px;
+}
+
+.back-color {
+  background-color: #bdbdbd;
+}
+
+.header-logo {
+  display: flex;
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+  height: 150px; /* Adjust height as needed */
+}
+
+.brand-logo {
+  max-width: 100%; /* Ensure image does not exceed container width */
+  max-height: 100%; /* Ensure image does not exceed container height */
+}

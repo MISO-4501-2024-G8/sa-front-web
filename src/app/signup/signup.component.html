@@ -1,4 +1,276 @@
 <section class="content">
   <app-navbar></app-navbar>
-  SIGNUP
+  <main class="back-color">
+    <div class="card center-card">
+      <div class="card-body center-card-body">
+        <header class="brand-name header-logo">
+          <img class="brand-logo" src="../../assets/eagle.png" alt="logo" aria-hidden="true" />
+        </header>
+        <h2>Crea un usuario para continuar</h2>
+        <div class="container mt-4">
+          <form [formGroup]="signupForm" (ngSubmit)="!signupForm.invalid && signupUser(signupForm.value)">
+            <!-- Name -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="name">Name</label>
+              <input novalidate id="name" class="form-control" formControlName="name" placeholder="User's name" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('name')!.hasError('required') &&
+                  signupForm.get('name')!.touched
+                ">
+                Name required
+              </div>
+            </div>
+
+            <!-- Document Number -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="docNum">Document Number:</label>
+              <input novalidate id="docNum" class="form-control" formControlName="doc_num"
+                placeholder="User's document number" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('doc_num')!.hasError('required') &&
+                  signupForm.get('doc_num')!.touched
+                ">
+                Document number required
+              </div>
+            </div>
+
+            <!-- Document Type -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="docType">Document Type (Ej: CC, TI, PA)</label>
+              <input novalidate id="docType" class="form-control" formControlName="doc_type"
+                placeholder="User's document type" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                signupForm.get('doc_type')!.hasError('required') &&
+                signupForm.get('doc_type')!.touched
+              ">
+                Document type required
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="phone">Phone (Ej: 3023323456)</label>
+              <input novalidate id="phone" class="form-control" formControlName="phone"
+                placeholder="User's phone number" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('phone')!.hasError('required') &&
+                  signupForm.get('phone')!.touched
+                ">
+                Phone number required
+              </div>
+            </div>
+
+            <!-- Age -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="age">Age</label>
+              <input novalidate id="age" type="number" class="form-control" formControlName="age"
+                placeholder="User's age" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('age')!.hasError('required') &&
+                  signupForm.get('age')!.touched
+                ">
+                Age required
+              </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="gender">Gender (M,F,O)</label>
+              <input novalidate id="gender" class="form-control" formControlName="gender" placeholder="User's gender" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('gender')!.hasError('required') &&
+                  signupForm.get('gender')!.touched
+                ">
+                Gender required
+              </div>
+            </div>
+
+            <!-- Weight -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="weight">Weight (Ej: 60 Kg -> 60)</label>
+              <input novalidate id="weight" type="number" class="form-control" formControlName="weight"
+                placeholder="User's weight" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('weight')!.hasError('required') &&
+                  signupForm.get('weight')!.touched
+                ">
+                Weight required
+              </div>
+            </div>
+
+            <!-- Height -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="height">Height (Ej: 1.69 cm -> 1.69)</label>
+              <input novalidate id="height" type="number" class="form-control" formControlName="height"
+                placeholder="User's height" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('height')!.hasError('required') &&
+                  signupForm.get('height')!.touched
+                ">
+                Height required
+              </div>
+            </div>
+
+            <!-- Birth Country -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="birthCountry">Birth Country</label>
+              <input novalidate id="birthCountry" class="form-control" formControlName="birth_country"
+                placeholder="User's birth country" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('birth_country')!.hasError('required') &&
+                  signupForm.get('birth_country')!.touched
+                ">
+                Birth country required
+              </div>
+            </div>
+
+            <!-- Birth City -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="birthCity">Birth City</label>
+              <input novalidate id="birthCity" class="form-control" formControlName="birth_city"
+                placeholder="User's birth city" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('birth_city')!.hasError('required') &&
+                  signupForm.get('birth_city')!.touched
+                ">
+                Birth city required
+              </div>
+            </div>
+
+            <!-- Residence Country -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="residenceCountry">Residence Country</label>
+              <input novalidate id="residenceCountry" class="form-control" formControlName="residence_country"
+                placeholder="User's residence country" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('residence_country')!.hasError('required') &&
+                  signupForm.get('residence_country')!.touched
+                ">
+                Residence country required
+              </div>
+            </div>
+
+            <!-- Residence City -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="residenceCity">Residence City</label>
+              <input novalidate id="residenceCity" class="form-control" formControlName="residence_city"
+                placeholder="User's residence city" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('residence_city')!.hasError('required') &&
+                  signupForm.get('residence_city')!.touched
+                ">
+                Residence city required
+              </div>
+            </div>
+
+            <!-- Residence Seniority -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="residenceSeniority">Residence Seniority (Ej: 2y -> 2)</label>
+              <input novalidate id="residenceSeniority" type="number" class="form-control"
+                formControlName="residence_seniority" placeholder="User's residence seniority" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('residence_seniority')!.hasError('required') &&
+                  signupForm.get('residence_seniority')!.touched
+                ">
+                Residence seniority required
+              </div>
+            </div>
+
+            <!-- Sports -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="sports">Sports</label>
+              <select novalidate id="sports" class="form-control" formControlName="sports">
+                <option value="">Select a sport</option>
+                <option value="Atletismo">Atletismo</option>
+                <option value="Ciclismo">Ciclismo</option>
+              </select>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                signupForm.get('sports')!.hasError('required') &&
+                signupForm.get('sports')!.touched
+              ">
+                Sports required
+              </div>
+            </div>
+
+
+            <!-- Email -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="email">Email</label>
+              <input novalidate id="email" class="form-control" formControlName="email" placeholder="User's email" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('email')!.hasError('required') &&
+                  signupForm.get('email')!.touched
+                ">
+                Email required
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show"
+                *ngIf="signupForm.get('email')!.hasError('email')">
+                Invalid email format
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="password">Password</label>
+              <input novalidate id="password" type="password" class="form-control" formControlName="password"
+                placeholder="User's password" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                signupForm.get('password')!.hasError('required') &&
+                signupForm.get('password')!.touched
+                ">
+                Password required
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show"
+                *ngIf="signupForm.get('password')!.hasError('minlength')">
+                Password too short
+              </div>
+            </div>
+
+            <!-- Acceptance Notify -->
+            <div class="form-group mx-sm-3 mb-2 form-check">
+              <input novalidate type="checkbox" id="acceptanceNotify" class="form-check-input"
+                formControlName="acceptance_notify" />
+              <label for="acceptanceNotify" class="form-check-label">Acceptance Notify</label>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      signupForm.get('acceptance_notify')!.hasError('required') &&
+      signupForm.get('acceptance_notify')!.touched
+    ">
+                Acceptance notify required
+              </div>
+            </div>
+
+            <!-- Acceptance Terms and Conditions -->
+            <div class="form-group mx-sm-3 mb-2 form-check">
+              <input novalidate type="checkbox" id="acceptanceTyc" class="form-check-input"
+                formControlName="acceptance_tyc" />
+              <label for="acceptanceTyc" class="form-check-label">Acceptance Terms and Conditions</label>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      signupForm.get('acceptance_tyc')!.hasError('required') &&
+      signupForm.get('acceptance_tyc')!.touched
+    ">
+                Acceptance terms and conditions required
+              </div>
+            </div>
+
+            <!-- Acceptance Personal Data -->
+            <div class="form-group mx-sm-3 mb-2 form-check">
+              <input novalidate type="checkbox" id="acceptancePersonalData" class="form-check-input"
+                formControlName="acceptance_personal_data" />
+              <label for="acceptancePersonalData" class="form-check-label">Acceptance Personal Data</label>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+      signupForm.get('acceptance_personal_data')!.hasError('required') &&
+      signupForm.get('acceptance_personal_data')!.touched
+    ">
+                Acceptance personal data required
+              </div>
+            </div>
+            <br>
+            <div class="d-grid gap-2">
+              <button class="btn btn-warning" type="submit" [disabled]="!signupForm.valid">Continuar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
 </section>
