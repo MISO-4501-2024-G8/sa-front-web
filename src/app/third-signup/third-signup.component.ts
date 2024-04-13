@@ -74,7 +74,7 @@ export class ThirdSignupComponent implements OnInit{
       doc_type: ['', [Validators.required]],
       name: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-    company_creation_date: ['', [Validators.required]],
+      company_creation_date: ['', [Validators.required]],
       company_address: ['', [Validators.required]],
       contact_name: ['', [Validators.required]]
     });
