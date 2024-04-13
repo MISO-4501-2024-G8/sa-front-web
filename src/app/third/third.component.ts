@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-third',
   templateUrl: './third.component.html',
@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class ThirdComponent {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
+
+  goToSignUpThird() {
+    this.router.navigate(['/third-signup']);
+  }
 
 }
