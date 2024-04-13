@@ -1,4 +1,148 @@
 <section class="content">
   <app-navbar></app-navbar>
-  THIRD SIGNUP
+  <main class="back-color">
+    <div class="card center-card">
+      <div class="card-body center-card-body">
+        <header class="brand-name header-logo">
+          <img class="brand-logo" src="../../assets/eagle.png" alt="logo" aria-hidden="true" />
+        </header>
+        <h2>Crea un servicio tercero</h2>
+        <div class="container mt-4">
+          <form [formGroup]="thirdSignUpForm" (ngSubmit)="!thirdSignUpForm.invalid && thirdUserSignUp(thirdSignUpForm.value)">
+            <!-- Name -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="name">Name</label>
+              <input novalidate id="name" class="form-control" formControlName="name" placeholder="Company's name" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('name')!.hasError('required') &&
+                  thirdSignUpForm.get('name')!.touched
+                ">
+                Name required
+              </div>
+            </div>
+
+            <!-- Document Type -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="docType">Document Type (Ej: CC, TI, PA, NIT)</label>
+              <input novalidate id="docType" class="form-control" formControlName="doc_type"
+                placeholder="Company's document type" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                thirdSignUpForm.get('doc_type')!.hasError('required') &&
+                thirdSignUpForm.get('doc_type')!.touched
+              ">
+                Document type required
+              </div>
+            </div>
+
+            <!-- Document Number -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="docNum">Document Number:</label>
+              <input novalidate id="docNum" type="number" class="form-control" formControlName="doc_num"
+                placeholder="Company's document number" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('doc_num')!.hasError('required') &&
+                  thirdSignUpForm.get('doc_num')!.touched
+                ">
+                Document number required
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="phone">Phone (Ej: 3023323456)</label>
+              <input novalidate id="phone" class="form-control" formControlName="phone"
+                placeholder="Company's phone number" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('phone')!.hasError('required') &&
+                  thirdSignUpForm.get('phone')!.touched
+                ">
+                Phone number required
+              </div>
+            </div>
+
+            <!-- company_creation_date -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="company_creation_date">Company Creation Date</label>
+              <input
+                id="company_creation_date"
+                class="form-control"
+                formControlName="company_creation_date"
+                type="date"
+                placeholder="ompany Creation Date"
+              />
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                *ngIf="
+                  thirdSignUpForm.get('company_creation_date')!.hasError('required') &&
+                  thirdSignUpForm.get('company_creation_date')!.touched
+                "
+              >
+                Company Creation Date required
+              </div>
+            </div>
+            <!-- Company Address -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="company_address">Address</label>
+              <input novalidate id="company_address" class="form-control" formControlName="company_address" placeholder="Company's Address" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('company_address')!.hasError('required') &&
+                  thirdSignUpForm.get('company_address')!.touched
+                ">
+                Company Address required
+              </div>
+            </div>
+
+            <!-- Contact Name -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="contact_name">Contact Name</label>
+              <input novalidate id="contact_name" class="form-control" formControlName="contact_name"
+                placeholder="Company's contact name" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('contact_name')!.hasError('required') &&
+                  thirdSignUpForm.get('contact_name')!.touched
+                ">
+                Contact name required
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="email" >Email</label>
+              <input novalidate id="email" class="form-control" formControlName="email" placeholder="Company's email" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('email')!.hasError('required') &&
+                  thirdSignUpForm.get('email')!.touched
+                ">
+                Email required
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show"
+                *ngIf="thirdSignUpForm.get('email')!.hasError('email')">
+                Invalid email format
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="password">Password</label>
+              <input novalidate id="password" type="password" class="form-control" formControlName="password"
+                placeholder="Company's password" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="thirdSignUpForm.get('password')!.hasError('required') && thirdSignUpForm.get('password')!.touched">
+                Password required
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="thirdSignUpForm.get('password')!.hasError('minlength')">
+                Password must be at least 8 characters long
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="thirdSignUpForm.get('password')!.hasError('invalidPassword') && thirdSignUpForm.get('password')!.touched">
+                Password must contain at least 1 capital letter, 1 number, and 1 special character ($!&?*_@)
+              </div>
+            </div>
+            <br>
+            <div class="d-grid gap-2">
+              <button id="btnContinueSignup" class="btn btn-warning" type="submit" [disabled]="!thirdSignUpForm.valid">Continuar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
 </section>
