@@ -28,3 +28,16 @@ export function emailValidator(): ValidatorFn {
     return null;
   };
 }
+
+export function numberValidator(): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const value: string = control.value;
+    const isNumber = /^\d+$/.test(value);
+
+    if (!isNumber) {
+      return { 'invalidNumber': true };
+    }
+
+    return null;
+  };
+}
