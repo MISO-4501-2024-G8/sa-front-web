@@ -116,8 +116,8 @@
                 Email required
               </div>
               <div class="alert alert-danger alert-dismissible fade show"
-                *ngIf="thirdSignUpForm.get('email')!.hasError('email')">
-                Invalid email format
+                *ngIf="thirdSignUpForm.get('email')!.hasError('invalidEmail') && thirdSignUpForm.get('email')!.touched">
+                Invalid email format, should be like: (username@domain.ext)
               </div>
             </div>
 

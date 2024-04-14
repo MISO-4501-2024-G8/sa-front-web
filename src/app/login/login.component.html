@@ -11,14 +11,14 @@
               <label for="email">Email</label>
               <input novalidate id="email" class="form-control" formControlName="email" placeholder="Users's email" />
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-            loginForm.get('email')!.hasError('required') &&
-            loginForm.get('email')!.touched
-          ">
+                loginForm.get('email')!.hasError('required') &&
+                loginForm.get('email')!.touched
+              ">
                 email required
               </div>
               <div class="alert alert-danger alert-dismissible fade show"
-                *ngIf="loginForm.get('email')!.hasError('email')">
-                email invalid
+                *ngIf="loginForm.get('email')!.hasError('invalidEmail') && loginForm.get('email')!.touched">
+                Invalid email format, should be like: (username@domain.ext)
               </div>
             </div>
             <!--Password-->
@@ -30,11 +30,11 @@
                 loginForm.get('password')!.hasError('required') &&
                 loginForm.get('password')!.touched
                 ">
-                Name required
+                password required
               </div>
               <div class="alert alert-danger alert-dismissible fade show"
                 *ngIf="loginForm.get('password')!.hasError('minlength')">
-                Name too short
+                password too short
               </div>
             </div>
             <br>

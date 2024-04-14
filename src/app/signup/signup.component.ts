@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 import { SessionStorageService } from '../utils/session-storage.service';
-import { passwordValidator } from '../utils/password-validator.service';
+import { passwordValidator, emailValidator } from '../utils/validators.service';
 import { SignupUser } from '../models/signupu';
 import { SignupService } from './signup.service';
 import { fixToastPosition } from '../utils/fixcss.service';
@@ -68,11 +68,12 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
+      email: ["", [Validators.required, emailValidator()]],
       password: ["", [Validators.required, Validators.minLength(8), passwordValidator()]],
       doc_num: ["", Validators.required], // input number
       doc_type: ["", Validators.required], // input string
       name: ["", Validators.required], // input string
+      surname: ["", Validators.required], // input string
       phone: ["", Validators.required], // input number
       gender: ["", Validators.required], // input string
       age: ["", Validators.required], // input number
