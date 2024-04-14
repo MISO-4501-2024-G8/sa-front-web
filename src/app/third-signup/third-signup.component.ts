@@ -14,16 +14,28 @@ import { fixToastPosition } from '../utils/fixcss.service';
   templateUrl: './third-signup.component.html',
   styleUrls: ['./third-signup.component.scss']
 })
-export class ThirdSignupComponent implements OnInit{
+export class ThirdSignupComponent implements OnInit {
 
   thirdSignUpForm!: FormGroup;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private thirdSignupService : ThirdSignupService,
+    private thirdSignupService: ThirdSignupService,
     private router: Router,
     private sessionStorageService: SessionStorageService
-  ) { }
+  ) {
+    console.log('getCurrentDate', this.getCurrentDate());
+  }
+
+  getCurrentDate(): string {
+    const today = new Date();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const year = today.getFullYear();
+    return `${year}-${month}-${day}`;
+  }
 
   formatDate(date: string): string {
     const [year, month, day] = date.split('-');
@@ -42,7 +54,12 @@ export class ThirdSignupComponent implements OnInit{
     }
     // fix toast position
     console.log(thirdu);
-    if(thirdu.company_creation_date){
+    if (thirdu.acceptance_tyc === false) {
+        this.toastr.clear();
+        this.toastr.error("You must accept the terms and conditions", "Error")
+        return;
+    }
+    if (thirdu.company_creation_date) {
       thirdu.company_creation_date = this.formatDate(thirdu.company_creation_date);
     }
     this.thirdSignupService.thirdSignUpUser(thirdu).subscribe(
@@ -56,7 +73,7 @@ export class ThirdSignupComponent implements OnInit{
         this.toastr.clear();
         this.toastr.success("Third Signup success", "Success")
         this.sessionStorageService.setItem('token', thirdResponse.token);
-        this.router.navigate(['/third']);  // Redirect to /home
+        this.router.navigate(['/third-home']);  // Redirect to /home
       },
       (error) => {
         this.toastr.clear();
@@ -76,7 +93,8 @@ export class ThirdSignupComponent implements OnInit{
       phone: ["", [Validators.required, numberValidator(), Validators.minLength(7), Validators.maxLength(10)]],
       company_creation_date: ['', [Validators.required]],
       company_address: ['', [Validators.required]],
-      contact_name: ['', [Validators.required]]
+      contact_name: ['', [Validators.required]],
+      acceptance_tyc: [false, Validators.required],
     });
   }
 
