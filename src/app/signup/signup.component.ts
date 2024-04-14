@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
       signupu.acceptance_tyc === false ||
       signupu.acceptance_personal_data === false) {
         this.toastr.clear();
-        this.toastr.error("You must accept the terms and conditions", "Error")
+        this.toastr.error("You must accept all the acceptance conditions", "Error")
         return;
     }
     this.signupService.signupUser(signupu).subscribe(

@@ -2,23 +2,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { NavbarUserComponent } from './navbar-user.component';
+
+import { NavbarThirdComponent } from './navbar-third.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('NavbarUserComponent 1', () => {
-  let component: NavbarUserComponent;
-  let fixture: ComponentFixture<NavbarUserComponent>;
+describe('NavbarThirdComponent', () => {
+  let component: NavbarThirdComponent;
+  let fixture: ComponentFixture<NavbarThirdComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavbarUserComponent ],
+      declarations: [ NavbarThirdComponent ],
       imports: [RouterTestingModule],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarUserComponent);
+    fixture = TestBed.createComponent(NavbarThirdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -28,15 +29,16 @@ describe('NavbarUserComponent 1', () => {
   });
 });
 
-describe('NavbarUserComponent', () => {
-  let component: NavbarUserComponent;
+
+describe('NavbarThirdComponent', () => {
+  let component: NavbarThirdComponent;
   let mockSessionStorageService: any;
   let mockRouter: any;
 
   beforeEach(() => {
     mockSessionStorageService = jasmine.createSpyObj('SessionStorageService', ['removeItem']);
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
-    component = new NavbarUserComponent(mockSessionStorageService, mockRouter);
+    component = new NavbarThirdComponent(mockSessionStorageService, mockRouter);
   });
 
   it('should remove token and userType from session storage and navigate to home page when logOut is called', () => {
@@ -46,4 +48,3 @@ describe('NavbarUserComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
   });
 });
-

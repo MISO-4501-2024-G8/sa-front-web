@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 
 import { LoginUser } from '../models/loginu';
 import { LoginUserResponse } from '../models/loginu_response';
+import { TokenValidationResponse } from '../models/token_validation_response';
 
 
 describe('Service: Login', () => {
@@ -36,8 +37,8 @@ describe('LoginComponent', () => {
   let mockRouter: jasmine.SpyObj<Router>;
 
   beforeEach(() => {
-    mockLoginService = jasmine.createSpyObj(['loginUser']);
-    mockToastrService = jasmine.createSpyObj(['success', 'error']);
+    mockLoginService = jasmine.createSpyObj(['loginUser', 'validateToken']);
+    mockToastrService = jasmine.createSpyObj(['success', 'error','clear','show']);
     mockRouter = jasmine.createSpyObj(['navigate']);
 
     TestBed.configureTestingModule({
@@ -59,7 +60,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should login and navigate to /home on successful login', () => {
+  it('should login and navigate to /home on successful login - 1', () => {
     const loginResponse: LoginUserResponse = {
       code: 200,
       token: 'token',
@@ -68,7 +69,84 @@ describe('LoginComponent', () => {
       expirationToken: 'expiration-token', // replace with actual expiration token
       error: ''
     };
+    const validateTokenReponse: TokenValidationResponse = {
+      code: 200,
+      message: 'Token validated',
+      exp: 0,
+      expirationDate: '',
+      userType: 1
+    };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    component.failedAttempt = 0;
+    component.loginUser({} as any);
+    expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
+  });
+
+  it('should login and navigate to /home on successful login - 2', () => {
+    const loginResponse: LoginUserResponse = {
+      code: 200,
+      token: 'token',
+      message: 'Login successful',
+      id: 'user-id', // replace with actual id
+      expirationToken: 'expiration-token', // replace with actual expiration token
+      error: ''
+    };
+    const validateTokenReponse: TokenValidationResponse = {
+      code: 200,
+      message: 'Token validated',
+      exp: 0,
+      expirationDate: '',
+      userType: 2
+    };
+    mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    component.failedAttempt = 0;
+    component.loginUser({} as any);
+    expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
+  });
+
+  it('should login and navigate to /home on successful login - 3', () => {
+    const loginResponse: LoginUserResponse = {
+      code: 200,
+      token: 'token',
+      message: 'Login successful',
+      id: 'user-id', // replace with actual id
+      expirationToken: 'expiration-token', // replace with actual expiration token
+      error: ''
+    };
+    const validateTokenReponse: TokenValidationResponse = {
+      code: 200,
+      message: 'Token validated',
+      exp: 0,
+      expirationDate: '',
+      userType: 3
+    };
+    mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    component.failedAttempt = 0;
+    component.loginUser({} as any);
+    expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
+  });
+
+  it('should login and navigate to /home on successful login - 4', () => {
+    const loginResponse: LoginUserResponse = {
+      code: 200,
+      token: 'token',
+      message: 'Login successful',
+      id: 'user-id', // replace with actual id
+      expirationToken: 'expiration-token', // replace with actual expiration token
+      error: ''
+    };
+    const validateTokenReponse: TokenValidationResponse = {
+      code: 200,
+      message: 'Token validated',
+      exp: 0,
+      expirationDate: '',
+      userType: 4
+    };
+    mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
     component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
@@ -88,7 +166,15 @@ describe('LoginComponent', () => {
       id: '', // add this line
       expirationToken: '' // add this line
     };
+    const validateTokenReponse: TokenValidationResponse = {
+      code: 401,
+      message: 'Token validated',
+      exp: 0,
+      expirationDate: '',
+      userType: 1
+    };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
     component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.error).toHaveBeenCalledWith('Login failed', 'Error');
@@ -164,5 +250,21 @@ describe('LoginService', () => {
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockLoginUser);
     req.flush(mockResponse); // Provide the mockResponse as the response
+  });
+
+  it('should validte token and return expected response', () => {
+    const validateTokenReponse: TokenValidationResponse = {
+      code: 200,
+      message: 'Token validated',
+      exp: 0,
+      expirationDate: '',
+      userType: 1
+    };
+    service.validateToken('token').subscribe(response => {
+      expect(response).toEqual(validateTokenReponse);
+    });
+    const req = httpMock.expectOne(`${environment.baseUrl}login/validate_token`);
+    expect(req.request.method).toBe('GET');
+    req.flush(validateTokenReponse); // Provide the mockResponse as the response
   });
 });

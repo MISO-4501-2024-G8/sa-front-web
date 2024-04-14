@@ -12,6 +12,7 @@ import { SessionComponent } from './session/session.component';
 import { SignupComponent } from './signup/signup.component';
 import { ThirdComponent } from './third/third.component';
 import { ThirdSignupComponent } from './third-signup/third-signup.component';
+import { ThirdHomeComponent } from './third-home/third-home.component';
 
 const routes: Routes = [
   { path: '', component: StartpComponent },
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'third', component: ThirdComponent },
   { path: 'third-signup', component: ThirdSignupComponent },
+  { path: 'third-home', component: ThirdHomeComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
