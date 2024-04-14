@@ -16,6 +16,8 @@ export class SignupService {
   signupUser(signupu: SignupUser): Observable<SignupUserResponse> {
     this.apiUrl = environment.baseUrl + 'register/sport_user';
     signupu.user_type = "S";
+    signupu.name = signupu.name + " " + signupu.surname;
+    signupu.surname = "";
     console.log(signupu);
     console.log(this.apiUrl);
     return this.http.post<SignupUserResponse>(this.apiUrl, signupu);
