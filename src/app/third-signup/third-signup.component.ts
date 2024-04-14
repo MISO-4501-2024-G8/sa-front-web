@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 import { SessionStorageService } from '../utils/session-storage.service';
-import { passwordValidator, emailValidator } from '../utils/validators.service';
+import { passwordValidator, emailValidator, numberValidator } from '../utils/validators.service';
 import { ThirdUser } from '../models/thirdu';
 import { ThirdSignupService } from './third-signup.service';
 import { fixToastPosition } from '../utils/fixcss.service';
@@ -73,7 +73,7 @@ export class ThirdSignupComponent implements OnInit{
       doc_num: ['', [Validators.required]],
       doc_type: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
+      phone: ["", [Validators.required, numberValidator(), Validators.minLength(7), Validators.maxLength(10)]],
       company_creation_date: ['', [Validators.required]],
       company_address: ['', [Validators.required]],
       contact_name: ['', [Validators.required]]

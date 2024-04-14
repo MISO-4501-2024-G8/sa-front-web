@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { passwordValidator, emailValidator } from './validators.service';
+import { passwordValidator, emailValidator, numberValidator} from './validators.service';
 
 describe('passwordValidator', () => {
   it('should return an error if password is less than 8 characters', () => {
@@ -42,5 +42,16 @@ describe('emailValidator', () => {
   it('debería retornar null si el correo electrónico tiene múltiples subdominios', () => {
     const control = new FormControl('username@domain.co.uk');
     expect(emailValidator()(control)).toBeNull();
+  });
+});
+
+describe('numberValidator', () => {
+  it('should return an error if the value is not a number', () => {
+    const control = new FormControl('abc');
+    expect(numberValidator()(control)).toEqual({ 'invalidNumber': true });
+  });
+  it('should return null if the value is a number', () => {
+    const control = new FormControl(123);
+    expect(numberValidator()(control)).toBeNull();
   });
 });

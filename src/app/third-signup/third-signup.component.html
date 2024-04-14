@@ -52,10 +52,21 @@
               <label for="phone">Phone (Ej: 3023323456)</label>
               <input novalidate id="phone" class="form-control" formControlName="phone"
                 placeholder="Company's phone number" />
-              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
-                  thirdSignUpForm.get('phone')!.hasError('required') &&
-                  thirdSignUpForm.get('phone')!.touched
-                ">
+                <div class="alert alert-danger alert-dismissible fade show"
+                *ngIf="thirdSignUpForm.get('phone')!.hasError('invalidNumber')
+                && thirdSignUpForm.get('phone')!.touched">
+                Phone must be a number
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show"
+                *ngIf="thirdSignUpForm.get('phone')!.hasError('minlength')">
+                Phone must be at least 7 numbers long
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show"
+                *ngIf="thirdSignUpForm.get('phone')!.hasError('maxlength')">
+                Phone must be less than 10 numbers long
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show"
+                *ngIf="thirdSignUpForm.get('phone')!.hasError('required') && thirdSignUpForm.get('phone')!.touched">
                 Phone number required
               </div>
             </div>
