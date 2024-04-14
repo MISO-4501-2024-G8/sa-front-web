@@ -59,15 +59,42 @@ export class LoginComponent implements OnInit {
           this.checkFailedAttempt();
           return;
         }
-        this.toastr.success("Login successfully", "Confirmation")
-        this.loginForm.reset();
-        // Remove failedAttempt and expiration from this.sessionStorageService and reset failedAttempt
-        this.sessionStorageService.removeItem('failedAttempt');
-        this.sessionStorageService.removeItem('expiration');
-        this.failedAttempt = 0;
-        // Save token in local storage and redirect to /home
-        this.sessionStorageService.setItem('token', loginResponse.token);
-        this.router.navigate(['/home']);  // Redirect to /home
+        this.loginService.validateToken(loginResponse.token).subscribe(
+          (validateResponse) => {
+            console.info("The token was validated: ", validateResponse)
+            if (validateResponse.code !== 200) {
+              this.toastr.error(validateResponse.message || "Token validation failed", "Error")
+              return;
+            }
+            this.toastr.success("Login successfully", "Confirmation")
+            this.loginForm.reset();
+            // Remove failedAttempt and expiration from this.sessionStorageService and reset failedAttempt
+            this.sessionStorageService.removeItem('failedAttempt');
+            this.sessionStorageService.removeItem('expiration');
+            this.failedAttempt = 0;
+            // Save token in local storage
+
+            if (validateResponse.userType === 1){
+              this.sessionStorageService.setItem('token', loginResponse.token);
+              this.sessionStorageService.setItem('userType', '1');
+              this.router.navigate(['/home']);  // Redirect to /home
+            } else if (validateResponse.userType === 2){
+              this.sessionStorageService.setItem('token', loginResponse.token);
+              this.sessionStorageService.setItem('userType', '2');
+              this.router.navigate(['/third-home']);  // Redirect to /third-home
+            } else if (validateResponse.userType === 3){
+              this.toastr.show("Your admin dashboard is in construction", "Info");
+              this.router.navigate(['/']);
+            }
+            else {
+              this.router.navigate(['/']);  // Redirect to /
+            }
+          },
+          (error) => {
+            console.error("An error occurred: ", error)
+            this.toastr.error("An error occurred", "Error")
+          }
+        )
       },
       (error) => {
         console.error("An error occurred: ", error)

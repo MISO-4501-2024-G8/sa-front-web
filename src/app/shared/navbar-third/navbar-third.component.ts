@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SessionStorageService } from '../../utils/session-storage.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-navbar-user',
-  templateUrl: './navbar-user.component.html',
-  styleUrls: ['./navbar-user.component.scss']
+  selector: 'app-navbar-third',
+  templateUrl: './navbar-third.component.html',
+  styleUrls: ['./navbar-third.component.scss']
 })
-export class NavbarUserComponent implements OnInit {
+export class NavbarThirdComponent implements OnInit {
 
   constructor(
     private sessionStorageService: SessionStorageService,

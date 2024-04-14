@@ -20,6 +20,7 @@ import { SessionModule } from './session/session.module';
 import { SignupModule } from './signup/signup.module';
 import { ThirdModule } from './third/third.module';
 import { ThirdSignupModule } from './third-signup/third-signup.module';
+import { ThirdHomeModule } from './third-home/third-home.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ThirdSignupModule } from './third-signup/third-signup.module';
     SessionModule,
     ThirdModule,
     ThirdSignupModule,
+    ThirdHomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

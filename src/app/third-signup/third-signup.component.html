@@ -73,13 +73,14 @@
 
             <!-- company_creation_date -->
             <div class="form-group mx-sm-3 mb-2">
-              <label for="company_creation_date">Company Creation Date</label>
+              <label for="company_creation_date">Company Foundation Date</label>
               <input
                 id="company_creation_date"
                 class="form-control"
                 formControlName="company_creation_date"
                 type="date"
-                placeholder="ompany Creation Date"
+                placeholder="Company Foundation Date"
+                [max]="getCurrentDate()"
               />
               <div
                 class="alert alert-danger alert-dismissible fade show"
@@ -88,7 +89,7 @@
                   thirdSignUpForm.get('company_creation_date')!.touched
                 "
               >
-                Company Creation Date required
+                Company Foundation Date required
               </div>
             </div>
             <!-- Company Address -->
@@ -145,6 +146,18 @@
               </div>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="thirdSignUpForm.get('password')!.hasError('invalidPassword') && thirdSignUpForm.get('password')!.touched">
                 Password must contain at least 1 capital letter, 1 number, and 1 special character ($!&?*_@)
+              </div>
+            </div>
+
+            <!-- Acceptance Terms and Conditions -->
+            <div class="form-group mx-sm-3 mb-2 form-check">
+              <input novalidate type="checkbox" id="acceptanceTyc" class="form-check-input"
+                formControlName="acceptance_tyc" />
+              <label for="acceptanceTyc" class="form-check-label">Acceptance Terms and Conditions</label>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('acceptance_tyc')!.hasError('required')
+                ">
+                Acceptance terms and conditions required
               </div>
             </div>
             <br>
