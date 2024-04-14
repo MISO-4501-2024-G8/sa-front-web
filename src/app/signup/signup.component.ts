@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 import { SessionStorageService } from '../utils/session-storage.service';
-import { passwordValidator, emailValidator } from '../utils/validators.service';
+import { passwordValidator, emailValidator, numberValidator } from '../utils/validators.service';
 import { SignupUser } from '../models/signupu';
 import { SignupService } from './signup.service';
 import { fixToastPosition } from '../utils/fixcss.service';
@@ -74,7 +74,7 @@ export class SignupComponent implements OnInit {
       doc_type: ["", Validators.required], // input string
       name: ["", Validators.required], // input string
       surname: ["", Validators.required], // input string
-      phone: ["", Validators.required], // input number
+      phone: ["", [Validators.required, numberValidator(), Validators.minLength(7), Validators.maxLength(10)]], // input number
       gender: ["", Validators.required], // input string
       age: ["", Validators.required], // input number
       weight: ["", Validators.required], // input number
