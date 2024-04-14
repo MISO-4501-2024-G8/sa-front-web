@@ -5,6 +5,7 @@ export class SignupUser {
     public doc_num: string,
     public doc_type: string,
     public name: string,
+    public surname: string,
     public phone: string,
     public user_type: string,
     public gender: string,

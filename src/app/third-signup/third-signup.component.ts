@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 import { SessionStorageService } from '../utils/session-storage.service';
-import { passwordValidator } from '../utils/password-validator.service';
+import { passwordValidator, emailValidator } from '../utils/validators.service';
 import { ThirdUser } from '../models/thirdu';
 import { ThirdSignupService } from './third-signup.service';
 import { fixToastPosition } from '../utils/fixcss.service';
@@ -68,7 +68,7 @@ export class ThirdSignupComponent implements OnInit{
 
   ngOnInit() {
     this.thirdSignUpForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ["", [Validators.required, emailValidator()]],
       password: ["", [Validators.required, Validators.minLength(8), passwordValidator()]],
       doc_num: ['', [Validators.required]],
       doc_type: ['', [Validators.required]],

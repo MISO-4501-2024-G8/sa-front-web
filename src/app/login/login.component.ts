@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SessionStorageService } from '../utils/session-storage.service';
 import { LoginUser } from '../models/loginu';
 import { LoginService } from './login.service';
+import { emailValidator } from '../utils/validators.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -84,7 +85,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.failedAttempt = this.sessionStorageService.getItem('failedAttempt') ? parseInt(this.sessionStorageService.getItem('failedAttempt') ?? '0') : 0;
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
+      email: ["", [Validators.required, emailValidator()]],
       password: ["", [Validators.required, Validators.minLength(4)]],
     });
   }

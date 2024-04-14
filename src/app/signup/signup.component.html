@@ -21,6 +21,18 @@
               </div>
             </div>
 
+            <!-- Surname -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="surname">Surname</label>
+              <input novalidate id="surname" class="form-control" formControlName="surname" placeholder="User's surname" />
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  signupForm.get('surname')!.hasError('required') &&
+                  signupForm.get('surname')!.touched
+                ">
+                Surname required
+              </div>
+            </div>
+
             <!-- Document Type -->
             <div class="form-group mx-sm-3 mb-2">
               <label for="docType">Document Type (Ej: CC, TI, PA)</label>
@@ -100,7 +112,7 @@
 
             <!-- Height -->
             <div class="form-group mx-sm-3 mb-2">
-              <label for="height">Height (Ej: 1.69 cm -> 1.69)</label>
+              <label for="height">Height (Ej: 1.69 cm -> 169)</label>
               <input novalidate id="height" type="number" class="form-control" formControlName="height"
                 placeholder="User's height" />
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="
@@ -204,8 +216,8 @@
                 Email required
               </div>
               <div class="alert alert-danger alert-dismissible fade show"
-                *ngIf="signupForm.get('email')!.hasError('email')">
-                Invalid email format
+                *ngIf="signupForm.get('email')!.hasError('invalidEmail') && signupForm.get('email')!.touched">
+                Invalid email format, should be like: (username@domain.ext)
               </div>
             </div>
 
@@ -217,7 +229,7 @@
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="signupForm.get('password')!.hasError('required') && signupForm.get('password')!.touched">
                 Password required
               </div>
-              <div class="alert alert-danger alert-dismissible fade show" *ngIf="signupForm.get('password')!.hasError('minlength')">
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="signupForm.get('password')!.hasError('minlength') && signupForm.get('password')!.touched">
                 Password must be at least 8 characters long
               </div>
               <div class="alert alert-danger alert-dismissible fade show" *ngIf="signupForm.get('password')!.hasError('invalidPassword') && signupForm.get('password')!.touched">

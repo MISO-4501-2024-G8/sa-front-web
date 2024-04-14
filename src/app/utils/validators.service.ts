@@ -14,3 +14,17 @@ export function passwordValidator(): ValidatorFn {
     return null;
   };
 }
+
+export function emailValidator(): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const value: string = control.value;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z.]{2,}$/;
+    const isValid = emailPattern.test(value);
+
+    if (!isValid) {
+      return { 'invalidEmail': true };
+    }
+
+    return null;
+  };
+}
