@@ -10,18 +10,16 @@ import { Router } from '@angular/router';
 export class ThirdHomeComponent implements OnInit{
 
   constructor(
-    private sessionStorageService: SessionStorageService,
+    private sessionStorageServiceTHome: SessionStorageService,
     private router: Router
   ) { }
 
   actualDate = new Date();
-  title = 'sa-front-web';
-  token = this.sessionStorageService.getItem('token') ?? '';
-  role = this.sessionStorageService.getItem('userType') ?? '';
+  title = 'sa-front-web - third-home';
+  token = this.sessionStorageServiceTHome.getItem('token') ?? '';
+  role = this.sessionStorageServiceTHome.getItem('userType') ?? '';
 
   ngOnInit() {
-    console.log("Token: ", this.token);
-    console.log("Role: ", this.role);
     if (this.token === '') {
       this.router.navigate(['/login']);
     }
