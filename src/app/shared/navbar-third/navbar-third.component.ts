@@ -20,6 +20,7 @@ export class NavbarThirdComponent implements OnInit {
   logOut() {
     this.sessionStorageService.removeItem('token');
     this.sessionStorageService.removeItem('userType');
+    this.sessionStorageService.removeItem('typePlan');
     this.router.navigate(['/']);
   }
 

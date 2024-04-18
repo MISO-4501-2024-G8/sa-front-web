@@ -117,6 +117,19 @@
               </div>
             </div>
 
+            <!-- Company Description Name -->
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="company_description">Company Description</label>
+              <textarea novalidate id="company_description" rows="4" class="form-control" formControlName="company_description"
+                placeholder="Company's description"></textarea>
+              <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  thirdSignUpForm.get('company_description')!.hasError('required') &&
+                  thirdSignUpForm.get('company_description')!.touched
+                ">
+                Company description required
+              </div>
+            </div>
+
             <!-- Email -->
             <div class="form-group mx-sm-3 mb-2">
               <label for="email" >Email</label>

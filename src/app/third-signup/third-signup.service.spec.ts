@@ -149,6 +149,7 @@ describe('ThirdSignupService', () => {
       company_creation_date: 'M',
       company_address: 'Argentina',
       contact_name: 'Buenos Aires',
+      company_description: 'test description',
       acceptance_tyc: false
     };
     const mockResponse: ThirdUserResponse = {

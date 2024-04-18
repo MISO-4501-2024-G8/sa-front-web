@@ -10,6 +10,7 @@ export class ThirdUser{
     public company_creation_date: string,
     public company_address: string,
     public contact_name: string,
+    public company_description: string,
     public acceptance_tyc: boolean,
   ) { }
 }
