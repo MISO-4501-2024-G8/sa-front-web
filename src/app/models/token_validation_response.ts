@@ -5,5 +5,6 @@ export class TokenValidationResponse {
     public exp: number,
     public expirationDate: string,
     public userType: number,
+    public typePlan?: string,
   ) { }
 }

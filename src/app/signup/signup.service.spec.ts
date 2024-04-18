@@ -164,6 +164,7 @@ describe('SignupService', () => {
       residence_city: 'Buenos Aires',
       residence_seniority: 5,
       sports: 'Atletismo',
+      typePlan: 'basico',
       acceptance_notify: true,
       acceptance_tyc: true,
       acceptance_personal_data: true

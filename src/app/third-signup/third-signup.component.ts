@@ -94,6 +94,7 @@ export class ThirdSignupComponent implements OnInit {
       company_creation_date: ['', [Validators.required]],
       company_address: ['', [Validators.required]],
       contact_name: ['', [Validators.required]],
+      company_description: ['', [Validators.required]],
       acceptance_tyc: [false, Validators.required],
     });
   }

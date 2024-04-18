@@ -33,7 +33,8 @@ export class LoginService {
           code: response.code,
           exp: response.exp,
           expirationDate: response.expirationDate,
-          userType: response.userType
+          userType: response.userType,
+          typePlan: response.typePlan ?? 'basico'
         } as TokenValidationResponse;
       })
     );

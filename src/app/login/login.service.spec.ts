@@ -74,7 +74,8 @@ describe('LoginComponent', () => {
       message: 'Token validated',
       exp: 0,
       expirationDate: '',
-      userType: 1
+      userType: 1,
+      typePlan: 'basico'
     };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
     mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
@@ -258,7 +259,8 @@ describe('LoginService', () => {
       message: 'Token validated',
       exp: 0,
       expirationDate: '',
-      userType: 1
+      userType: 1,
+      typePlan: 'basico'
     };
     service.validateToken('token').subscribe(response => {
       expect(response).toEqual(validateTokenReponse);
