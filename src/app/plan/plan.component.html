@@ -1,70 +1,103 @@
 <section class="content">
   <app-navbar-user></app-navbar-user>
   PLANS
-
-  <div class="row vertical-center itemRG list-group-item-success">
-    <div class="col-1 align-center">
-      <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="premium" id="firstRadio" checked>
-    </div>
-    <div class="col-9">
-      <div class="d-flex align-center">
-        <h5 class="card-title d-inline col-item">Plan Premium</h5>
-        <p class="d-inline ml-4 col-item">Valor Inscripción: $0</p>
-        <p class="d-inline ml-4 col-item">Valor Anual: $9</p>
-        <div class="ml-4 col-item">
-          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#benefitsModal">Ver Beneficios</a>
+  <div class="container-fluid plan-container">
+    <div class="row">
+      <div class="col-md-4 mb-2">
+        <div class="card text-center">
+          <div class="card-header custom-purple-bg">
+            {{ this.planBasico.name}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">${{this.planBasico.value}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Valor Mensual</h6>
+            <p class="card-text plan-body">El plan para todos</p>
+            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver Beneficios</button>
+            <button type="button" class="btn btn-primary button-card" style="margin-left: 10px;" (click)="seleccionarPlan('basico')">Seleccionar</button>
+          </div>
+          <div *ngIf="planSelected === 'basico'; else elseBlock" class="card-footer text-muted custom-yellow-bg">
+            Plan Seleccionado
+          </div>
+          <ng-template #elseBlock>
+            <div class="card-footer text-muted">
+              &nbsp;
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-md-4 mb-2">
+        <div class="card text-center">
+          <div class="card-header custom-orange-bg">
+            {{this.planIntermedio.name}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">${{this.planIntermedio.value}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Valor Mensual</h6>
+            <p class="card-text plan-body">El plan acorde a tu bolsillo</p>
+            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver Beneficios</button>
+            <button type="button" class="btn btn-primary button-card" style="margin-left: 10px;" (click)="seleccionarPlan('intermedio')">Seleccionar</button>
+          </div>
+          <div *ngIf="planSelected === 'intermedio'; else elseBlock" class="card-footer text-muted custom-yellow-bg">
+            Plan Seleccionado
+          </div>
+          <ng-template #elseBlock>
+            <div class="card-footer text-muted">
+              &nbsp;
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-md-4 mb-2">
+        <div class="card text-center">
+          <div class="card-header custom-green-bg">
+            {{this.planPremium.name}}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars"
+              viewBox="0 0 16 16">
+              <path
+                d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">${{this.planPremium.value}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Valor Anual</h6>
+            <p class="card-text plan-body">El mejor de los planes con todos los beneficios</p>
+            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver Beneficios</button>
+            <button type="button" class="btn btn-primary button-card" style="margin-left: 10px;" (click)="seleccionarPlan('premium')">Seleccionar</button>
+          </div>
+          <div *ngIf="planSelected === 'premium'; else elseBlock" class="card-footer text-muted custom-yellow-bg">
+            Plan Seleccionado
+          </div>
+          <ng-template #elseBlock>
+            <div class="card-footer text-muted">
+              &nbsp;
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row vertical-center itemRG list-group-item-warning">
-    <div class="col-1 align-center">
-      <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="intermedio" id="firstRadio" checked>
-    </div>
-    <div class="col-9">
-      <div class="d-flex align-center">
-        <h5 class="card-title d-inline col-item">Plan Intermedio</h5>
-        <p class="d-inline ml-4 col-item">Valor Inscripción: $0</p>
-        <p class="d-inline ml-4 col-item">Valor Mensual: $10</p>
-        <div class="ml-4 col-item">
-          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#benefitsModal">Ver Beneficios</a>
+    <div>
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row vertical-center itemRG list-group-item-light">
-    <div class="col-1 align-center">
-      <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="basico" id="firstRadio" checked>
-    </div>
-    <div class="col-9">
-      <div class="d-flex align-center">
-        <h5 class="card-title d-inline col-item">Plan Basico</h5>
-        <p class="d-inline ml-4 col-item">Valor Inscripción: $0</p>
-        <p class="d-inline ml-4 col-item">Valor Mensual: $50</p>
-        <div class="ml-4 col-item">
-          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#benefitsModal">Ver Beneficios</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="benefitsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Beneficios del Plan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Aquí iría el texto con los beneficios del plan seleccionado.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
+    <div class="d-grid gap-2 col-8 mx-auto">
+      <button class="btn btn-outline-dark btn-lg" type="button" (click)="updateUserPlan()">Aceptar</button>
     </div>
   </div>
 

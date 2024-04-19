@@ -13,14 +13,24 @@ export class NavbarUserComponent implements OnInit {
     private router: Router
   ) { }
 
+  userPlan: string = '';
+
   ngOnInit() {
-    const a = 1;
+    const plan = this.sessionStorageService.getItem('typePlan') ?? '';
+    if(plan === 'basico') {
+      this.userPlan = 'Básico';
+    }else if (plan === 'intermedio') {
+      this.userPlan = 'Intermedio';
+    }else if (plan === 'premium') {
+      this.userPlan = 'Premium';
+    }
   }
 
   logOut() {
     this.sessionStorageService.removeItem('token');
     this.sessionStorageService.removeItem('userType');
     this.sessionStorageService.removeItem('typePlan');
+    this.sessionStorageService.removeItem('id');
     this.router.navigate(['/']);
   }
 
