@@ -1,6 +1,5 @@
 <section class="content">
   <app-navbar-user></app-navbar-user>
-  PLANS
   <div class="container-fluid plan-container">
     <div class="row">
       <div class="col-md-4 mb-2">
@@ -12,7 +11,7 @@
             <h5 class="card-title">${{this.planBasico.value}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Valor Mensual</h6>
             <p class="card-text plan-body">El plan para todos</p>
-            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver Beneficios</button>
+            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="verCaracteristicas('basico')">Ver Beneficios</button>
             <button type="button" class="btn btn-primary button-card" style="margin-left: 10px;" (click)="seleccionarPlan('basico')">Seleccionar</button>
           </div>
           <div *ngIf="planSelected === 'basico'; else elseBlock" class="card-footer text-muted custom-yellow-bg">
@@ -34,7 +33,7 @@
             <h5 class="card-title">${{this.planIntermedio.value}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Valor Mensual</h6>
             <p class="card-text plan-body">El plan acorde a tu bolsillo</p>
-            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver Beneficios</button>
+            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="verCaracteristicas('intermedio')">Ver Beneficios</button>
             <button type="button" class="btn btn-primary button-card" style="margin-left: 10px;" (click)="seleccionarPlan('intermedio')">Seleccionar</button>
           </div>
           <div *ngIf="planSelected === 'intermedio'; else elseBlock" class="card-footer text-muted custom-yellow-bg">
@@ -61,7 +60,7 @@
             <h5 class="card-title">${{this.planPremium.value}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Valor Anual</h6>
             <p class="card-text plan-body">El mejor de los planes con todos los beneficios</p>
-            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ver Beneficios</button>
+            <button type="button" class="btn btn-primary button-card" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="verCaracteristicas('premium')">Ver Beneficios</button>
             <button type="button" class="btn btn-primary button-card" style="margin-left: 10px;" (click)="seleccionarPlan('premium')">Seleccionar</button>
           </div>
           <div *ngIf="planSelected === 'premium'; else elseBlock" class="card-footer text-muted custom-yellow-bg">
@@ -82,15 +81,17 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">{{this.modalTitle}}</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ...
+              Beneficios del plan seleccionado:
+              <ul>
+                <li *ngFor="let benefit of this.features">{{benefit.feature}}</li>
+              </ul>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuar</button>
             </div>
           </div>
         </div>

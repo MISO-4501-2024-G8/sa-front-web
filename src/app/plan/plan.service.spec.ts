@@ -105,6 +105,24 @@ describe('PlanComponent', () => {
     expect(component.planSelected).toBe('basico');
   });
 
+  it('should set benefits basico', () => {
+    component.verCaracteristicas('basico');
+    expect(component.modalTitle).toBe('Plan Básico');
+    expect(component.features).not.toBeNull();
+  });
+
+  it('should set benefits intermedio', () => {
+    component.verCaracteristicas('intermedio');
+    expect(component.modalTitle).toBe('Plan Intermedio');
+    expect(component.features).not.toBeNull();
+  });
+
+  it('should set benefits premium', () => {
+    component.verCaracteristicas('premium');
+    expect(component.modalTitle).toBe('Plan Premium');
+    expect(component.features).not.toBeNull();
+  });
+
   it('should check token and plan before updating', () => {
     component.token = undefined;
     component.updateUserPlan();
