@@ -112,6 +112,7 @@ describe('PlanComponent', () => {
   });
 
   it('should check plan before updating', () => {
+    component.token = 'token';
     component.planSelected = undefined;
     component.updateUserPlan();
     expect(mockToastrService.error).toHaveBeenCalledWith('You must select a plan to update', 'Error');
