@@ -5,6 +5,7 @@ import { PlanService } from './plan.service';
 import { ToastrService } from 'ngx-toastr';
 import { SessionStorageService } from '../utils/session-storage.service';
 import { PlanResponse } from '../models/plan_response';
+import { Feature } from '../models/feature';
 
 @Component({
   selector: 'app-plan',
@@ -29,6 +30,8 @@ export class PlanComponent implements OnInit{
   planSelected = this.sessionStorageService.getItem('typePlan') ?? '';
   token = this.sessionStorageService.getItem('token') ?? '';
   idUser = this.sessionStorageService.getItem('id') ?? '';
+  modalTitle = '';
+  features: Feature[] = [];
 
   ngOnInit() {
     this.planService.getAllPlanInfo().subscribe(
@@ -47,6 +50,19 @@ export class PlanComponent implements OnInit{
 
   seleccionarPlan(plan: string) {
     this.planSelected = plan;
+  }
+
+  verCaracteristicas(plan: string) {
+    if (plan === 'basico') {
+      this.modalTitle = 'Plan Básico';
+      this.features = this.planBasico.features;
+    } else if (plan === 'intermedio') {
+      this.modalTitle = 'Plan Intermedio';
+      this.features = this.planIntermedio.features;
+    } else if (plan === 'premium') {
+      this.modalTitle = 'Plan Premium';
+      this.features = this.planPremium.features;
+    }
   }
 
   updateUserPlan() {
