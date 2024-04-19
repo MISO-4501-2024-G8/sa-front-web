@@ -18,7 +18,7 @@ import { TokenValidationResponse } from '../models/token_validation_response';
 describe('Service: Login', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], // add this line
+      imports: [HttpClientTestingModule],
       providers: [LoginService]
     });
   });
