@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
               this.sessionStorageService.setItem('token', loginResponse.token);
               this.sessionStorageService.setItem('userType', '1');
               this.sessionStorageService.setItem('typePlan', validateResponse.typePlan);
+              this.sessionStorageService.setItem('id', loginResponse.id);
               this.router.navigate(['/home']);  // Redirect to /home
             } else if (validateResponse.userType === 2){
               this.sessionStorageService.setItem('token', loginResponse.token);

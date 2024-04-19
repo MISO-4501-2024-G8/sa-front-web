@@ -56,7 +56,10 @@ export class SignupComponent implements OnInit {
         this.toastr.clear();
         this.toastr.success("Signup success", "Success")
         this.sessionStorageService.setItem('token', signupResponse.token);
-        this.router.navigate(['/home']);  // Redirect to /home
+        this.sessionStorageService.setItem('userType', '1');
+        this.sessionStorageService.setItem('typePlan', 'basico');
+        this.sessionStorageService.setItem('id', signupResponse.id);
+        this.router.navigate(['/plan']);  // Redirect to /home
       },
       (error) => {
         console.error("Error: ", error);
