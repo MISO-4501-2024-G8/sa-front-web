@@ -1,0 +1,38 @@
+.center-card {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.center-card-body {
+  align-items: center;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+  height: 70px;
+  align-items: baseline ;
+}
+
+.ml-4 {
+  margin-left: 1rem;
+}
+
+.back-color {
+  background-color: #bdbdbd;
+}
+
+.vertical-center {
+  display: flex;
+}
+
+.itemRG{
+  padding-top: 30px;
+}
+
+.col-item{
+  min-width: 150px;
+}

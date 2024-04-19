@@ -1,4 +1,71 @@
 <section class="content">
-  <app-navbar></app-navbar>
+  <app-navbar-user></app-navbar-user>
   PLANS
+
+  <div class="row vertical-center itemRG list-group-item-success">
+    <div class="col-1 align-center">
+      <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="premium" id="firstRadio" checked>
+    </div>
+    <div class="col-9">
+      <div class="d-flex align-center">
+        <h5 class="card-title d-inline col-item">Plan Premium</h5>
+        <p class="d-inline ml-4 col-item">Valor Inscripción: $0</p>
+        <p class="d-inline ml-4 col-item">Valor Anual: $9</p>
+        <div class="ml-4 col-item">
+          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#benefitsModal">Ver Beneficios</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row vertical-center itemRG list-group-item-warning">
+    <div class="col-1 align-center">
+      <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="intermedio" id="firstRadio" checked>
+    </div>
+    <div class="col-9">
+      <div class="d-flex align-center">
+        <h5 class="card-title d-inline col-item">Plan Intermedio</h5>
+        <p class="d-inline ml-4 col-item">Valor Inscripción: $0</p>
+        <p class="d-inline ml-4 col-item">Valor Mensual: $10</p>
+        <div class="ml-4 col-item">
+          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#benefitsModal">Ver Beneficios</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row vertical-center itemRG list-group-item-light">
+    <div class="col-1 align-center">
+      <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="basico" id="firstRadio" checked>
+    </div>
+    <div class="col-9">
+      <div class="d-flex align-center">
+        <h5 class="card-title d-inline col-item">Plan Basico</h5>
+        <p class="d-inline ml-4 col-item">Valor Inscripción: $0</p>
+        <p class="d-inline ml-4 col-item">Valor Mensual: $50</p>
+        <div class="ml-4 col-item">
+          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#benefitsModal">Ver Beneficios</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="benefitsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Beneficios del Plan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Aquí iría el texto con los beneficios del plan seleccionado.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
