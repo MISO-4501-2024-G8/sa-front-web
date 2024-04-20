@@ -29,11 +29,20 @@ export class PlanComponent implements OnInit{
 
   planSelected = this.sessionStorageService.getItem('typePlan') ?? '';
   token = this.sessionStorageService.getItem('token') ?? '';
+  role = this.sessionStorageService.getItem('userType') ?? '';
   idUser = this.sessionStorageService.getItem('id') ?? '';
   modalTitle = '';
   features: Feature[] = [];
+  descriptionPlan = '';
+  selectedPlan = '';
 
   ngOnInit() {
+    if (this.token === '') {
+      this.router.navigate(['/login']);
+    }
+    if (this.role === '2') {
+      this.router.navigate(['/third-home']);
+    }
     this.planService.getAllPlanInfo().subscribe(
       (plans) => {
         this.plans = plans;
@@ -50,9 +59,11 @@ export class PlanComponent implements OnInit{
 
   seleccionarPlan(plan: string) {
     this.planSelected = plan;
+    this.selectedPlan = plan;
   }
 
   verCaracteristicas(plan: string) {
+    this.descriptionPlan = plan;
     if (plan === 'basico') {
       this.modalTitle = 'Plan Básico';
       this.features = this.planBasico.features;
