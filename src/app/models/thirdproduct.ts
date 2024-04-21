@@ -1,3 +1,5 @@
+import { Availability } from "./availability";
+
 export class ThirdProduct{
   constructor(
     public id: string,
@@ -7,5 +9,7 @@ export class ThirdProduct{
     public value: number,
     public typeProduct: string,
     public representative_phone: string,
+    public address: string | null,
+    public availability: Availability[] | null,
   ){}
 }

@@ -1,3 +1,4 @@
+import { Availability } from './availability';
 import { ThirdProduct } from './thirdproduct';
 export class ThirdProductResponse {
   constructor(
@@ -6,8 +7,8 @@ export class ThirdProductResponse {
     public error: string,
     public productType: string,
     public thirdProduct: ThirdProduct,
-    public trainer: {},
-    public doctor: {},
-    public availability: [],
+    public trainer: {} | null,
+    public doctor: {} | null,
+    public availability: Availability[] | null,
   ) { }
 }
