@@ -2,42 +2,80 @@
   <app-navbar-third></app-navbar-third>
   <div class="container-fluid tproduct">
     <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar un Producto o Servicio</h1>
-    <div>
-      {{ productForm.value | json }}
-    </div>
+    <!-- <div>{{ productForm.value | json }}</div> -->
     <form [formGroup]="productForm" (ngSubmit)="!productForm.invalid && addProduct(productForm.value)">
 
       <!-- Type of Product -->
       <div class="form-group mx-sm-3 mb-2">
-        <label for="productType">Type of Product-Service</label>
-        <select novalidate id="productType" class="form-select" formControlName="productType"
+        <label for="typeProduct">Tipo de Producto-Servicio</label>
+        <select novalidate id="typeProduct" class="form-select" formControlName="typeProduct"
           (change)="onTypeProductChange($event)">
-          <option value="">Select a type of product-service</option>
+          <option value="">Selecciona un tipo de producto-servicio</option>
           <option value="trainer">Entrenador</option>
           <option value="medical">Doctor</option>
           <option value="food">Comida</option>
+          <option value="transport">Transporte a Eventos</option>
           <option value="delivery-food">Entrega de Comida</option>
           <option value="delivery-devices">Entrega de Dispositivos</option>
-          <!-- Otras opciones -->
         </select>
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('typeProduct')!.hasError('required') &&
+                productForm.get('typeProduct')!.touched
+              ">
+          El tipo de producto-servicio es requerido
+        </div>
       </div>
 
       <!-- Common Fields -->
       <div class="form-group mx-sm-3 mb-2">
-        <label for="name">Name</label>
+        <label for="">Nombre</label>
         <input type="text" class="form-control" id="name" formControlName="name">
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('name')!.hasError('required') &&
+                productForm.get('name')!.touched
+              ">
+          El nombre es requerido
+        </div>
       </div>
       <div class="form-group mx-sm-3 mb-2">
-        <label for="description">Description</label>
+        <label for="description">Descripcion</label>
         <textarea class="form-control" id="description" formControlName="description"></textarea>
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('description')!.hasError('required') &&
+                productForm.get('description')!.touched
+              ">
+          La descripción es requerida
+        </div>
       </div>
       <div class="form-group mx-sm-3 mb-2">
-        <label for="value">Value</label>
+        <label for="value">Valor ($)</label>
         <input type="number" class="form-control" id="value" formControlName="value">
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('value')!.hasError('required') &&
+                productForm.get('value')!.touched
+              ">
+          El valor es requerido
+        </div>
       </div>
       <div class="form-group mx-sm-3 mb-2">
-        <label for="representative_phone">Representative Phone</label>
+        <label for="representative_phone">Telefono (Ej: 3023323456)</label>
         <input type="text" class="form-control" id="representative_phone" formControlName="representative_phone">
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="productForm.get('representative_phone')!.hasError('invalidNumber')
+                && productForm.get('representative_phone')!.touched">
+          El telefono debe ser un número
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+          *ngIf="productForm.get('representative_phone')!.hasError('minlength')">
+          El telefono debe tener al menos 7 numeros
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+          *ngIf="productForm.get('representative_phone')!.hasError('maxlength')">
+          El telefono debe ser menor de 10 numeros
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+          *ngIf="productForm.get('representative_phone')!.hasError('required') && productForm.get('representative_phone')!.touched">
+          El telefono es requerido
+        </div>
       </div>
 
       <div *ngIf="showAddressFields" class="form-group mx-sm-3 mb-2">
@@ -48,9 +86,9 @@
       <div formArrayName="availability" *ngIf="showAvailabilityFields" style="margin-bottom: 10px;">
         <!-- Campos de disponibilidad -->
         <div class=" mx-sm-3 mb-2">
-          <table *ngIf="availabilityData.length > 0" class="table" aria-describedby="third-product-table" >
+          <table *ngIf="availabilityData.length > 0" class="table" aria-describedby="third-product-table">
             <thead>
-              <tr>
+              <tr class="titles">
                 <th scope="col">#</th>
                 <th scope="col">Day</th>
                 <th scope="col">Start Time</th>
@@ -59,12 +97,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let availability of availabilityData; let index = index" >
-                <th scope="row">{{ index + 1 }}</th>
-                <td>{{availability.day}}</td>
-                <td>{{availability.time_start}}</td>
-                <td>{{availability.time_end}}</td>
-                <td class="justify-content-center">
+              <tr *ngFor="let availability of availabilityData; let index = index">
+                <th class="content-center" scope="row">{{ index + 1 }}</th>
+                <td class="content-center">{{availability.day}}</td>
+                <td class="content-center">{{availability.time_start}}</td>
+                <td class="content-center">{{availability.time_end}}</td>
+                <td class="action-btn">
                   <button type="button" class="btn btn-danger" (click)="deleteAvailability(index)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-trash2" viewBox="0 0 16 16">
@@ -86,7 +124,8 @@
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
           (click)="cancelAddProduct()">Cancelar</button>
-        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" [disabled]="!productForm.valid">Agregar+</button>
+        <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
+          [disabled]="!productForm.valid">Agregar+</button>
       </div>
     </form>
 
@@ -112,6 +151,12 @@
                   <option value="jueves">Jueves</option>
                   <option value="viernes">Viernes</option>
                 </select>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                    availabilityForm.get('day')!.hasError('required') &&
+                    availabilityForm.get('day')!.touched
+                  ">
+                  El dia es requerido
+                </div>
               </div>
               <div class="mb-3">
                 <label for="time_start" class="form-label">Start Time</label>
@@ -135,6 +180,12 @@
                   <option value="21">21:00</option>
                   <option value="22">22:00</option>
                 </select>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                    availabilityForm.get('time_start')!.hasError('required') &&
+                    availabilityForm.get('time_start')!.touched
+                  ">
+                  La hora de inicio es requerida
+                </div>
               </div>
               <div class="mb-3">
                 <label for="time_end" class="form-label">End Time</label>
@@ -158,6 +209,12 @@
                   <option value="21">21:00</option>
                   <option value="22">22:00</option>
                 </select>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                    availabilityForm.get('time_end')!.hasError('required') &&
+                    availabilityForm.get('time_end')!.touched
+                  ">
+                  La hora de fin es requerida
+                </div>
               </div>
             </div>
             <div class="modal-footer">

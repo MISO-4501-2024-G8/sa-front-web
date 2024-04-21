@@ -29,31 +29,37 @@ export class ThirdProductAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
+    private sessionStorageService: SessionStorageService,
     private toastr: ToastrService,
+    private thirdProductService: ThirdProductAddService,
   ) { }
 
   ngOnInit() {
+    this.token = this.sessionStorageService.getItem('token') ?? '';
+    this.role = this.sessionStorageService.getItem('userType') ?? '';
+    this.id = this.sessionStorageService.getItem('id') ?? '';
     this.productForm = this.formBuilder.group({
-      productType: ['', Validators.required],
+      typeProduct: ['', Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
       value: ['', Validators.required],
-      representative_phone: ['', Validators.required],
+      representative_phone: ['', [Validators.required, numberValidator(), Validators.minLength(7), Validators.maxLength(10)]],
       address: [''], // Campo para dirección
       availability: this.formBuilder.array([]) // Campo para disponibilidad
     });
 
     this.availabilityForm = this.formBuilder.group({
-      day: ['', Validators.required],
-      time_start: ['', Validators.required],
-      time_end: ['', Validators.required]
+      day: ['', [Validators.required]],
+      time_start: ['', [Validators.required]],
+      time_end: ['', [Validators.required]]
     });
 
-    this.productForm.get('productType')?.valueChanges.subscribe((productType: string) => {
-      if (productType === 'medical') {
+    this.productForm.get('typeProduct')?.valueChanges.subscribe((typeProduct: string) => {
+      if (typeProduct === 'medical') {
         this.productForm.get('address')?.setValidators([Validators.required]);
         this.productForm.get('availability')?.setValidators([Validators.required]);
-      } else if (productType === 'trainer') {
+      } else if (typeProduct === 'trainer') {
         this.productForm.get('address')?.clearValidators();
         this.productForm.get('availability')?.setValidators([Validators.required]);
       } else {
@@ -133,6 +139,7 @@ export class ThirdProductAddComponent implements OnInit {
 
   cancelAddProduct() {
     console.log("Cancel add product");
+    this.router.navigate(['/third-product']);  // Redirect to /third-product
   }
 
   resetAvailabilityForm() {
@@ -148,15 +155,30 @@ export class ThirdProductAddComponent implements OnInit {
     const availabilityArray = this.productForm.get('availability') as FormArray;
     availabilityArray.clear();
     this.availabilityData = [];
-    this.productForm.get('productType')?.setValue('');
+    this.productForm.get('typeProduct')?.setValue('');
   }
 
   addProduct(thirdProduct: ThirdProduct) {
-    console.log(thirdProduct);
+
     console.log("Add product");
-    this.onTypeProductChange({target:{value:''}});
-    this.resetProductForm();
-    this.toastr.success("Producto agregado", "Éxito");
+    console.log(thirdProduct);
+    this.thirdProductService.createThirdProduct(this.id, thirdProduct).subscribe(
+      (thirdProductResponse) => {
+        console.info("The product was added: ", thirdProductResponse)
+        if (thirdProductResponse.code !== 201) {
+          this.toastr.error(thirdProductResponse.error || "Product failed", "Error")
+          return;
+        }
+        this.onTypeProductChange({ target: { value: '' } });
+        this.resetProductForm();
+        this.toastr.success("Producto agregado", "Éxito");
+        this.router.navigate(['/third-product']);  // Redirect to /third-product
+      },
+      (error) => {
+        console.error("An error occurred: ", error)
+        this.toastr.error("An error occurred while trying to add the product", "Error")
+      }
+    );
   }
 
 }

@@ -11,7 +11,7 @@
         </svg>
       </button>
     </div>
-    <table class="table" aria-describedby="third-product-table">
+    <table *ngIf="thirdProducts.length > 0" class="table" aria-describedby="third-product-table">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -31,7 +31,7 @@
           <td>{{ product.productType }}</td>
           <td>${{ product.thirdProduct.value }}</td>
           <td>{{ product.thirdProduct.representative_phone }}</td>
-          <td class="d-flex justify-content-center">
+          <td class="action-btn">
             <button type="button" class="btn btn-danger" (click)="deleteProduct(product.thirdProduct.id)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2"
                 viewBox="0 0 16 16">
