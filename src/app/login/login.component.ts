@@ -83,6 +83,7 @@ export class LoginComponent implements OnInit {
             } else if (validateResponse.userType === 2){
               this.sessionStorageService.setItem('token', loginResponse.token);
               this.sessionStorageService.setItem('userType', '2');
+              this.sessionStorageService.setItem('id', loginResponse.id);
               this.router.navigate(['/third-home']);  // Redirect to /third-home
             } else if (validateResponse.userType === 3){
               this.toastr.show("Your admin dashboard is in construction", "Info");

@@ -15,6 +15,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ThirdComponent } from './third/third.component';
 import { ThirdSignupComponent } from './third-signup/third-signup.component';
 import { ThirdHomeComponent } from './third-home/third-home.component';
+import { ThirdProductComponent } from './third-product/third-product.component';
 
 const routes: Routes = [
   { path: '', component: StartpComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'session', component: SessionComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
   { path: 'payment', component: PaymentComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
   { path: 'third-home', component: ThirdHomeComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
+  { path: 'third-product', component: ThirdProductComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
   { path: '**', redirectTo: '' }
 ];
 
