@@ -7,6 +7,7 @@ import { SessionStorageService } from '../utils/session-storage.service';
 import { LoginUser } from '../models/loginu';
 import { LoginService } from './login.service';
 import { emailValidator } from '../utils/validators.service';
+import { catchError, first } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -66,32 +67,43 @@ export class LoginComponent implements OnInit {
               this.toastr.error(validateResponse.message || "Token validation failed", "Error")
               return;
             }
-            this.toastr.success("Login successfully", "Confirmation")
-            this.loginForm.reset();
-            // Remove failedAttempt and expiration from this.sessionStorageService and reset failedAttempt
-            this.sessionStorageService.removeItem('failedAttempt');
-            this.sessionStorageService.removeItem('expiration');
-            this.failedAttempt = 0;
-            // Save token in local storage
+            this.loginService.getUserInfo(loginResponse.token, loginResponse.id).subscribe(
+              (userInfo) => {
+                console.info("User info: ", userInfo)
+                console.info("User info: ", userInfo.name)
+                const name = userInfo.name ?? 'Usuario';
+                this.sessionStorageService.setItem('name', name);
+                this.toastr.success("Login successfully", "Confirmation")
+                this.loginForm.reset();
+                // Remove failedAttempt and expiration from this.sessionStorageService and reset failedAttempt
+                this.sessionStorageService.removeItem('failedAttempt');
+                this.sessionStorageService.removeItem('expiration');
+                this.failedAttempt = 0;
+                // Save token in local storage
 
-            if (validateResponse.userType === 1){
-              this.sessionStorageService.setItem('token', loginResponse.token);
-              this.sessionStorageService.setItem('userType', '1');
-              this.sessionStorageService.setItem('typePlan', validateResponse.typePlan);
-              this.sessionStorageService.setItem('id', loginResponse.id);
-              this.router.navigate(['/home']);  // Redirect to /home
-            } else if (validateResponse.userType === 2){
-              this.sessionStorageService.setItem('token', loginResponse.token);
-              this.sessionStorageService.setItem('userType', '2');
-              this.sessionStorageService.setItem('id', loginResponse.id);
-              this.router.navigate(['/third-home']);  // Redirect to /third-home
-            } else if (validateResponse.userType === 3){
-              this.toastr.show("Your admin dashboard is in construction", "Info");
-              this.router.navigate(['/']);
-            }
-            else {
-              this.router.navigate(['/']);  // Redirect to /
-            }
+                if (validateResponse.userType === 1) {
+                  this.sessionStorageService.setItem('token', loginResponse.token);
+                  this.sessionStorageService.setItem('userType', '1');
+                  this.sessionStorageService.setItem('typePlan', validateResponse.typePlan);
+                  this.sessionStorageService.setItem('id', loginResponse.id);
+                  this.router.navigate(['/home']);  // Redirect to /home
+                } else if (validateResponse.userType === 2) {
+                  this.sessionStorageService.setItem('token', loginResponse.token);
+                  this.sessionStorageService.setItem('userType', '2');
+                  this.sessionStorageService.setItem('id', loginResponse.id);
+                  this.router.navigate(['/third-home']);  // Redirect to /third-home
+                } else if (validateResponse.userType === 3) {
+                  this.toastr.show("Your admin dashboard is in construction", "Info");
+                  this.router.navigate(['/']);
+                }
+                else {
+                  this.router.navigate(['/']);  // Redirect to /
+                }
+              },
+              (error) => {
+                console.error("An error occurred: ", error)
+              }
+            );
           },
           (error) => {
             console.error("An error occurred: ", error)
