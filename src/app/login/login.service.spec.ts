@@ -13,6 +13,7 @@ import { environment } from '../../environments/environment';
 import { LoginUser } from '../models/loginu';
 import { LoginUserResponse } from '../models/loginu_response';
 import { TokenValidationResponse } from '../models/token_validation_response';
+import { UserDetail } from '../models/userdetail';
 
 
 describe('Service: Login', () => {
@@ -37,8 +38,8 @@ describe('LoginComponent', () => {
   let mockRouter: jasmine.SpyObj<Router>;
 
   beforeEach(() => {
-    mockLoginService = jasmine.createSpyObj(['loginUser', 'validateToken']);
-    mockToastrService = jasmine.createSpyObj(['success', 'error','clear','show']);
+    mockLoginService = jasmine.createSpyObj(['loginUser', 'validateToken', 'getUserInfo']);
+    mockToastrService = jasmine.createSpyObj(['success', 'error', 'clear', 'show']);
     mockRouter = jasmine.createSpyObj(['navigate']);
 
     TestBed.configureTestingModule({
@@ -77,8 +78,23 @@ describe('LoginComponent', () => {
       userType: 1,
       typePlan: 'basico'
     };
+    const userInfo = {
+      id: 'example',
+      email: 'example',
+      doc_num: 'example',
+      doc_type: 'example',
+      name: 'Name',
+      phone: 'example',
+      user_type: 1,
+      token: 'example',
+      detail: {} as UserDetail,
+      code: 200,
+      message: 'example',
+      error: 'example',
+    };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
     mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    mockLoginService.getUserInfo.and.returnValue(of(userInfo));
     component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
@@ -100,8 +116,23 @@ describe('LoginComponent', () => {
       expirationDate: '',
       userType: 2
     };
+    const userInfo = {
+      id: 'example',
+      email: 'example',
+      doc_num: 'example',
+      doc_type: 'example',
+      name: 'Name',
+      phone: 'example',
+      user_type: 1,
+      token: 'example',
+      detail: {} as UserDetail,
+      code: 200,
+      message: 'example',
+      error: 'example',
+    };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
     mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    mockLoginService.getUserInfo.and.returnValue(of(userInfo));
     component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
@@ -123,8 +154,23 @@ describe('LoginComponent', () => {
       expirationDate: '',
       userType: 3
     };
+    const userInfo = {
+      id: 'example',
+      email: 'example',
+      doc_num: 'example',
+      doc_type: 'example',
+      name: 'Name',
+      phone: 'example',
+      user_type: 1,
+      token: 'example',
+      detail: {} as UserDetail,
+      code: 200,
+      message: 'example',
+      error: 'example',
+    };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
     mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    mockLoginService.getUserInfo.and.returnValue(of(userInfo));
     component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
@@ -146,8 +192,23 @@ describe('LoginComponent', () => {
       expirationDate: '',
       userType: 4
     };
+    const userInfo = {
+      id: 'example',
+      email: 'example',
+      doc_num: 'example',
+      doc_type: 'example',
+      name: 'Name',
+      phone: 'example',
+      user_type: 1,
+      token: 'example',
+      detail: {} as UserDetail,
+      code: 200,
+      message: 'example',
+      error: 'example',
+    };
     mockLoginService.loginUser.and.returnValue(of(loginResponse));
     mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    mockLoginService.getUserInfo.and.returnValue(of(userInfo));
     component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
@@ -262,11 +323,36 @@ describe('LoginService', () => {
       userType: 1,
       typePlan: 'basico'
     };
+
     service.validateToken('token').subscribe(response => {
       expect(response).toEqual(validateTokenReponse);
     });
+
     const req = httpMock.expectOne(`${environment.baseUrl}login/validate_token`);
     expect(req.request.method).toBe('GET');
     req.flush(validateTokenReponse); // Provide the mockResponse as the response
+  });
+
+  it('should get user info and return expected response', () => {
+    const userInfo = {
+      id: 'example',
+      email: 'example',
+      doc_num: 'example',
+      doc_type: 'example',
+      name: 'Name',
+      phone: 'example',
+      user_type: 1,
+      token: 'example',
+      detail: {} as UserDetail,
+      code: 200,
+      message: 'example',
+      error: 'example',
+    };
+    service.getUserInfo('token', 'example').subscribe(response => {
+      expect(response).toEqual(userInfo);
+    });
+    const req = httpMock.expectOne(`${environment.baseUrl}user/example`);
+    expect(req.request.method).toBe('GET');
+    req.flush(userInfo);
   });
 });

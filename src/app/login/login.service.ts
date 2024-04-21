@@ -42,7 +42,7 @@ export class LoginService {
   }
 
   getUserInfo(token: string, userid:string): Observable<UserInfo> {
-    this.apiUrl = environment.baseUrl + '/user/' + userid;
+    this.apiUrl = environment.baseUrl + 'user/' + userid;
     console.log(this.apiUrl);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
