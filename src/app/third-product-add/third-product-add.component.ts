@@ -48,6 +48,22 @@ export class ThirdProductAddComponent implements OnInit {
       time_start: ['', Validators.required],
       time_end: ['', Validators.required]
     });
+
+    this.productForm.get('productType')?.valueChanges.subscribe((productType: string) => {
+      if (productType === 'medical') {
+        this.productForm.get('address')?.setValidators([Validators.required]);
+        this.productForm.get('availability')?.setValidators([Validators.required]);
+      } else if (productType === 'trainer') {
+        this.productForm.get('address')?.clearValidators();
+        this.productForm.get('availability')?.setValidators([Validators.required]);
+      } else {
+        this.productForm.get('address')?.clearValidators();
+        this.productForm.get('availability')?.clearValidators();
+      }
+      // Actualizar los validadores
+      this.productForm.get('address')?.updateValueAndValidity();
+      this.productForm.get('availability')?.updateValueAndValidity();
+    });
   }
 
   onTypeProductChange(event: any) {
@@ -76,28 +92,42 @@ export class ThirdProductAddComponent implements OnInit {
 
   addAvailability(availability: Availability) {
     console.log(availability);
-    const timeS = availability.time_start;
-    const timeE = availability.time_end;
-    console.log(timeS > timeE);
-    if( availability.time_start > availability.time_end){
+    const timeS: number = parseInt(availability.time_start.toString());
+    const timeE: number = parseInt(availability.time_end.toString());
+    const exists = this.availabilityData.some(item => {
+      return item.day === availability.day &&
+        item.time_start === availability.time_start &&
+        item.time_end === availability.time_end;
+    });
+    if (exists) {
+      console.log("Error: La disponibilidad ya existe");
+      this.toastr.error("La disponibilidad ya existe", "Error");
+      this.resetAvailabilityForm();
+      return;
+    }
+    if (timeS > timeE) {
       console.log("Error: time_start is greater than time_end");
       this.toastr.error("El tiempo de inicio debe ser menor o igual al tiempo de finalizacion", "Error");
+      this.resetAvailabilityForm();
       return;
     }
     this.availabilityData.push(availability);
-    this.productForm.get('availability')?.patchValue(this.availabilityData);
+    const availabilityArray = this.productForm.get('availability') as FormArray;
+    availabilityArray.push(this.createAvailabilityFormGroup(availability));
+    this.resetAvailabilityForm();
   }
 
   deleteAvailability(index: number) {
     this.availabilityData.splice(index, 1);
-    this.productForm.get('availability')?.patchValue(this.availabilityData);
+    const availabilityArray = this.productForm.get('availability') as FormArray;
+    availabilityArray.removeAt(index);
   }
 
-  createAvailabilityGroup() {
+  createAvailabilityFormGroup(availability: Availability): FormGroup {
     return this.formBuilder.group({
-      day: [''],
-      time_start: [''],
-      time_end: ['']
+      day: [availability.day, Validators.required],
+      time_start: [availability.time_start, Validators.required],
+      time_end: [availability.time_end, Validators.required]
     });
   }
 
@@ -105,8 +135,28 @@ export class ThirdProductAddComponent implements OnInit {
     console.log("Cancel add product");
   }
 
+  resetAvailabilityForm() {
+    this.availabilityForm.reset();
+    this.availabilityForm.get('day')?.setValue('');
+    this.availabilityForm.get('time_start')?.setValue('');
+    this.availabilityForm.get('time_end')?.setValue('');
+  }
+
+  resetProductForm() {
+    this.productForm.reset();
+    this.resetAvailabilityForm();
+    const availabilityArray = this.productForm.get('availability') as FormArray;
+    availabilityArray.clear();
+    this.availabilityData = [];
+    this.productForm.get('productType')?.setValue('');
+  }
+
   addProduct(thirdProduct: ThirdProduct) {
+    console.log(thirdProduct);
     console.log("Add product");
+    this.onTypeProductChange({target:{value:''}});
+    this.resetProductForm();
+    this.toastr.success("Producto agregado", "Éxito");
   }
 
 }

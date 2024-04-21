@@ -2,6 +2,9 @@
   <app-navbar-third></app-navbar-third>
   <div class="container-fluid tproduct">
     <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar un Producto o Servicio</h1>
+    <div>
+      {{ productForm.value | json }}
+    </div>
     <form [formGroup]="productForm" (ngSubmit)="!productForm.invalid && addProduct(productForm.value)">
 
       <!-- Type of Product -->
@@ -44,8 +47,8 @@
 
       <div formArrayName="availability" *ngIf="showAvailabilityFields" style="margin-bottom: 10px;">
         <!-- Campos de disponibilidad -->
-        <div *ngFor="let availability of availabilityData; let index = index" class=" mx-sm-3 mb-2">
-          <table class="table" aria-describedby="third-product-table">
+        <div class=" mx-sm-3 mb-2">
+          <table *ngIf="availabilityData.length > 0" class="table" aria-describedby="third-product-table" >
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -56,7 +59,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let availability of availabilityData; let index = index" >
                 <th scope="row">{{ index + 1 }}</th>
                 <td>{{availability.day}}</td>
                 <td>{{availability.time_start}}</td>
@@ -83,8 +86,7 @@
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
           (click)="cancelAddProduct()">Cancelar</button>
-        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" [disabled]="!productForm.valid">Agregar
-          +</button>
+        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" [disabled]="!productForm.valid">Agregar+</button>
       </div>
     </form>
 
