@@ -69,8 +69,7 @@ export class LoginComponent implements OnInit {
             }
             this.loginService.getUserInfo(loginResponse.token, loginResponse.id).subscribe(
               (userInfo) => {
-                console.info("User info: ", userInfo)
-                console.info("User info: ", userInfo.name)
+                // userInfo -> Contains the user information
                 const name = userInfo.name ?? 'Usuario';
                 this.sessionStorageService.setItem('name', name);
                 this.toastr.success("Login successfully", "Confirmation")

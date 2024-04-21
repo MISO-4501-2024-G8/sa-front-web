@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionStorageService } from '../utils/session-storage.service';
 import { Router } from '@angular/router';
-import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +12,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private sessionStorageServiceHome: SessionStorageService,
     private router: Router,
-    private homeService: HomeService
   ) { }
 
 
