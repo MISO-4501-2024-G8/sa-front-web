@@ -1,6 +1,76 @@
 <section class="content">
   <app-navbar></app-navbar>
-  <div class="container-fluid">
-    {{ thirdItem | json }}
+  <div class="container container-padding">
+    <div class="text-center">
+      <img [src]="this.thirdItem.src" class="img-fluid" alt="representa un servicio" width="200px">
+      <h2>{{this.thirdItem.name}}</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div>
+          <h3>Información</h3>
+          <p>Descripcion: {{(this.thirdItem.company_description!=='') ? this.thirdItem.company_description:'No descripcion'}}</p>
+          <p>Telefono: {{this.thirdItem.phone}}</p>
+          <p>Dirección: {{this.thirdItem.company_address}}</p>
+          <p>Correo: {{this.thirdItem.email}}</p>
+          <table class="table" aria-describedby="Tabla de detalle de servicios">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Valor($)</th>
+                <th>Seleccionar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of thirdProducts; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{product.thirdProduct.name}}</td>
+                <td>{{product.thirdProduct.description}}</td>
+                <td>{{product.thirdProduct.value}}</td>
+                <td><input type="checkbox" #checkbox (change)="updateTotalService(checkbox.checked, product.thirdProduct.value)"></td>
+              </tr>
+              <!-- Más filas aquí -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <form>
+          <div class="mb-3">
+            <label for="nombres" class="form-label">Nombres</label>
+            <input type="text" class="form-control" id="nombres" required>
+          </div>
+          <div class="mb-3">
+            <label for="apellidos" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos" required>
+          </div>
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" required>
+          </div>
+          <div class="mb-3">
+            <label for="barrio" class="form-label">Barrio</label>
+            <input type="text" class="form-control" id="barrio" required>
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="telefono" required>
+          </div>
+          <div class="mb-3">
+            <label for="fecha-servicio" class="form-label">Fecha del Servicio</label>
+            <input type="date" class="form-control" id="fecha-servicio" required>
+          </div>
+          <div class="mb-3">
+            <label for="total-servicio" class="form-label">Total Servicio</label>
+            <input type="number" class="form-control" id="total-servicio" [value]="totalService" readonly>
+          </div>
+          <button type="submit" class="btn btn-primary">Solicitar</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 10px;">Cancelar</button>
+        </form>
+      </div>
+    </div>
   </div>
+
 </section>
