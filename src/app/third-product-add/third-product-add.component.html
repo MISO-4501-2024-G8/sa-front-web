@@ -161,7 +161,26 @@
                 <label for="time_start" class="form-label">Start Time</label>
                 <select novalidate id="time_start" class="form-select" formControlName="time_start">
                   <option value="">Selecciona una Hora de Inicio</option>
-                  <option *ngFor="let option of timeOptions" [value]="option.value">{{ option.label }}</option>
+                  <!-- //NOSONAR -->
+                  <option value="">Seleccciona una Hora de Inicio</option>
+                  <option value="6">06:00</option>
+                  <option value="7">07:00</option>
+                  <option value="8">08:00</option>
+                  <option value="9">09:00</option>
+                  <option value="10">10:00</option>
+                  <option value="11">11:00</option>
+                  <option value="12">12:00</option>
+                  <option value="13">13:00</option>
+                  <option value="14">14:00</option>
+                  <option value="15">15:00</option>
+                  <option value="16">16:00</option>
+                  <option value="17">17:00</option>
+                  <option value="18">18:00</option>
+                  <option value="19">19:00</option>
+                  <option value="20">20:00</option>
+                  <option value="21">21:00</option>
+                  <option value="22">22:00</option>
+                  <!-- //NOSONAR -->
                 </select>
                 <div class="alert alert-danger alert-dismissible fade show" *ngIf="
                     availabilityForm.get('time_start')!.hasError('required') &&
@@ -174,7 +193,26 @@
                 <label for="time_end" class="form-label">End Time</label>
                 <select novalidate id="time_end" class="form-select" formControlName="time_end">
                   <option value="">Selecciona una Hora de Inicio</option>
-                  <option *ngFor="let option of timeOptions" [value]="option.value">{{ option.label }}</option>
+                  <!-- //NOSONAR -->
+                  <option value="">Seleccciona una Hora de Inicio</option>
+                  <option value="6">06:00</option>
+                  <option value="7">07:00</option>
+                  <option value="8">08:00</option>
+                  <option value="9">09:00</option>
+                  <option value="10">10:00</option>
+                  <option value="11">11:00</option>
+                  <option value="12">12:00</option>
+                  <option value="13">13:00</option>
+                  <option value="14">14:00</option>
+                  <option value="15">15:00</option>
+                  <option value="16">16:00</option>
+                  <option value="17">17:00</option>
+                  <option value="18">18:00</option>
+                  <option value="19">19:00</option>
+                  <option value="20">20:00</option>
+                  <option value="21">21:00</option>
+                  <option value="22">22:00</option>
+                  <!-- //NOSONAR -->
                 </select>
                 <div class="alert alert-danger alert-dismissible fade show" *ngIf="
                     availabilityForm.get('time_end')!.hasError('required') &&
