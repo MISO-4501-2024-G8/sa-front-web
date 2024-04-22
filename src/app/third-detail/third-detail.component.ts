@@ -11,6 +11,7 @@ import { ThirdProductResponse } from '../models/thirdp_response';
 import { ThirdProduct } from '../models/thirdproduct';
 import { CustomerService } from '../models/customerservice';
 import { forkJoin } from 'rxjs';
+import { fixToastPosition } from '../utils/fixcss.service';
 
 
 @Component({
@@ -95,6 +96,14 @@ export class ThirdDetailComponent implements OnInit {
 
   createCustomerService(cservice: CustomerService) {
     console.log("Create customer service")
+    this.toastr.show("Creando los servicios...", "Info");
+    const isFixed = fixToastPosition();
+    console.log('isFixed:', isFixed);
+    if (!isFixed) {
+      setTimeout(() => {
+        console.log('1 second delay...');
+      }, 1000);
+    }
     const userType = this.sessionStorageService.getItem('userType') ?? '';
     const idUser = this.sessionStorageService.getItem('id') ?? '';
     if (userType === 1) {
@@ -104,9 +113,6 @@ export class ThirdDetailComponent implements OnInit {
       cservice.id_user = 'nsa_'+newuuid;
     }
     cservice.user_name = cservice.name + ' ' + cservice.surname;
-    //console.log("Customer service: ", cservice)
-    //console.log("Product services: ", this.productServices)
-
     const observables = this.productServices.map(product => {
       const id = product.id;
       const cservice_copy = { ...cservice };
@@ -122,38 +128,25 @@ export class ThirdDetailComponent implements OnInit {
         // Por ejemplo, verificar si alguna petición falló
         const anyError = responses.some(response => response.code !== 201);
         if (anyError) {
+          this.toastr.clear();
           this.toastr.error("Error en la creacion de Servicios", "Error");
         }
         else {
+          this.toastr.clear();
           this.toastr.success("Customer service created successfully", "Success");
-          //this.router.navigate(['/third-home']);
+          this.custserviceForm.reset();
+          // dependiendo del usuario se redirije a una ventana
+          this.router.navigate(['/third']);
         }
       },
       (error) => {
         // Manejar errores
         console.error("An error occurred: ", error);
+        this.toastr.clear();
         this.toastr.error("An error occurred while trying to create the customer service", "Error");
       }
     );
-    // for (let product of this.productServices) {
-    //   const id = product.id;
-    //   const cservice_copy = {...cservice};
-    //   cservice_copy.id_service = id;
-    //   cservice_copy.value = product.value;
-    //   console.log("Customer service copy: ", cservice_copy)
-    //   this.thirdDetailService.createCustomerService(cservice_copy).subscribe(
-    //     (response) => {
-    //       console.log("Customer service response: ", response)
-    //       if (response.code !== 200) {
-    //         this.toastr.error(response.error || "Create failed", "Error");
-    //       }
-    //     },
-    //     (error) => {
-    //       console.error("An error occurred: ", error)
-    //       this.toastr.error("An error occurred while trying to create the customer service", "Error")
-    //     }
-    //   );
-    // }
+
   }
 
 }
