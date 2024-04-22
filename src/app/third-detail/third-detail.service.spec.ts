@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 import { SessionStorageService } from '../utils/session-storage.service';
 import { ThirdProductAllResponse } from '../models/thirdpall_response';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ThirdProduct } from '../models/thirdproduct';
 
 function asyncData<T>(data: T) {
   return of(data).pipe(delay(0));
@@ -76,7 +77,7 @@ describe('ThirdProduct Component', async () => {
     mockService = jasmine.createSpyObj(['getThirdServices', 'createCustomerService']);
     mockToastrService = jasmine.createSpyObj(['success', 'error', 'clear', 'show', 'info']);
     mockRouter = jasmine.createSpyObj(['navigate']);
-    mockSessionStorageService = jasmine.createSpyObj('SessionStorageService', ['getItem']);
+    mockSessionStorageService = jasmine.createSpyObj('SessionStorageService', ['getItem', 'setItem', 'removeItem']);
     (mockSessionStorageService.getItem as jasmine.Spy).and.returnValue('1');
 
     TestBed.configureTestingModule({
@@ -171,6 +172,20 @@ describe('ThirdProduct Component', async () => {
       "error": ""
     };
     mockService.createCustomerService.and.returnValue(asyncData(createMock));
+    const productServices : ThirdProduct[] = [
+      {
+        id: "36692436",
+        id_third_user: "1",
+        name: "Entrenador XX",
+        description: "Ofrece servicios de entrenamiento personalizado y muy baratos",
+        value: 40,
+        typeProduct: "trainer",
+        representative_phone: "3223467890",
+        address: "Calle 123",
+        availability: []
+      }
+    ];
+    component.productServices = productServices;
     component.createCustomerService({} as any);
   });
 });
