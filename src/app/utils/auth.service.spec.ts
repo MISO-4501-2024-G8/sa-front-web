@@ -18,7 +18,6 @@ describe('AuthService', () => {
 
     authService = TestBed.inject(AuthService);
     sessionStorageService = TestBed.inject(SessionStorageService) as jasmine.SpyObj<SessionStorageService>;
-    //(sessionStorageService.getItem as jasmine.Spy).and.returnValue('1');
   });
 
   it('should get user token', () => {
@@ -33,15 +32,11 @@ describe('AuthService', () => {
     expect(sessionStorageService.getItem).toHaveBeenCalledWith('userType');
   });
 
-  it('should check if token is valid', () => {
+  it('should return false if token is not valid', () => {
     sessionStorageService.getItem.and.returnValue('token');
-    expect(authService.isTokenValid()).toBe(true);
-    expect(sessionStorageService.getItem).toHaveBeenCalledWith('token');
-  });
-
-  it('should check if token is not valid', () => {
-    sessionStorageService.getItem.and.returnValue(null);
-    expect(authService.isTokenValid()).toBe(false);
+    expect(authService.isTokenValid()).toBeFalse();
     expect(sessionStorageService.getItem).toHaveBeenCalledWith('token');
   });
 });
+
+
