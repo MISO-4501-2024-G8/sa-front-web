@@ -197,7 +197,7 @@ describe('LoginComponent', () => {
       email: 'example',
       doc_num: 'example',
       doc_type: 'example',
-      name: 'Name',
+      name: null,
       phone: 'example',
       user_type: 1,
       token: 'example',
@@ -212,6 +212,43 @@ describe('LoginComponent', () => {
     component.failedAttempt = 0;
     component.loginUser({} as any);
     expect(mockToastrService.success).toHaveBeenCalledWith('Login successfully', 'Confirmation');
+  });
+
+  it('should handle error with validatetoken login and navigate to /home on successful login - 4', () => {
+    const loginResponse: LoginUserResponse = {
+      code: 200,
+      token: 'token',
+      message: 'Login successful',
+      id: 'user-id', // replace with actual id
+      expirationToken: 'expiration-token', // replace with actual expiration token
+      error: ''
+    };
+    const validateTokenReponse: TokenValidationResponse = {
+      code: 401,
+      message: 'Token validated',
+      exp: 0,
+      expirationDate: '',
+      userType: 1
+    };
+    const userInfo = {
+      id: 'example',
+      email: 'example',
+      doc_num: 'example',
+      doc_type: 'example',
+      name: null,
+      phone: 'example',
+      user_type: 1,
+      token: 'example',
+      detail: {} as UserDetail,
+      code: 200,
+      message: 'example',
+      error: 'example',
+    };
+    mockLoginService.loginUser.and.returnValue(of(loginResponse));
+    mockLoginService.validateToken.and.returnValue(of(validateTokenReponse));
+    mockLoginService.getUserInfo.and.returnValue(of(userInfo));
+    component.failedAttempt = 0;
+    component.loginUser({} as any);
   });
 
   it('should emit cancel', () => {

@@ -6,7 +6,7 @@ export class UserInfo {
     public email: string,
     public doc_num: string,
     public doc_type: string,
-    public name: string,
+    public name: string | null,
     public phone: string,
     public user_type: number,
     public token: string,
