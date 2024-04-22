@@ -1,4 +1,20 @@
-.container-padding{
+.container-padding {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.divider {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 5px;
+}
+
+.description-padding {
+  padding-top: 0px;
+}
+
+@media (min-width: 768px){
+  .description-padding {
+    padding-top: 40px;
+  }
 }
