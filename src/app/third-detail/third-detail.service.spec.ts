@@ -1,12 +1,14 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async, inject } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ThirdDetailService } from './third-detail.service';
 
 describe('Service: ThirdDetail', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ThirdDetailService]
+      providers: [ThirdDetailService],
+      imports: [HttpClientTestingModule]
     });
   });
 
