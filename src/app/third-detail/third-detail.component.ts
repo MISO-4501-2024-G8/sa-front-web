@@ -22,6 +22,10 @@ import { fixToastPosition } from '../utils/fixcss.service';
 export class ThirdDetailComponent implements OnInit {
 
   id: string = '';
+  token: string = '';
+  role: string = '';
+  isSportUser: boolean = false;
+
   thirdItem!: ThirdUserCatalog;
   thirdProducts: ThirdProductResponse[] = [];
   totalService: number = 0;
@@ -37,6 +41,11 @@ export class ThirdDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.token = this.sessionStorageService.getItem('token') ?? '';
+    this.role = this.sessionStorageService.getItem('userType') ?? '';
+    if (this.token !== '' && this.role === '1') {
+      this.isSportUser = true;
+    }
     const thirdId = this.sessionStorageService.getItem('thirdId') ?? '';
     if (thirdId === '') {
       this.router.navigate(['/third']);
@@ -106,11 +115,11 @@ export class ThirdDetailComponent implements OnInit {
     }
     const userType = this.sessionStorageService.getItem('userType') ?? '';
     const idUser = this.sessionStorageService.getItem('id') ?? '';
-    if (userType === 1) {
+    if (userType === '1') {
       cservice.id_user = idUser;
     } else {
       const newuuid = uuidv4().split('-')[0];
-      cservice.id_user = 'nsa_'+newuuid;
+      cservice.id_user = 'nsa_' + newuuid;
     }
     cservice.user_name = cservice.name + ' ' + cservice.surname;
     const observables = this.productServices.map(product => {
@@ -136,6 +145,8 @@ export class ThirdDetailComponent implements OnInit {
           this.toastr.success("Customer service created successfully", "Success");
           this.custserviceForm.reset();
           // dependiendo del usuario se redirije a una ventana
+          this.sessionStorageService.removeItem('thirdId');
+          this.sessionStorageService.removeItem('thirdItem');
           this.router.navigate(['/third']);
         }
       },

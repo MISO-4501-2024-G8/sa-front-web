@@ -26,6 +26,8 @@ export class ThirdComponent implements OnInit {
     '../../assets/pics/transport.jpeg'
   ];
 
+  isSportUser: boolean = false;
+
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -38,6 +40,9 @@ export class ThirdComponent implements OnInit {
     this.role = this.sessionStorageService.getItem('userType') ?? '';
     this.id = this.sessionStorageService.getItem('id') ?? '';
     this.sessionStorageService.removeItem('thirdId');
+    if(this.token !== '' && this.role === '1' ){
+      this.isSportUser = true;
+    }
     this.getThirdCatalog();
   }
 

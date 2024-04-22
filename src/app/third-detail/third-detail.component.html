@@ -1,5 +1,6 @@
 <section class="content">
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="!this.isSportUser"></app-navbar>
+  <app-navbar-user *ngIf="this.isSportUser"></app-navbar-user>
   <div class="container container-padding">
     <div class="text-center">
       <div class="row">

@@ -1,6 +1,7 @@
 <section class="content">
-  <app-navbar></app-navbar>
-  <div class="d-grid gap-2 col-6 mx-auto add-btn" >
+  <app-navbar *ngIf="!this.isSportUser"></app-navbar>
+  <app-navbar-user *ngIf="this.isSportUser"></app-navbar-user>
+  <div *ngIf="!this.isSportUser" class="d-grid gap-2 col-6 mx-auto add-btn" >
     <button class="btn btn-warning" type="button" (click)="goToSignUpThird()">Agregar Socio</button>
   </div>
   <div class="container container-padding">
