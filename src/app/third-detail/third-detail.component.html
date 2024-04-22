@@ -1,0 +1,177 @@
+<section class="content">
+  <app-navbar *ngIf="!this.isSportUser"></app-navbar>
+  <app-navbar-user *ngIf="this.isSportUser"></app-navbar-user>
+  <div class="container container-padding">
+    <div class="text-center">
+      <div class="row">
+        <div class="col-md-4">
+          <img [src]="this.thirdItem.src" class="rounded border border-2 img-fluid" alt="representa un servicio"
+            width="200px">
+          <h2>{{this.thirdItem.name}}</h2>
+        </div>
+        <div class="col-md-1 ms-auto divider d-none d-md-block">
+          <div class="d-flex" style="height: 250px;">
+            <div class="vr"></div>
+          </div>
+        </div>
+        <hr class="d-md-none">
+        <div class="col-md-6 text-start description-padding">
+          <p>Descripcion: {{
+            (this.thirdItem.company_description!=='') ?
+            this.thirdItem.company_description:'No descripcion'}}</p>
+          <p>Correo: {{this.thirdItem.email}}</p>
+          <p>Telefono: {{this.thirdItem.phone}}</p>
+          <p>Dirección: {{this.thirdItem.company_address}}</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="thirdProducts.length > 0" id="additional-service">
+      <hr>
+      <div class="row">
+        <div class="col">
+          <div>
+            <h3>Servicios</h3>
+            <table class="table" aria-describedby="Tabla de detalle de servicios">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                  <th>Valor($)</th>
+                  <th>Seleccionar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of thirdProducts; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{product.thirdProduct.name}}</td>
+                  <td>{{product.thirdProduct.description}}</td>
+                  <td>{{product.thirdProduct.value}}</td>
+                  <td><input type="checkbox" #checkbox
+                      (change)="updateTotalService(checkbox.checked, product.thirdProduct.value, product.thirdProduct)">
+                  </td>
+                </tr>
+                <!-- Más filas aquí -->
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>${{totalService}}</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="productServices.length > 0" class="row">
+        <h3>Adquirir Servicio{{(productServices.length > 1) ? 's' : ''}}:</h3>
+        <form [formGroup]="custserviceForm"
+          (ngSubmit)="!custserviceForm.invalid && createCustomerService(custserviceForm.value)">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="name" class="form-control" id="floatingInput" formControlName="name" placeholder="name">
+                <label for="floatingInput">Nombres</label>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  custserviceForm.get('name')!.hasError('required') &&
+                  custserviceForm.get('name')!.touched
+                ">
+                  Nombres Requeridos
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="surname" class="form-control" id="floatingInput" formControlName="surname"
+                  placeholder="surname">
+                <label for="floatingInput">Apellidos</label>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  custserviceForm.get('surname')!.hasError('required') &&
+                  custserviceForm.get('surname')!.touched
+                ">
+                  Apellidos Requeridos
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="user_address" class="form-control" id="floatingInput" formControlName="user_address"
+                  placeholder="user_address">
+                <label for="floatingInput">Direccion</label>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  custserviceForm.get('user_address')!.hasError('required') &&
+                  custserviceForm.get('user_address')!.touched
+                ">
+                  Direccion Requerida
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="neighborhood" class="form-control" id="floatingInput" formControlName="user_neighborhood"
+                  placeholder="neighborhood">
+                <label for="floatingInput">Barrio</label>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  custserviceForm.get('user_neighborhood')!.hasError('required') &&
+                  custserviceForm.get('user_neighborhood')!.touched
+                ">
+                  Barrio Requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="user_phone" class="form-control" id="floatingInput" formControlName="user_phone"
+                  placeholder="user_phone">
+                <label for="floatingInput">Telefono</label>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="custserviceForm.get('user_phone')!.hasError('invalidNumber')
+                && custserviceForm.get('user_phone')!.touched">
+                  El telefono debe ser un número
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show"
+                  *ngIf="custserviceForm.get('user_phone')!.hasError('minlength')">
+                  El telefono debe tener al menos 7 números
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show"
+                  *ngIf="custserviceForm.get('user_phone')!.hasError('maxlength')">
+                  El telefono debe tener menos de 10 números
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show"
+                  *ngIf="custserviceForm.get('user_phone')!.hasError('required') && custserviceForm.get('user_phone')!.touched">
+                  El telefono es requerido
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="service-date" class="form-control" id="floatingInput" type="date" formControlName="service_date"
+                  placeholder="service-date" [min]="getCurrentDate()">
+                <label for="floatingInput">Fecha de Servicio</label>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                  custserviceForm.get('service_date')!.hasError('required') &&
+                  custserviceForm.get('service_date')!.touched
+                ">
+                  Fecha de Servicio Requerida
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="total-servicio" class="form-label">Total Servicio</label>
+            <input type="number" class="form-control" id="total-servicio" [value]="totalService" readonly>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-success me-md-2" type="submit" [disabled]="!custserviceForm.valid">Solicitar</button>
+            <button class="btn btn-danger" type="button">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</section>
