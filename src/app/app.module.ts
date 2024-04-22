@@ -23,6 +23,7 @@ import { ThirdSignupModule } from './third-signup/third-signup.module';
 import { ThirdHomeModule } from './third-home/third-home.module';
 import { ThirdProductModule } from './third-product/third-product.module';
 import { ThirdProductAddModule } from './third-product-add/third-product-add.module';
+import { ThirdDetailModule } from './third-detail/third-detail.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ThirdProductAddModule } from './third-product-add/third-product-add.mod
     ThirdHomeModule,
     ThirdProductModule,
     ThirdProductAddModule,
+    ThirdDetailModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

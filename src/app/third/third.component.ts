@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SessionStorageService } from '../utils/session-storage.service';
@@ -37,6 +37,7 @@ export class ThirdComponent implements OnInit {
     this.token = this.sessionStorageService.getItem('token') ?? '';
     this.role = this.sessionStorageService.getItem('userType') ?? '';
     this.id = this.sessionStorageService.getItem('id') ?? '';
+    this.sessionStorageService.removeItem('thirdId');
     this.getThirdCatalog();
   }
 
@@ -68,6 +69,14 @@ export class ThirdComponent implements OnInit {
 
   goToSignUpThird() {
     this.router.navigate(['/third-signup']);
+  }
+
+  goToThirdDetails(id: string) {
+    console.log("Go to third details: ", id)
+    const itemThird = this.thirdCatalog.find(item => item.id === id);
+    this.sessionStorageService.setItem('thirdId', id);
+    this.sessionStorageService.setItem('thirdItem', JSON.stringify(itemThird));
+    this.router.navigate([`/third-detail`]);
   }
 
 }
