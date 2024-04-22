@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThirdProductAddService } from './third-product-add.service';
 import { ToastrService } from 'ngx-toastr';
 import { SessionStorageService } from '../utils/session-storage.service';
-import { ThirdProductResponse } from '../models/thirdp_response';
-import { passwordValidator, emailValidator, numberValidator } from '../utils/validators.service';
+import { numberValidator } from '../utils/validators.service';
 import { ThirdProduct } from '../models/thirdproduct';
 import { Availability } from '../models/availability';
 
@@ -26,6 +24,7 @@ export class ThirdProductAddComponent implements OnInit {
   showAddressFields: boolean = false;
   showAvailabilityFields: boolean = false;
   availabilityData: Availability[] = [];
+  timeOptions: { value: string, label: string }[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -158,8 +157,14 @@ export class ThirdProductAddComponent implements OnInit {
     this.productForm.get('typeProduct')?.setValue('');
   }
 
-  addProduct(thirdProduct: ThirdProduct) {
+  generateTimeOptions(): void {
+    for (let i = 6; i <= 22; i++) {
+      const hour = i.toString().padStart(2, '0');
+      this.timeOptions.push({ value: i.toString(), label: `${hour}:00` });
+    }
+  }
 
+  addProduct(thirdProduct: ThirdProduct) {
     console.log("Add product");
     console.log(thirdProduct);
     this.thirdProductService.createThirdProduct(this.id, thirdProduct).subscribe(

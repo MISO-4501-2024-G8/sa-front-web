@@ -7,7 +7,6 @@ import { SessionStorageService } from '../utils/session-storage.service';
 import { LoginUser } from '../models/loginu';
 import { LoginService } from './login.service';
 import { emailValidator } from '../utils/validators.service';
-import { catchError, first } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

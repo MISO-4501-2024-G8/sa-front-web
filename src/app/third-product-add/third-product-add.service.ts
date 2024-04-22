@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ThirdProductResponse } from '../models/thirdp_response';
 import { ThirdProduct } from '../models/thirdproduct';
 
