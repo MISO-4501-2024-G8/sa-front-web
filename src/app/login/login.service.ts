@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { LoginUser } from '../models/loginu';
 import { LoginUserResponse } from '../models/loginu_response';
 import { TokenValidationResponse } from '../models/token_validation_response';
+import { UserInfo } from '../models/userinfo';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
   loginUser(loginu: LoginUser): Observable<LoginUserResponse> {
     this.apiUrl = environment.baseUrl + 'login/user';
-    console.log(loginu);
     console.log(this.apiUrl);
     return this.http.post<LoginUserResponse>(this.apiUrl, loginu);
   }
@@ -38,6 +38,16 @@ export class LoginService {
         } as TokenValidationResponse;
       })
     );
+  }
+
+  getUserInfo(token: string, userid:string): Observable<UserInfo> {
+    this.apiUrl = environment.baseUrl + 'user/' + userid;
+    console.log(this.apiUrl);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<UserInfo>(this.apiUrl, { headers });
   }
 
 }

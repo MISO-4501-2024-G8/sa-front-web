@@ -14,9 +14,11 @@ export class NavbarUserComponent implements OnInit {
   ) { }
 
   userPlan: string = '';
+  name: string = '';
 
   ngOnInit() {
     const plan = this.sessionStorageService.getItem('typePlan') ?? '';
+    this.name = this.sessionStorageService.getItem('name') ?? '';
     if(plan === 'basico') {
       this.userPlan = 'Básico';
     }else if (plan === 'intermedio') {
@@ -31,6 +33,7 @@ export class NavbarUserComponent implements OnInit {
     this.sessionStorageService.removeItem('userType');
     this.sessionStorageService.removeItem('typePlan');
     this.sessionStorageService.removeItem('id');
+    this.sessionStorageService.removeItem('name');
     this.router.navigate(['/']);
   }
 

@@ -37,12 +37,6 @@ export class PlanComponent implements OnInit{
   selectedPlan = '';
 
   ngOnInit() {
-    if (this.token === '') {
-      this.router.navigate(['/login']);
-    }
-    if (this.role === '2') {
-      this.router.navigate(['/third-home']);
-    }
     this.planService.getAllPlanInfo().subscribe(
       (plans) => {
         this.plans = plans;

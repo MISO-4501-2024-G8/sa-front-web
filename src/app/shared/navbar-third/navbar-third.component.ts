@@ -8,19 +8,23 @@ import { Router } from '@angular/router';
 })
 export class NavbarThirdComponent implements OnInit {
 
+  name: string = '';
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    const a = 1;
+    this.name = this.sessionStorageService.getItem('name') ?? '';
   }
 
   logOut() {
     this.sessionStorageService.removeItem('token');
     this.sessionStorageService.removeItem('userType');
     this.sessionStorageService.removeItem('typePlan');
+    this.sessionStorageService.removeItem('id');
+    this.sessionStorageService.removeItem('name');
     this.router.navigate(['/']);
   }
 

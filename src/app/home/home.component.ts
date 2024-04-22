@@ -7,26 +7,28 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
 
   constructor(
     private sessionStorageServiceHome: SessionStorageService,
-    private router: Router
+    private router: Router,
   ) { }
 
-  actualDate = new Date();
-  title = 'sa-front-web - home';
-  token = this.sessionStorageServiceHome.getItem('token') ?? '';
-  role = this.sessionStorageServiceHome.getItem('userType') ?? '';
+
+
+  actualDate: Date = new Date();
+  title: string = '';
+  token: string = '';
+  role: string = '';
+  id: string = '';
 
   ngOnInit() {
-    if (this.token === '') {
-      this.router.navigate(['/login']);
-    }
-    if (this.role === '2') {
-      this.router.navigate(['/third-home']);
-    }
-  }
+    this.actualDate = new Date();
+    this.title = 'sa-front-web - home';
+    this.token = this.sessionStorageServiceHome.getItem('token') ?? '';
+    this.role = this.sessionStorageServiceHome.getItem('userType') ?? '';
+    this.id = this.sessionStorageServiceHome.getItem('id') ?? '';
 
+  }
 
 }

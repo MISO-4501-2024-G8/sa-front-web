@@ -28,7 +28,6 @@ describe('ThirdHomeComponent', () => {
     component.ngOnInit();
     expect(mockSessionStorageService.getItem).toHaveBeenCalledWith('token');
     expect(mockSessionStorageService.getItem).toHaveBeenCalledWith('userType');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
   });
 });
 
@@ -56,6 +55,5 @@ describe('ThirdHomeComponent', () => {
     component.ngOnInit();
     expect(mockSessionStorageService.getItem).toHaveBeenCalledWith('token');
     expect(mockSessionStorageService.getItem).toHaveBeenCalledWith('userType');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
   });
 });
