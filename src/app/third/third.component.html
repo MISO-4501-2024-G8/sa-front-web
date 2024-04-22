@@ -1,6 +1,23 @@
 <section class="content">
-  <app-navbar></app-navbar>
-  THIRD
-  <br>
-  <button class="btn btn-warning" type="button" (click)="goToSignUpThird()">Go to SignUpThird</button>
+  <app-navbar *ngIf="!this.isSportUser"></app-navbar>
+  <app-navbar-user *ngIf="this.isSportUser"></app-navbar-user>
+  <div *ngIf="!this.isSportUser" class="d-grid gap-2 col-6 mx-auto add-btn" >
+    <button class="btn btn-warning" type="button" (click)="goToSignUpThird()">Agregar Socio</button>
+  </div>
+  <div class="container container-padding">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <!-- Iterar sobre los elementos usando *ngFor -->
+      <div class="col" *ngFor="let item of thirdCatalog; let i = index">
+        <div class="card h-100">
+          <img [src]="item.src" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">{{ item.company_description !== '' ? item.company_description : 'No descripcion' }}</p>
+            <button class="btn btn-primary" (click)="goToThirdDetails(item.id)">Ver mas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
