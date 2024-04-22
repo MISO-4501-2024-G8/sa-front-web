@@ -24,7 +24,6 @@ export class ThirdProductAddComponent implements OnInit {
   showAddressFields: boolean = false;
   showAvailabilityFields: boolean = false;
   availabilityData: Availability[] = [];
-  timeOptions: { value: string, label: string }[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -155,13 +154,6 @@ export class ThirdProductAddComponent implements OnInit {
     availabilityArray.clear();
     this.availabilityData = [];
     this.productForm.get('typeProduct')?.setValue('');
-  }
-
-  generateTimeOptions(): void {
-    for (let i = 6; i <= 22; i++) {
-      const hour = i.toString().padStart(2, '0');
-      this.timeOptions.push({ value: i.toString(), label: `${hour}:00` });
-    }
   }
 
   addProduct(thirdProduct: ThirdProduct) {
