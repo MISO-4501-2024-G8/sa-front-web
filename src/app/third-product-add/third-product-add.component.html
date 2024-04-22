@@ -1,0 +1,197 @@
+<section class="content">
+  <app-navbar-third></app-navbar-third>
+  <div class="container-fluid tproduct">
+    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar un Producto o Servicio</h1>
+    <form [formGroup]="productForm" (ngSubmit)="!productForm.invalid && addProduct(productForm.value)">
+
+      <!-- Type of Product -->
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="typeProduct">Tipo de Producto-Servicio</label>
+        <select novalidate id="typeProduct" class="form-select" formControlName="typeProduct"
+          (change)="onTypeProductChange($event)">
+          <option value="">Selecciona un tipo de producto-servicio</option>
+          <option value="trainer">Entrenador</option>
+          <option value="medical">Doctor</option>
+          <option value="food">Comida</option>
+          <option value="transport">Transporte a Eventos</option>
+          <option value="delivery-food">Entrega de Comida</option>
+          <option value="delivery-devices">Entrega de Dispositivos</option>
+        </select>
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('typeProduct')!.hasError('required') &&
+                productForm.get('typeProduct')!.touched
+              ">
+          El tipo de producto-servicio es requerido
+        </div>
+      </div>
+
+      <!-- Common Fields -->
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="">Nombre</label>
+        <input type="text" class="form-control" id="name" formControlName="name">
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('name')!.hasError('required') &&
+                productForm.get('name')!.touched
+              ">
+          El nombre es requerido
+        </div>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="description">Descripcion</label>
+        <textarea class="form-control" id="description" formControlName="description"></textarea>
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('description')!.hasError('required') &&
+                productForm.get('description')!.touched
+              ">
+          La descripción es requerida
+        </div>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="value">Valor ($)</label>
+        <input type="number" class="form-control" id="value" formControlName="value">
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                productForm.get('value')!.hasError('required') &&
+                productForm.get('value')!.touched
+              ">
+          El valor es requerido
+        </div>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="representative_phone">Telefono (Ej: 3023323456)</label>
+        <input type="text" class="form-control" id="representative_phone" formControlName="representative_phone">
+        <div class="alert alert-danger alert-dismissible fade show" *ngIf="productForm.get('representative_phone')!.hasError('invalidNumber')
+                && productForm.get('representative_phone')!.touched">
+          El telefono debe ser un número
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+          *ngIf="productForm.get('representative_phone')!.hasError('minlength')">
+          El telefono debe tener al menos 7 numeros
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+          *ngIf="productForm.get('representative_phone')!.hasError('maxlength')">
+          El telefono debe ser menor de 10 numeros
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show"
+          *ngIf="productForm.get('representative_phone')!.hasError('required') && productForm.get('representative_phone')!.touched">
+          El telefono es requerido
+        </div>
+      </div>
+
+      <div *ngIf="showAddressFields" class="form-group mx-sm-3 mb-2">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" formControlName="address">
+      </div>
+
+      <div formArrayName="availability" *ngIf="showAvailabilityFields" style="margin-bottom: 10px;">
+        <!-- Campos de disponibilidad -->
+        <div class=" mx-sm-3 mb-2">
+          <table *ngIf="availabilityData.length > 0" class="table" aria-describedby="third-product-table">
+            <thead>
+              <tr class="titles">
+                <th scope="col">#</th>
+                <th scope="col">Day</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let availability of availabilityData; let index = index">
+                <th class="content-center" scope="row">{{ index + 1 }}</th>
+                <td class="content-center">{{availability.day}}</td>
+                <td class="content-center">{{availability.time_start}}</td>
+                <td class="content-center">{{availability.time_end}}</td>
+                <td class="action-btn">
+                  <button type="button" class="btn btn-danger" (click)="deleteAvailability(index)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-trash2" viewBox="0 0 16 16">
+                      <path
+                        d="M14 3a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2M3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5s-3.69-.311-4.785-.793" />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Agregar Disponibilidad
+          </button>
+        </div>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+          (click)="cancelAddProduct()">Cancelar</button>
+        <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
+          [disabled]="!productForm.valid">Agregar+</button>
+      </div>
+    </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Disponibilidad</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form [formGroup]="availabilityForm"
+            (ngSubmit)="!availabilityForm.invalid && addAvailability(availabilityForm.value)">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="day" class="form-label">Day</label>
+                <select novalidate id="day" class="form-select" formControlName="day">
+                  <option value="">Seleccciona un Dia de la semana</option>
+                  <option value="lunes">Lunes</option>
+                  <option value="martes">Martes</option>
+                  <option value="miercoles">Miercoles</option>
+                  <option value="jueves">Jueves</option>
+                  <option value="viernes">Viernes</option>
+                </select>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                    availabilityForm.get('day')!.hasError('required') &&
+                    availabilityForm.get('day')!.touched
+                  ">
+                  El dia es requerido
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="time_start" class="form-label">Start Time</label>
+                <select novalidate id="time_start" class="form-select" formControlName="time_start">
+                  <option value="">Selecciona una Hora de Inicio</option>
+                  <option *ngFor="let option of timeOptions" [value]="option.value">{{ option.label }}</option>
+                </select>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                    availabilityForm.get('time_start')!.hasError('required') &&
+                    availabilityForm.get('time_start')!.touched
+                  ">
+                  La hora de inicio es requerida
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="time_end" class="form-label">End Time</label>
+                <select novalidate id="time_end" class="form-select" formControlName="time_end">
+                  <option value="">Selecciona una Hora de Inicio</option>
+                  <option *ngFor="let option of timeOptions" [value]="option.value">{{ option.label }}</option>
+                </select>
+                <div class="alert alert-danger alert-dismissible fade show" *ngIf="
+                    availabilityForm.get('time_end')!.hasError('required') &&
+                    availabilityForm.get('time_end')!.touched
+                  ">
+                  La hora de fin es requerida
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
+                [disabled]="!availabilityForm.valid">Agregar +</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

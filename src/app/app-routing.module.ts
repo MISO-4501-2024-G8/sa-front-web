@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { RoleGuard } from './utils/role-guard.service';
+
 import { StartpComponent } from './startp/startp.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -13,20 +15,24 @@ import { SignupComponent } from './signup/signup.component';
 import { ThirdComponent } from './third/third.component';
 import { ThirdSignupComponent } from './third-signup/third-signup.component';
 import { ThirdHomeComponent } from './third-home/third-home.component';
+import { ThirdProductComponent } from './third-product/third-product.component';
+import { ThirdProductAddComponent } from './third-product-add/third-product-add.component';
 
 const routes: Routes = [
   { path: '', component: StartpComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'event', component: EventComponent },
-  { path: 'plan', component: PlanComponent },
-  { path: 'payment', component: PaymentComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'session', component: SessionComponent },
-  { path: 'signup', component: SignupComponent },
   { path: 'third', component: ThirdComponent },
   { path: 'third-signup', component: ThirdSignupComponent },
-  { path: 'third-home', component: ThirdHomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
+  { path: 'plan', component: PlanComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
+  { path: 'profile', component: ProfileComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
+  { path: 'session', component: SessionComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
+  { path: 'payment', component: PaymentComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
+  { path: 'third-home', component: ThirdHomeComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
+  { path: 'third-product', component: ThirdProductComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
+  { path: 'third-product-add', component: ThirdProductAddComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
   { path: '**', redirectTo: '' }
 ];
 
