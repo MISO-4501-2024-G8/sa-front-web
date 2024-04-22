@@ -94,7 +94,6 @@ describe('ThirdProductAdd Component', () => {
     component.addAvailability(availability_2);
     // delete availability
     component.deleteAvailability(0);
-    component.generateTimeOptions();
     component.cancelAddProduct();
 
   });
