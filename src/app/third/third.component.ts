@@ -68,7 +68,9 @@ export class ThirdComponent implements OnInit {
   }
 
   getRandomImageSource(): string {
-    const randomIndex = Math.floor(Math.random() * this.imageSources.length);
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    const randomIndex = array[0] % this.imageSources.length;
     return this.imageSources[randomIndex];
   }
 
