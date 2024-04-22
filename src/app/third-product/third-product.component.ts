@@ -23,7 +23,6 @@ export class ThirdProductComponent implements OnInit {
   availabilityData: Availability[] = [];
   thirdProducts: ThirdProductResponse[] = [];
   constructor(
-
     private router: Router,
     private thirdProductService: ThirdProductService,
     private toastr: ToastrService,
@@ -34,15 +33,15 @@ export class ThirdProductComponent implements OnInit {
     this.token = this.sessionStorageService.getItem('token') ?? '';
     this.role = this.sessionStorageService.getItem('userType') ?? '';
     this.id = this.sessionStorageService.getItem('id') ?? '';
-    this.getAllThirdProductsByThirdID();
-
+    this.getAllTProducts();
   }
 
-  getAllThirdProductsByThirdID() {
-    this.thirdProductService.getAllThirdProductsbyID(this.id).subscribe(
+  getAllTProducts() {
+    console.log("Get all third products by third id: ", this.id)
+    this.thirdProductService.getAllTPbyID(this.id).subscribe(
       (allTProducts) => {
-        const thirdProducts: ThirdProductResponse[] = allTProducts.allProducts as ThirdProductResponse[];
-        const noAditionalProducts: ThirdProductResponse[] = thirdProducts.filter(product => {
+        const thirdProducts = allTProducts.allProducts;
+        const noAditionalProducts = thirdProducts.filter(product => {
           return product.productType !== 'trainer' && product.productType !== 'medical';
         });
         console.log("No aditional products: ", noAditionalProducts)
@@ -68,7 +67,7 @@ export class ThirdProductComponent implements OnInit {
           return;
         }
         this.toastr.success("Delete success", "Success")
-        this.getAllThirdProductsByThirdID();
+        this.getAllTProducts();
 
       },
       (error) => {

@@ -12,7 +12,7 @@ export class ThirdProductService {
   private apiUrl: string = "";
   constructor(private http: HttpClient) { }
 
-  getAllThirdProductsbyID(iduser:string): Observable<ThirdProductAllResponse> {
+  getAllTPbyID(iduser:string): Observable<ThirdProductAllResponse> {
     this.apiUrl = environment.baseUrl + 'third/third_product/' + iduser;
     console.log(this.apiUrl);
     return this.http.get<ThirdProductAllResponse>(this.apiUrl);
