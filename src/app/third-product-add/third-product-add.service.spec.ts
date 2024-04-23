@@ -92,6 +92,13 @@ describe('ThirdProductAdd Component', () => {
     };
     // generate error - time_start > time_end
     component.addAvailability(availability_2);
+    const availability_3 = {
+      day: 'Monday',
+      time_start: 12,
+      time_end: 12
+    };
+    // generate error - time_start = time_end
+    component.addAvailability(availability_3);
     // delete availability
     component.deleteAvailability(0);
     component.cancelAddProduct();
