@@ -59,6 +59,8 @@ export class SignupComponent implements OnInit {
         this.sessionStorageService.setItem('userType', '1');
         this.sessionStorageService.setItem('typePlan', 'basico');
         this.sessionStorageService.setItem('id', signupResponse.id);
+        const userName = signupu.name + " " + signupu.surname;
+        this.sessionStorageService.setItem('name', userName);
         this.router.navigate(['/plan']);  // Redirect to /home
       },
       (error) => {
