@@ -73,6 +73,9 @@ export class ThirdSignupComponent implements OnInit {
         this.toastr.clear();
         this.toastr.success("Third Signup success", "Success")
         this.sessionStorageService.setItem('token', thirdResponse.token);
+        this.sessionStorageService.setItem('userType', '2');
+        this.sessionStorageService.setItem('id', thirdResponse.id);
+        this.sessionStorageService.setItem('name', thirdu.name);
         this.router.navigate(['/third-home']);  // Redirect to /home
       },
       (error) => {

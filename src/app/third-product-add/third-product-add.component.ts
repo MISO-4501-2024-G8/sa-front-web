@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ThirdProductAddService } from './third-product-add.service';
 import { ToastrService } from 'ngx-toastr';
 import { SessionStorageService } from '../utils/session-storage.service';
-import { numberValidator } from '../utils/validators.service';
+import { numberValidator, positiveNumberValidator } from '../utils/validators.service';
 import { ThirdProduct } from '../models/thirdproduct';
 import { Availability } from '../models/availability';
 
@@ -41,7 +41,7 @@ export class ThirdProductAddComponent implements OnInit {
       typeProduct: ['', Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
-      value: ['', Validators.required],
+      value: ['', [Validators.required, positiveNumberValidator()]],
       representative_phone: ['', [Validators.required, numberValidator(), Validators.minLength(7), Validators.maxLength(10)]],
       address: [''], // Campo para dirección
       availability: this.formBuilder.array([]) // Campo para disponibilidad
@@ -106,6 +106,12 @@ export class ThirdProductAddComponent implements OnInit {
     if (exists) {
       console.log("Error: La disponibilidad ya existe");
       this.toastr.error("La disponibilidad ya existe", "Error");
+      this.resetAvailabilityForm();
+      return;
+    }
+    if(timeS === timeE){
+      console.log("Error: time_start is equal to time_end");
+      this.toastr.error("El tiempo de inicio no puede ser igual al tiempo de finalizacion", "Error");
       this.resetAvailabilityForm();
       return;
     }

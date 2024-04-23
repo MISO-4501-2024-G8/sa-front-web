@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { passwordValidator, emailValidator, numberValidator} from './validators.service';
+import { passwordValidator, emailValidator, numberValidator, positiveNumberValidator} from './validators.service';
 
 describe('passwordValidator', () => {
   it('should return an error if password is less than 8 characters', () => {
@@ -53,5 +53,16 @@ describe('numberValidator', () => {
   it('should return null if the value is a number', () => {
     const control = new FormControl(123);
     expect(numberValidator()(control)).toBeNull();
+  });
+});
+
+describe('positiveNumberValidator', () => {
+  it('should return an error if the value is not a positive number', () => {
+    const control = new FormControl(-1);
+    expect(positiveNumberValidator()(control)).toEqual({ 'invalidPositiveNumber': true });
+  });
+  it('should return null if the value is a positive number', () => {
+    const control = new FormControl(1);
+    expect(positiveNumberValidator()(control)).toBeNull();
   });
 });

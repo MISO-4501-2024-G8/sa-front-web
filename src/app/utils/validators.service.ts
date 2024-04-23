@@ -41,3 +41,16 @@ export function numberValidator(): ValidatorFn {
     return null;
   };
 }
+
+export function positiveNumberValidator(): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const value: number = control.value;
+    const isPositive = value > 0;
+
+    if (!isPositive) {
+      return { 'invalidPositiveNumber': true };
+    }
+
+    return null;
+  };
+}
