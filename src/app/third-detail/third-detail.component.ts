@@ -103,6 +103,11 @@ export class ThirdDetailComponent implements OnInit {
     }
   }
 
+  cancelCreatingCustomerService() {
+    console.log("Cancel customer service");
+    this.router.navigate(['/third']);
+  }
+
   createCustomerService(cservice: CustomerService) {
     console.log("Create customer service")
     this.toastr.show("Creando los servicios...", "Info");
