@@ -149,7 +149,7 @@
             <div class="col-md-6">
               <div class="form-floating mb-3">
                 <input type="service-date" class="form-control" id="floatingInput" type="date" formControlName="service_date"
-                  placeholder="service-date" [min]="getCurrentDate()">
+                  placeholder="service-date" [min]="getCurrentDate()" (keydown)="$event.preventDefault()">
                 <label for="floatingInput">Fecha de Servicio</label>
                 <div class="alert alert-danger alert-dismissible fade show" *ngIf="
                   custserviceForm.get('service_date')!.hasError('required') &&
