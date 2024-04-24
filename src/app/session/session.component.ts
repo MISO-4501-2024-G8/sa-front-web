@@ -9,4 +9,8 @@ export class SessionComponent {
 
   constructor() { }
 
+  gotopage(page: string) {
+    console.log('Navigating to ' + page);
+  }
+
 }
