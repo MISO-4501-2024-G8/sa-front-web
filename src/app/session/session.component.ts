@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-session',
@@ -7,10 +9,18 @@ import { Component } from '@angular/core';
 })
 export class SessionComponent {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private toastr: ToastrService
+  ) { }
 
   gotopage(page: string) {
     console.log('Navigating to ' + page);
+    if(page === 'sportsession') {
+      this.router.navigate(['/sport-session']);
+    }else {
+      this.toastr.info(`La pagina ${page} esta en construccion`, 'Error');
+    }
   }
 
 }

@@ -34,6 +34,7 @@ export class NavbarUserComponent implements OnInit {
     this.sessionStorageService.removeItem('typePlan');
     this.sessionStorageService.removeItem('id');
     this.sessionStorageService.removeItem('name');
+    this.sessionStorageService.removeItem('userSport');
     this.router.navigate(['/']);
   }
 
