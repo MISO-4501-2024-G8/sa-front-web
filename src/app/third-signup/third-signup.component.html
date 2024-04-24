@@ -81,6 +81,7 @@
                 type="date"
                 placeholder="Company Foundation Date"
                 [max]="getCurrentDate()"
+                (keydown)="$event.preventDefault()"
               />
               <div
                 class="alert alert-danger alert-dismissible fade show"
