@@ -169,7 +169,7 @@ export class ThirdProductAddComponent implements OnInit {
       (thirdProductResponse) => {
         console.info("The product was added: ", thirdProductResponse)
         if (thirdProductResponse.code !== 201) {
-          this.toastr.error(thirdProductResponse.error || "Product failed", "Error")
+          this.toastr.error(thirdProductResponse.error || thirdProductResponse.message || "Product failed", "Error")
           return;
         }
         this.onTypeProductChange({ target: { value: '' } });
