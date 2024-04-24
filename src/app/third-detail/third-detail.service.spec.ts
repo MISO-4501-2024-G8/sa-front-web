@@ -107,6 +107,11 @@ describe('ThirdProduct Component', async () => {
 
   });
 
+  it('should cancel the service', async () => {
+    component.cancelCreatingCustomerService();
+    expect(mockRouter.navigate).toHaveBeenCalled();
+  });
+
   it('should initialize the component', async () => {
     const allThirdProducts: ThirdProductAllResponse = {
       code: 200,
