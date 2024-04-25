@@ -59,6 +59,9 @@ export class ThirdSignupComponent implements OnInit {
         this.toastr.error("You must accept the terms and conditions", "Error")
         return;
     }
+    if(thirdu.company_creation_date === '') {
+      thirdu.company_creation_date = this.getCurrentDate();
+    }
     if (thirdu.company_creation_date) {
       thirdu.company_creation_date = this.formatDate(thirdu.company_creation_date);
     }
@@ -94,7 +97,7 @@ export class ThirdSignupComponent implements OnInit {
       doc_type: ['', [Validators.required]],
       name: ['', [Validators.required]],
       phone: ["", [Validators.required, numberValidator(), Validators.minLength(7), Validators.maxLength(10)]],
-      company_creation_date: ['', [Validators.required]],
+      company_creation_date: [this.getCurrentDate()],
       company_address: ['', [Validators.required]],
       contact_name: ['', [Validators.required]],
       company_description: ['', [Validators.required]],
