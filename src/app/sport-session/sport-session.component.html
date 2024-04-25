@@ -1,9 +1,105 @@
 <section class="content">
   <app-navbar-user></app-navbar-user>
   <div class="container-fluid">
-    <p>
-      sport-session works!
-    </p>
     <p>Deporte Usuario {{sport}}</p>
+    <div class="row">
+      <div class="col-md-6 session-type">
+        <div class="row">
+          <article class="calendar-wrapper">
+            <igx-calendar [locale]="locale" [formatOptions]="formatOptions" [formatViews]="formatViews"
+              [disabledDates]="disabledDates" (selected)="onSelection($event)">
+            </igx-calendar>
+          </article>
+        </div>
+        <div class="row">
+          <div class="col-md-6 session-type">
+            <h4 class="title-center filter-title">Selecciona el Tipo de Sesión</h4>
+            <div class="btn-group" role="group-session-type" aria-label="Basic radio toggle button group session type">
+              <input type="radio" class="btn-check" name="sessiontype-outlined" id="virtual-outlined" autocomplete="off"
+                (click)="setSessionType('Virtual')">
+              <label class="btn btn-outline-primary" for="virtual-outlined">Virtual</label>
+              <input type="radio" class="btn-check" name="sessiontype-outlined" id="presencial-outlined"
+                autocomplete="off" (click)="setSessionType('Presencial')">
+              <label class="btn btn-outline-primary" for="presencial-outlined">Presencial</label>
+            </div>
+          </div>
+          <div class="col-md-6 session-type">
+            <h4 class="title-center filter-title">Selecciona el Deporte</h4>
+            <div class="btn-group" role="group-sport-type" aria-label="Basic radio toggle button group sport type">
+              <input type="radio" class="btn-check" name="sporttype-outlined" id="atletismo-outlined" autocomplete="off"
+                (click)="setSportType('Atletismo')">
+              <label class="btn btn-outline-primary" for="atletismo-outlined">Atletismo</label>
+              <input type="radio" class="btn-check" name="sporttype-outlined" id="ciclismo-outlined" autocomplete="off"
+                (click)="setSportType('Ciclismo')">
+              <label class="btn btn-outline-primary" for="ciclismo-outlined">Ciclismo</label>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-primary me-md-2" type="button" (click)="limpiarFiltros()">Limpiar</button>
+              <button *ngIf="sessionType !=='' && sportType !== '' && dateSelected !== ''"
+                class="btn btn-success me-md-2" type="button">Programar</button>
+              <button class="btn btn-danger" type="button" (click)="cancelAction()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 session-type">
+        <h3 class="title-center">Lista de Eventos a Seleccionar</h3>
+        <p> Qty: {{ cards.length }}</p>
+        <p>Fecha: {{dateSelected}} <br> Tipo: {{sessionType}} <br> Deporte: {{sportType}} </p>
+        <div class="list-cards">
+          <div class="row row-cols-1 row-cols-md-1 g-1 mb-2" *ngFor="let event of cards">
+            <div class="col">
+              <div class="card h-100">
+                <img [src]="event.imageUrl" class="card-img-top event-img" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ event.event_name }}</h5>
+                  <p class="card-text">{{ event.event_description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="list-cards">
+          <div class="row row-cols-1 row-cols-md-1 g-1">
+            <div class="col">
+              <div class="card h-100">
+                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a short card.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
   </div>
 </section>

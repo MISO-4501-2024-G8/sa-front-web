@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { HammerModule } from '@angular/platform-browser';
+import { IgxCalendarModule } from 'igniteui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +35,8 @@ import { SportSessionModule } from './sport-session/sport-session.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HammerModule,
+    IgxCalendarModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
@@ -57,9 +61,10 @@ import { SportSessionModule } from './sport-session/sport-session.module';
     ThirdProductModule,
     ThirdProductAddModule,
     ThirdDetailModule,
-    SportSessionModule,
+    SportSessionModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}
