@@ -134,7 +134,6 @@ export class SportSessionComponent implements OnInit {
   }
 
   selectCard(card: SEvent): void {
-    console.log('Selected Card:', card);
     this.selected_cards.push(card);
     card.selected = true;
     this.base_cards = this.base_cards.map((c) => {
@@ -152,7 +151,6 @@ export class SportSessionComponent implements OnInit {
   }
 
   deselectCard(card: SEvent): void {
-    console.log('Deselected Card:', card);
     this.selected_cards = this.selected_cards.filter((c) => c.id !== card.id);
     card.selected = false;
     this.base_cards = this.base_cards.map((c) => {
@@ -170,7 +168,6 @@ export class SportSessionComponent implements OnInit {
   }
 
   onSelection(e: any) {
-    console.log(typeof e);
     const dateSelected = new Date(e);
     console.log(dateSelected.toISOString().substring(0, 10));
     this.dateSelected = dateSelected.toISOString().substring(0, 10);
