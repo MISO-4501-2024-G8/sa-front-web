@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { TrainingResponse } from '../models/training_response';
-import { forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +11,7 @@ export class SportSessionService {
   private apiUrl: string = "";
   constructor(private http: HttpClient) { }
 
-  // getTrainingSessionsByUserID(id: string): Observable<TrainingResponse> {
-  //   this.apiUrl = environment.baseUrl + 'training_session/' + id;
-  //   console.log(this.apiUrl);
-  //   return this.http.get<TrainingResponse>(this.apiUrl);
-  // }
+  // Falta el get para obtener los planes de entrenamiento por id de usuario
 
   getAllEvents(): Observable<TrainingResponse> {
     this.apiUrl = environment.baseUrl + 'eventos';

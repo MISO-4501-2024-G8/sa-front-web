@@ -27,6 +27,7 @@ import { ThirdProductModule } from './third-product/third-product.module';
 import { ThirdProductAddModule } from './third-product-add/third-product-add.module';
 import { ThirdDetailModule } from './third-detail/third-detail.module';
 import { SportSessionModule } from './sport-session/sport-session.module';
+import { MySessionModule } from './my-session/my-session.module';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { SportSessionModule } from './sport-session/sport-session.module';
     ThirdProductModule,
     ThirdProductAddModule,
     ThirdDetailModule,
-    SportSessionModule
+    SportSessionModule,
+    MySessionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

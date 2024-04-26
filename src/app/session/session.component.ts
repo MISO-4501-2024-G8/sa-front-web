@@ -18,7 +18,11 @@ export class SessionComponent {
     console.log('Navigating to ' + page);
     if(page === 'sportsession') {
       this.router.navigate(['/sport-session']);
-    }else {
+    }
+    else if(page === 'mysession') {
+      this.router.navigate(['/my-session']);
+    }
+    else {
       this.toastr.info(`La pagina ${page} esta en construccion`, 'Error');
     }
   }
