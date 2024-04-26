@@ -53,7 +53,7 @@
       </div>
       <div class="col-md-6 session-type">
         <h3 class="title-center">
-          Lista de Eventos
+          Lista de eventos disponibles
         </h3>
         <div class="list-cards">
           <div class="row row-cols-1 row-cols-md-1 g-1 mb-2" *ngFor="let event of cards">
@@ -78,9 +78,9 @@
                     <span *ngIf="event.event_type === 'virtual'" class="badge text-bg-success">Virtual</span>
                     <span *ngIf="event.event_type === 'presencial'" class="badge text-bg-danger">Presencial</span>
                   </p>
-                  <button *ngIf="!event.selected" class="btn btn-primary btn-sm"
+                  <button *ngIf="!event.programada && !event.selected" class="btn btn-primary btn-sm"
                     (click)="selectCard(event)">Seleccionar</button>
-                  <button *ngIf="event.selected" class="btn btn-success btn-sm"
+                  <button *ngIf="!event.programada && event.selected" class="btn btn-success btn-sm"
                     (click)="deselectCard(event)">Deseleccionar</button>
                   <span>&nbsp;</span>
                   <a *ngIf="event.map_link !== null" href="{{ event.map_link }}" class="btn btn-primary btn-sm"

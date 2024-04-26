@@ -60,20 +60,23 @@ export class SportSessionComponent implements OnInit {
 
 
   getCardsContent(): void {
-    this.sportSessionService.getCombinedData().subscribe(([events, routes]) => {
+    this.sportSessionService.getCombinedData(this.id).subscribe(([events, routes, training_sessions]) => {
       const session_cards: SEvent[] = [];
       // Se debe consultar el servicio de Planes de Entrenamiento por id de usuario
       console.log('Training Plans:');
       console.log('Events:', events);
       console.log('Routes:', routes);
-      if(events.code === 200 && events.content) {
+      console.log('Training Sessions:', training_sessions);
+      const training_sessions_content = training_sessions.content || [];
+
+      if (events.code === 200 && events.content) {
         events.content.forEach((event: any) => {
           let img = '';
-          if(event.sport === 'Ciclismo') {
+          if (event.sport === 'Ciclismo') {
             img = "../../assets/sport-session.jpeg";
-          }else if(event.sport === 'Atletismo') {
+          } else if (event.sport === 'Atletismo') {
             img = "../../assets/runing-session.jpeg";
-          }else{
+          } else {
             img = "../../assets/training-session.jpeg";
           }
           const card: SEvent = {
@@ -89,21 +92,25 @@ export class SportSessionComponent implements OnInit {
             link: event.link,
             type: 'evento',
             selected: false,
+            programada: training_sessions_content.some((session: any) => session.id_event === event.id),
           };
-          session_cards.push(card);
+          if (!card.programada) {
+            session_cards.push(card);
+          } else {
+            console.log('Evento programado:', card);
+          }
         });
       }
-      if(routes.code === 200 && routes.content) {
+      if (routes.code === 200 && routes.content) {
         routes.content.forEach((route: any) => {
           let map_link = '';
           let img = '';
-          if(route.sport === 'Ciclismo') {
+          if (route.sport === 'Ciclismo') {
             img = "../../assets/sport-session.jpeg";
-            map_link = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${route.route_latlon_A.replace(' ','')}&destination=${route.route_latlon_B.replace(' ','')}`;
-            //map_link = `https://www.google.com/maps/dir/?api=1&travelmode=bicycling&origin=${route.route_latlon_A.replace(' ','')}&destination=${route.route_latlon_B.replace(' ','')}`;
-          }else if(route.sport === 'Atletismo') {
+            map_link = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${route.route_latlon_A.replace(' ', '')}&destination=${route.route_latlon_B.replace(' ', '')}`;
+          } else if (route.sport === 'Atletismo') {
             img = "../../assets/runing-session.jpeg";
-            map_link = `https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=${route.route_latlon_A.replace(' ','')}&destination=${route.route_latlon_B.replace(' ','')}`;
+            map_link = `https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=${route.route_latlon_A.replace(' ', '')}&destination=${route.route_latlon_B.replace(' ', '')}`;
           } else {
             img = "../../assets/training-session.jpeg";
           }
@@ -120,9 +127,17 @@ export class SportSessionComponent implements OnInit {
             link: route.link,
             type: 'ruta',
             selected: false,
+            programada: training_sessions_content.some((session: any) => session.id_event === route.id),
           };
-          session_cards.push(card);
+          if (!card.programada) {
+            session_cards.push(card);
+          } else {
+            console.log('Ruta programada:', card);
+          }
         });
+      }
+      if(session_cards.length === 0) {
+        this.toastr.info('No hay eventos disponibles para el usuario.', 'Información');
       }
       this.base_cards = session_cards;
       this.resetCards();
@@ -137,13 +152,13 @@ export class SportSessionComponent implements OnInit {
     this.selected_cards.push(card);
     card.selected = true;
     this.base_cards = this.base_cards.map((c) => {
-      if(c.id === card.id) {
+      if (c.id === card.id) {
         c.selected = true;
       }
       return c;
     });
     this.cards = this.cards.map((c) => {
-      if(c.id === card.id) {
+      if (c.id === card.id) {
         c.selected = true;
       }
       return c;
@@ -154,13 +169,13 @@ export class SportSessionComponent implements OnInit {
     this.selected_cards = this.selected_cards.filter((c) => c.id !== card.id);
     card.selected = false;
     this.base_cards = this.base_cards.map((c) => {
-      if(c.id === card.id) {
+      if (c.id === card.id) {
         c.selected = false;
       }
       return c;
     });
     this.cards = this.cards.map((c) => {
-      if(c.id === card.id) {
+      if (c.id === card.id) {
         c.selected = false;
       }
       return c;
@@ -197,13 +212,13 @@ export class SportSessionComponent implements OnInit {
     console.log('Cards:', this.cards);
     const filteredCards: SEvent[] = [];
     this.cards.forEach((card) => {
-      if(this.sessionType !== '' && card.event_type !== this.sessionType) {
+      if (this.sessionType !== '' && card.event_type !== this.sessionType) {
         return;
       }
-      if(this.sportType !== '' && card.sport !== this.sportType) {
+      if (this.sportType !== '' && card.sport !== this.sportType) {
         return;
       }
-      if(this.dateSelected !== '' && card.event_date !== this.dateSelected) {
+      if (this.dateSelected !== '' && card.event_date !== this.dateSelected) {
         return;
       }
       filteredCards.push(card);

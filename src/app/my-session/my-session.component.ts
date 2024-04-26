@@ -26,6 +26,9 @@ export class MySessionComponent implements OnInit {
   sport: string = '';
   trainingSessions: SportSession[] = [];
   base_trainingSessions: SportSession[] = [];
+  info_training_session!: SportSession | null;
+  info_type: string = '';
+  info_map_link: string = '';
   filterForm!: FormGroup;
 
 
@@ -53,57 +56,11 @@ export class MySessionComponent implements OnInit {
   }
 
   getTrainingSessions() {
-    // this.mySessionService.getTrainingSessionsByUserID(this.id).subscribe(
-    //   (data) => {
-    //     console.log(data);
-    //     const trainingSessions: TrainingSession[] = data.content as TrainingSession[];
-    //     trainingSessions.forEach((trainingSession) => {
-    //       if (trainingSession.event_category === 'evento') {
-    //         this.mySessionService.getEventByID(trainingSession.id_event).subscribe(
-    //           (eventData) => {
-    //             console.log(eventData);
-    //             if (eventData.code === 200) {
-    //               const event = eventData.content as SportEvent;
-    //               const sportsession = new SportSession(trainingSession, event,null);
-    //               this.base_trainingSessions.push(sportsession);
-    //               this.resetTrainingSessions();
-    //             }
-    //           },
-    //           (error) => {
-    //             console.log(error);
-    //             this.toastr.error('Error al obtener los eventos de las sesiones de entrenamiento', 'Error');
-    //           }
-    //         );
-    //       }
-    //       else if (trainingSession.event_category === 'ruta') {
-    //         this.mySessionService.getRouteByID(trainingSession.id_event).subscribe(
-    //           (routeData) => {
-    //             console.log(routeData);
-    //             if (routeData.code === 200) {
-    //               const route = routeData.content as SportRoute;
-    //               const sportsession = new SportSession(trainingSession, null,route);
-    //               this.base_trainingSessions.push(sportsession);
-    //               this.resetTrainingSessions();
-    //             }
-    //           },
-    //           (error) => {
-    //             console.log(error);
-    //             this.toastr.error('Error al obtener las rutas de las sesiones de entrenamiento', 'Error');
-    //           }
-    //         );
-    //       }
-    //     });
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //     this.toastr.error('Error al obtener las sesiones de entrenamiento', 'Error');
-    //   }
-    // );
     this.mySessionService.getTrainingSessionsByUserID(this.id).subscribe(
       (data) => {
         console.log(data);
         const trainingSessions: TrainingSession[] = data.content as TrainingSession[];
-        if(trainingSessions.length == 0){
+        if (trainingSessions.length == 0) {
           this.toastr.info('No hay sesiones de entrenamiento', 'Información');
         }
         const requests = trainingSessions.map((trainingSession) => {
@@ -147,7 +104,7 @@ export class MySessionComponent implements OnInit {
 
         forkJoin(requests).subscribe(() => {
           console.log('All requests are completed');
-          if(this.base_trainingSessions.length == 0){
+          if (this.base_trainingSessions.length == 0) {
             this.toastr.info('No hay sesiones de entrenamiento', 'Información');
           }
         });
@@ -217,10 +174,18 @@ export class MySessionComponent implements OnInit {
     this.router.navigate(['/session']);
   }
 
-  infoTrainingSession(id: string) {
-    let trainingSession = this.trainingSessions.filter((trainingSession) => trainingSession.training_session.id === id);
-    let base_trainingSessions = this.base_trainingSessions.filter((trainingSession) => trainingSession.training_session.id === id);
-    console.log(trainingSession);
+  infoTrainingSession(itraining_session: SportSession) {
+    console.log(itraining_session);
+    this.info_training_session = itraining_session;
+    this.info_type = itraining_session.event ? 'evento' : 'ruta';
+    if (this.info_type === 'ruta') {
+      if (this.info_training_session.route?.sport === 'Ciclismo') {
+        this.info_map_link = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${this.info_training_session.route.route_latlon_A.replace(' ','')}&destination=${this.info_training_session.route.route_latlon_B.replace(' ','')}`;
+      }
+      else if (this.info_training_session.route?.sport === 'Atletismo') {
+        this.info_map_link = `https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=${this.info_training_session.route.route_latlon_A.replace(' ','')}&destination=${this.info_training_session.route.route_latlon_B.replace(' ','')}`;
+      }
+    }
   }
 
 }

@@ -12,5 +12,6 @@ export class SEvent {
     public imageUrl: string | null,
     public type: string | null,
     public selected: boolean | null,
+    public programada: boolean | null,
   ) { }
 }

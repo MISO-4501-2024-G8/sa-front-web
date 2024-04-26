@@ -11,6 +11,12 @@ export class SportSessionService {
   private apiUrl: string = "";
   constructor(private http: HttpClient) { }
 
+  getTrainingSessionsByUserID(id: string): Observable<TrainingResponse> {
+    this.apiUrl = environment.baseUrl + 'training_session/' + id;
+    console.log(this.apiUrl);
+    return this.http.get<TrainingResponse>(this.apiUrl);
+  }
+
   // Falta el get para obtener los planes de entrenamiento por id de usuario
 
   getAllEvents(): Observable<TrainingResponse> {
@@ -25,10 +31,11 @@ export class SportSessionService {
     return this.http.get<TrainingResponse>(this.apiUrl);
   }
 
-  getCombinedData(): Observable<[TrainingResponse, TrainingResponse]> {
+  getCombinedData(id:string): Observable<[TrainingResponse, TrainingResponse, TrainingResponse]> {
     const events$ = this.getAllEvents();
     const routes$ = this.getAllRoutes();
-    return forkJoin([events$, routes$]);
+    const trainingSessions$ = this.getTrainingSessionsByUserID(id);
+    return forkJoin([events$, routes$, trainingSessions$]);
   }
 
   createTrainingSession(data: any): Observable<TrainingResponse> {
