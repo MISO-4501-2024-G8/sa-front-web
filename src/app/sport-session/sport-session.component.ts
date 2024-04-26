@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SessionStorageService } from '../utils/session-storage.service';
 import { DateRangeType, IgxCalendarComponent } from 'igniteui-angular';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { SEvent } from '../models/sevent';
 import { SportSessionService } from './sport-session.service';
 import { forkJoin } from 'rxjs';
@@ -38,7 +37,6 @@ export class SportSessionComponent implements OnInit {
   constructor(
     private sessionStorageService: SessionStorageService,
     private router: Router,
-    private http: HttpClient,
     private sportSessionService: SportSessionService,
     private toastr: ToastrService,
   ) { }
@@ -142,6 +140,10 @@ export class SportSessionComponent implements OnInit {
       this.base_cards = session_cards;
       this.resetCards();
     });
+  }
+
+  setBaseCards(cards: SEvent[]): void {
+    this.base_cards = cards;
   }
 
   resetCards(): void {
