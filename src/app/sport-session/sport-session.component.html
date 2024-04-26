@@ -1,11 +1,11 @@
 <section class="content">
   <app-navbar-user></app-navbar-user>
   <div class="container-fluid">
-    <p>Deporte Usuario {{sport}}</p>
-    <p> Qty: {{ cards.length }} &nbsp; Fecha: {{dateSelected}} &nbsp; Tipo: {{sessionType}} &nbsp; Deporte:
-      {{sportType}} </p>
+    <br>
     <div class="row">
+      <h1 class="title-center">Sesión Deportiva</h1>
       <div class="col-md-6 session-type">
+        <h3 class="title-center">Filtros</h3>
         <div class="row">
           <article class="calendar-wrapper">
             <igx-calendar [locale]="locale" [formatOptions]="formatOptions" [formatViews]="formatViews"
@@ -37,18 +37,23 @@
               <label class="btn btn-outline-primary" for="ciclismo-outlined">Ciclismo</label>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button *ngIf="this.selected_cards.length > 0" class="btn btn-success me-md-2 position-relative" type="button" (click)="createTrainingSessions()">
+                Programar
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{this.selected_cards.length}}
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+              </button>
               <button class="btn btn-primary me-md-2" type="button" (click)="limpiarFiltros()">Limpiar</button>
-              <button *ngIf="sessionType !=='' && sportType !== '' && dateSelected !== ''"
-                class="btn btn-success me-md-2" type="button">Programar</button>
               <button class="btn btn-danger" type="button" (click)="cancelAction()">Cancelar</button>
             </div>
+            <br>
           </div>
         </div>
       </div>
       <div class="col-md-6 session-type">
         <h3 class="title-center">
-          Lista de Eventos a Seleccionar
-          <span class="badge rounded-pill bg-primary">{{this.cards.length}}</span>
+          Lista de Eventos
         </h3>
         <div class="list-cards">
           <div class="row row-cols-1 row-cols-md-1 g-1 mb-2" *ngFor="let event of cards">
@@ -57,14 +62,14 @@
                 <div class="card-header">
                   <small class="text-muted">{{ event.event_date }}</small>
                 </div>
-                <img [src]="event.imageUrl" class="card-img-top event-img" alt="...">
+                <img [src]="event.imageUrl" class="event-img" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ event.event_name }}</h5>
                   <p class="card-text">{{ event.event_description }}</p>
                   <p class="card-text"><small class="text-muted">Lugar: {{ event.event_location }}</small></p>
                   <p class="card-text">
-                    <span *ngIf="event.type === 'event'" class="badge text-bg-secondary">Evento</span>
-                    <span *ngIf="event.type === 'route'" class="badge text bg-dark">Ruta</span>
+                    <span *ngIf="event.type === 'evento'" class="badge text-bg-secondary">Evento</span>
+                    <span *ngIf="event.type === 'ruta'" class="badge text bg-dark">Ruta</span>
                     <span *ngIf="event.type === 'training'" class="badge text bg-info">Plan de Entrenamiento</span>
                     &nbsp;
                     <span *ngIf="event.sport === 'Ciclismo'" class="badge text-bg-primary">Ciclismo</span>
@@ -73,7 +78,11 @@
                     <span *ngIf="event.event_type === 'virtual'" class="badge text-bg-success">Virtual</span>
                     <span *ngIf="event.event_type === 'presencial'" class="badge text-bg-danger">Presencial</span>
                   </p>
-
+                  <button *ngIf="!event.selected" class="btn btn-primary btn-sm"
+                    (click)="selectCard(event)">Seleccionar</button>
+                  <button *ngIf="event.selected" class="btn btn-success btn-sm"
+                    (click)="deselectCard(event)">Deseleccionar</button>
+                  <span>&nbsp;</span>
                   <a *ngIf="event.map_link !== null" href="{{ event.map_link }}" class="btn btn-primary btn-sm"
                     target="_blank">Ver Mapa</a>
                   <span *ngIf="event.map_link !== null">&nbsp;</span>

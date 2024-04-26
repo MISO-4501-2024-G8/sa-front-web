@@ -31,11 +31,15 @@ export class SportSessionService {
   }
 
   getCombinedData(): Observable<[TrainingResponse, TrainingResponse]> {
-
     const events$ = this.getAllEvents();
     const routes$ = this.getAllRoutes();
-
     return forkJoin([events$, routes$]);
+  }
+
+  createTrainingSession(data: any): Observable<TrainingResponse> {
+    this.apiUrl = environment.baseUrl + 'training_session';
+    console.log(this.apiUrl);
+    return this.http.post<TrainingResponse>(this.apiUrl, data);
   }
 
 }

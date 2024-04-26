@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SEvent } from '../models/sevent';
 import { SportSessionService } from './sport-session.service';
+import { forkJoin } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { fixToastPosition } from '../utils/fixcss.service';
 
 @Component({
   selector: 'app-sport-session',
@@ -30,12 +33,14 @@ export class SportSessionComponent implements OnInit {
   dateSelected: string = '';
   cards: SEvent[] = [];
   base_cards: SEvent[] = [];
+  selected_cards: SEvent[] = [];
 
   constructor(
     private sessionStorageService: SessionStorageService,
     private router: Router,
     private http: HttpClient,
-    private sportSessionService: SportSessionService
+    private sportSessionService: SportSessionService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -62,7 +67,6 @@ export class SportSessionComponent implements OnInit {
       console.log('Events:', events);
       console.log('Routes:', routes);
       if(events.code === 200 && events.content) {
-        console.log('Events:', events.content);
         events.content.forEach((event: any) => {
           let img = '';
           if(event.sport === 'Ciclismo') {
@@ -83,13 +87,13 @@ export class SportSessionComponent implements OnInit {
             map_link: null,
             sport: event.sport,
             link: event.link,
-            type: 'event',
+            type: 'evento',
+            selected: false,
           };
           session_cards.push(card);
         });
       }
       if(routes.code === 200 && routes.content) {
-        console.log('Routes:', routes.content);
         routes.content.forEach((route: any) => {
           let map_link = '';
           let img = '';
@@ -114,7 +118,8 @@ export class SportSessionComponent implements OnInit {
             map_link: map_link,
             sport: route.sport,
             link: route.link,
-            type: 'route',
+            type: 'ruta',
+            selected: false,
           };
           session_cards.push(card);
         });
@@ -126,6 +131,42 @@ export class SportSessionComponent implements OnInit {
 
   resetCards(): void {
     this.cards = this.base_cards;
+  }
+
+  selectCard(card: SEvent): void {
+    console.log('Selected Card:', card);
+    this.selected_cards.push(card);
+    card.selected = true;
+    this.base_cards = this.base_cards.map((c) => {
+      if(c.id === card.id) {
+        c.selected = true;
+      }
+      return c;
+    });
+    this.cards = this.cards.map((c) => {
+      if(c.id === card.id) {
+        c.selected = true;
+      }
+      return c;
+    });
+  }
+
+  deselectCard(card: SEvent): void {
+    console.log('Deselected Card:', card);
+    this.selected_cards = this.selected_cards.filter((c) => c.id !== card.id);
+    card.selected = false;
+    this.base_cards = this.base_cards.map((c) => {
+      if(c.id === card.id) {
+        c.selected = false;
+      }
+      return c;
+    });
+    this.cards = this.cards.map((c) => {
+      if(c.id === card.id) {
+        c.selected = false;
+      }
+      return c;
+    });
   }
 
   onSelection(e: any) {
@@ -204,10 +245,42 @@ export class SportSessionComponent implements OnInit {
     if (listCards) {
       listCards.scrollTo({
         top: 0,
-        behavior: 'smooth' // Hace que el desplazamiento sea suave
+        behavior: 'smooth'
       });
     }
+  }
 
+  createTrainingSessions(): void {
+    this.toastr.show("Creando Sesiones...", "Info");
+    const isFixed = fixToastPosition();
+    console.log('isFixed:', isFixed);
+    if (!isFixed) {
+      setTimeout(() => {
+        console.log('1 second delay...');
+      }, 1000);
+    }
+    const observables = this.selected_cards.map((card) => {
+      const session = {
+        id_sport_user: this.id,
+        id_event: card.id,
+        event_category: card.type,
+        sport_type: card.sport,
+        session_date: card.event_date + ' 00:00:00',
+      };
+      console.log('Creating Session:', session);
+      return this.sportSessionService.createTrainingSession(session);
+    });
+
+    forkJoin(observables).subscribe((responses) => {
+      console.log('Responses:', responses);
+      const success = responses.every(response => response.code === 201);
+      if (success) {
+        this.toastr.success('Sesiones de entrenamiento creadas exitosamente.', 'Éxito');
+        this.router.navigate(['/session']);
+      } else {
+        this.toastr.error('Error en la creación de sesiones de entrenamiento.', 'Error');
+      }
+    });
   }
 
 }

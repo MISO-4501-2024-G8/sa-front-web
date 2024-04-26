@@ -11,5 +11,6 @@ export class SEvent {
     public link: string | null,
     public imageUrl: string | null,
     public type: string | null,
+    public selected: boolean | null,
   ) { }
 }
