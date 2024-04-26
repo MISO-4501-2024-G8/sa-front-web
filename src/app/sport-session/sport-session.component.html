@@ -84,10 +84,10 @@
                     (click)="deselectCard(event)">Deseleccionar</button>
                   <span>&nbsp;</span>
                   <a *ngIf="event.map_link !== null" href="{{ event.map_link }}" class="btn btn-primary btn-sm"
-                    target="_blank">Ver Mapa</a>
+                    target="_blank" rel="noopener">Ver Mapa</a>
                   <span *ngIf="event.map_link !== null">&nbsp;</span>
                   <a *ngIf="event.event_type === 'virtual'" href="{{ event.link }}" class="btn btn-primary btn-sm"
-                    target="_blank">Link de Evento</a>
+                    target="_blank" rel="noopener">Link de Evento</a>
                 </div>
               </div>
             </div>

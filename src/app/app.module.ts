@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
-import { HammerModule } from '@angular/platform-browser';
 import { IgxCalendarModule } from 'igniteui-angular';
 
 import { AppRoutingModule } from './app-routing.module';

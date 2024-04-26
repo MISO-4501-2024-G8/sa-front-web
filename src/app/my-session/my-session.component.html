@@ -84,7 +84,7 @@
               <p>Fecha: {{this.info_training_session.training_session.session_date}}</p>
               <p>Deporte: {{this.info_training_session.training_session.sport_type}}</p>
               <a *ngIf="this.info_training_session.event?.event_type === 'virtual'"
-                href="{{ this.info_training_session.event?.link }}" class="btn btn-primary btn-sm" target="_blank">Link
+                href="{{ this.info_training_session.event?.link }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Link
                 de Evento</a>
 
             </div>
@@ -94,10 +94,10 @@
                 this.info_training_session.route?.route_location_B}}</p>
               <p>Fecha: {{this.info_training_session.training_session.session_date}}</p>
               <p>Deporte: {{this.info_training_session.training_session.sport_type}}</p>
-              <a href="{{ this.info_map_link }}" class="btn btn-primary btn-sm" target="_blank">Ver Mapa</a>
+              <a href="{{ this.info_map_link }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Ver Mapa</a>
               <span>&nbsp;</span>
               <a *ngIf="this.info_training_session.route?.route_type === 'virtual'"
-                href="{{ this.info_training_session.route?.link }}" class="btn btn-primary btn-sm" target="_blank">Link
+                href="{{ this.info_training_session.route?.link }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Link
                 de Evento</a>
             </div>
           </div>
