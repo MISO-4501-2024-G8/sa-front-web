@@ -1,0 +1,67 @@
+.calendar-wrapper {
+  max-width: 100% !important;
+  border-radius: 6px;
+  margin: 8px;
+}
+
+.igx-calendar {
+  border-radius: 4px;
+}
+
+.rb-selection {
+  padding: 20px;
+}
+
+.session-type {
+  display: flex;
+  flex-direction: column;
+}
+
+.session-type label {
+  margin-bottom: 5px;
+}
+
+.sport-type {
+  display: flex;
+  flex-direction: column;
+}
+
+.sport-type label {
+  margin-bottom: 5px;
+}
+
+.title-center {
+  text-align: center;
+}
+
+.filter-title{
+  min-height: 60px;
+}
+
+@media screen and (max-width: 768px) {
+  .filter-title{
+    min-height: 40px;
+  }
+}
+
+.rb-selection{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.event-img{
+  max-height: 100px;
+  object-fit: cover;
+}
+
+.list-cards {
+  overflow: auto;
+  max-height: 600px;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.list-cards::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari and Opera */
+}

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { IgxCalendarModule } from 'igniteui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,8 @@ import { ThirdHomeModule } from './third-home/third-home.module';
 import { ThirdProductModule } from './third-product/third-product.module';
 import { ThirdProductAddModule } from './third-product-add/third-product-add.module';
 import { ThirdDetailModule } from './third-detail/third-detail.module';
+import { SportSessionModule } from './sport-session/sport-session.module';
+import { MySessionModule } from './my-session/my-session.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { ThirdDetailModule } from './third-detail/third-detail.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HammerModule,
+    IgxCalendarModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
@@ -56,8 +61,11 @@ import { ThirdDetailModule } from './third-detail/third-detail.module';
     ThirdProductModule,
     ThirdProductAddModule,
     ThirdDetailModule,
+    SportSessionModule,
+    MySessionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,2 +1,38 @@
+
+@use "~igniteui-angular/theming" as *;
+// Uncomment the following lines if you want to add a custom palette:
+// $primary: #731963 !default;
+// $secondary: #ce5712 !default;
+// $app-palette: palette($primary, $secondary);
+
+/* autoprefixer grid: on */
+
+@include core();
+// @include typography($font-family: $material-typeface, $type-scale: $material-type-scale);
+@include theme($default-palette);
+// CSS Reset, comment out if not required or using a different module
+@import '~minireset.css/minireset';
 /* You can add global styles to this file, and also import other style files */
 @import 'ngx-toastr/toastr.css';
+
+
+$custom-calendar-theme: calendar-theme(
+  $header-background: #0C6DFD,
+  $content-background: #fdfdfd,
+  $header-text-color: #ffffff,
+  $date-current-text-color: #FD9C0C,
+  $picker-arrow-color: #FD9C0C,
+  $date-selected-text-color: #fdfdfd,
+  $date-current-bg-color: #fdfdfd,
+  $picker-arrow-hover-color:  #0C6DFD,
+  $year-current-text-color: #FD9C0C,
+  $year-hover-text-color: #FD9C0C,
+  $month-current-text-color: #FD9C0C,
+  $month-hover-text-color: #FD9C0C,
+  $picker-text-color: #FD9C0C,
+  $picker-text-hover-color:  #0C6DFD,
+  $month-hover-current-text-color: #FD9C0C
+);
+
+
+@include css-vars($custom-calendar-theme);

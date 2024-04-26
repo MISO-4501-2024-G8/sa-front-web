@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   token: string = '';
   role: string = '';
   id: string = '';
+  name: string = '';
 
   ngOnInit() {
     this.actualDate = new Date();
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
     this.token = this.sessionStorageServiceHome.getItem('token') ?? '';
     this.role = this.sessionStorageServiceHome.getItem('userType') ?? '';
     this.id = this.sessionStorageServiceHome.getItem('id') ?? '';
+    this.name = this.sessionStorageServiceHome.getItem('name') ?? '';
 
   }
 

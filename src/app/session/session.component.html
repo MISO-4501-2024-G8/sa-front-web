@@ -1,4 +1,24 @@
 <section class="content">
   <app-navbar-user></app-navbar-user>
-  SESSION
+  <div class="container-fluid">
+    <h3> Mis Sesiones</h3>
+    <div class="card card-item msession" (click)="gotopage('mysession')">
+      <div class="card-body">
+        <h5 class="card-subtitle mb-2 text-muted subtit">Acceder</h5>
+        <h4 class="card-title">Mis sesiones programadas</h4>
+      </div>
+    </div>
+    <div class="card card-item sportsession" (click)="gotopage('sportsession')">
+      <div class="card-body">
+        <h5 class="card-subtitle mb-2 text-muted subtit">Programar</h5>
+        <h4 class="card-title">Otras sesiones deportivas</h4>
+      </div>
+    </div>
+    <div class="card card-item statistics" (click)="gotopage('history')">
+      <div class="card-body">
+        <h5 class="card-subtitle mb-2 text-muted subtit">Historial</h5>
+        <h4 class="card-title">Consultar mi historial deportivo</h4>
+      </div>
+    </div>
+  </div>
 </section>
