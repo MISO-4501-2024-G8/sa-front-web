@@ -1,4 +1,4 @@
-export class SEvent {
+export class SportEvent {
   constructor(
     public id: string,
     public event_name: string,
@@ -6,10 +6,7 @@ export class SEvent {
     public event_location: string,
     public event_type: string,
     public event_date: string,
-    public map_link: string | null,
     public sport: string,
-    public link: string | null,
-    public imageUrl: string | null,
-    public type: string | null,
+    public link: string,
   ) { }
 }

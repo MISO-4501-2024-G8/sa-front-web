@@ -56,7 +56,8 @@
 
 .list-cards {
   overflow: auto;
-  max-height: 400px;
+  max-height: 600px;
+  scroll-behavior: smooth;
   scrollbar-width: none; /* For Firefox */
   -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }

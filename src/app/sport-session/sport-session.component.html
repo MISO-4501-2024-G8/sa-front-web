@@ -2,6 +2,8 @@
   <app-navbar-user></app-navbar-user>
   <div class="container-fluid">
     <p>Deporte Usuario {{sport}}</p>
+    <p> Qty: {{ cards.length }} &nbsp; Fecha: {{dateSelected}} &nbsp; Tipo: {{sessionType}} &nbsp; Deporte:
+      {{sportType}} </p>
     <div class="row">
       <div class="col-md-6 session-type">
         <div class="row">
@@ -16,12 +18,13 @@
             <h4 class="title-center filter-title">Selecciona el Tipo de Sesión</h4>
             <div class="btn-group" role="group-session-type" aria-label="Basic radio toggle button group session type">
               <input type="radio" class="btn-check" name="sessiontype-outlined" id="virtual-outlined" autocomplete="off"
-                (click)="setSessionType('Virtual')">
+                (click)="setSessionType('virtual')">
               <label class="btn btn-outline-primary" for="virtual-outlined">Virtual</label>
               <input type="radio" class="btn-check" name="sessiontype-outlined" id="presencial-outlined"
-                autocomplete="off" (click)="setSessionType('Presencial')">
+                autocomplete="off" (click)="setSessionType('presencial')">
               <label class="btn btn-outline-primary" for="presencial-outlined">Presencial</label>
             </div>
+
           </div>
           <div class="col-md-6 session-type">
             <h4 class="title-center filter-title">Selecciona el Deporte</h4>
@@ -43,62 +46,44 @@
         </div>
       </div>
       <div class="col-md-6 session-type">
-        <h3 class="title-center">Lista de Eventos a Seleccionar</h3>
-        <p> Qty: {{ cards.length }}</p>
-        <p>Fecha: {{dateSelected}} <br> Tipo: {{sessionType}} <br> Deporte: {{sportType}} </p>
+        <h3 class="title-center">
+          Lista de Eventos a Seleccionar
+          <span class="badge rounded-pill bg-primary">{{this.cards.length}}</span>
+        </h3>
         <div class="list-cards">
           <div class="row row-cols-1 row-cols-md-1 g-1 mb-2" *ngFor="let event of cards">
             <div class="col">
               <div class="card h-100">
+                <div class="card-header">
+                  <small class="text-muted">{{ event.event_date }}</small>
+                </div>
                 <img [src]="event.imageUrl" class="card-img-top event-img" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ event.event_name }}</h5>
                   <p class="card-text">{{ event.event_description }}</p>
+                  <p class="card-text"><small class="text-muted">Lugar: {{ event.event_location }}</small></p>
+                  <p class="card-text">
+                    <span *ngIf="event.type === 'event'" class="badge text-bg-secondary">Evento</span>
+                    <span *ngIf="event.type === 'route'" class="badge text bg-dark">Ruta</span>
+                    <span *ngIf="event.type === 'training'" class="badge text bg-info">Plan de Entrenamiento</span>
+                    &nbsp;
+                    <span *ngIf="event.sport === 'Ciclismo'" class="badge text-bg-primary">Ciclismo</span>
+                    <span *ngIf="event.sport === 'Atletismo'" class="badge text bg-warning">Atletismo</span>
+                    &nbsp;
+                    <span *ngIf="event.event_type === 'virtual'" class="badge text-bg-success">Virtual</span>
+                    <span *ngIf="event.event_type === 'presencial'" class="badge text-bg-danger">Presencial</span>
+                  </p>
+
+                  <a *ngIf="event.map_link !== null" href="{{ event.map_link }}" class="btn btn-primary btn-sm"
+                    target="_blank">Ver Mapa</a>
+                  <span *ngIf="event.map_link !== null">&nbsp;</span>
+                  <a *ngIf="event.event_type === 'virtual'" href="{{ event.link }}" class="btn btn-primary btn-sm"
+                    target="_blank">Link de Evento</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- <div class="list-cards">
-          <div class="row row-cols-1 row-cols-md-1 g-1">
-            <div class="col">
-              <div class="card h-100">
-                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a short card.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="../../assets/sport-session.jpeg" class="card-img-top event-img" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
