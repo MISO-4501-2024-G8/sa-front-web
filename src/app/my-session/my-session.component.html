@@ -1,0 +1,111 @@
+<section class="content">
+  <app-navbar-user></app-navbar-user>
+  <div class="container-fluid">
+    <h3> Mis Sesiones Programadas</h3>
+    <h4>Filtros</h4>
+    <div>
+      <div [formGroup]="this.filterForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="initialDate">Fecha Inicial</label>
+            <input id="initialDate" class="form-control" formControlName="initialDate" type="date" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="finalDate">Fecha Final</label>
+            <input id="finalDate" class="form-control" formControlName="finalDate" type="date" />
+          </div>
+        </div>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-success me-md-2" type="button" (click)="filterTrainingSessions()">Filtrar</button>
+        <button class="btn btn-primary me-md-2" type="button" (click)="clearFilter()">Limpiar</button>
+        <button class="btn btn-danger" type="button" (click)="returnToSession()">Volver</button>
+      </div>
+    </div>
+    <table class="table" aria-describedby="Tabla de detalle de servicios">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Categoria</th>
+          <th>Tipo</th>
+          <th>Fecha</th>
+          <th>Deporte</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let session of trainingSessions; let i = index">
+          <td>{{ i + 1 }}</td>
+
+          <td *ngIf="session.event">{{session.event.event_name}}</td>
+          <td *ngIf="session.route">{{session.route.route_name}}</td>
+          <td>{{session.training_session.event_category}}</td>
+          <td *ngIf="session.event">{{session.event.event_type}}</td>
+          <td *ngIf="session.route">{{session.route.route_type}}</td>
+          <td>{{session.training_session.session_date}}</td>
+          <td>{{session.training_session.sport_type}}</td>
+          <td class="mb-2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+              (click)="infoTrainingSession(session)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill"
+                viewBox="0 0 16 16">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+              </svg>
+            </button>
+            <button type="button" class="btn btn-danger" (click)="deleteTrainingSession(session.training_session.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2"
+                viewBox="0 0 16 16">
+                <path
+                  d="M14 3a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2M3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5s-3.69-.311-4.785-.793" />
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div *ngIf="this.info_training_session" class="modal-content">
+          <div class="modal-header">
+            <h1 *ngIf="this.info_type 'evento'" class="modal-title fs-5" id="staticBackdropLabel">
+              {{this.info_training_session.event?.event_name}}</h1>
+            <h1 *ngIf="this.info_type === 'ruta'" class="modal-title fs-5" id="staticBackdropLabel">
+              {{this.info_training_session.route?.route_name}}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div *ngIf="this.info_type === 'evento'">
+              <p>{{this.info_training_session.event?.event_description}}</p>
+              <p>Lugar: {{this.info_training_session.event?.event_location}}</p>
+              <p>Fecha: {{this.info_training_session.training_session.session_date}}</p>
+              <p>Deporte: {{this.info_training_session.training_session.sport_type}}</p>
+              <a *ngIf="this.info_training_session.event?.event_type === 'virtual'"
+                href="{{ this.info_training_session.event?.link }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Link
+                de Evento</a>
+
+            </div>
+            <div *ngIf="this.info_type === 'ruta'">
+              <p>{{this.info_training_session.route?.route_description}}</p>
+              <p>Lugar: {{this.info_training_session.route?.route_location_A + '-' +
+                this.info_training_session.route?.route_location_B}}</p>
+              <p>Fecha: {{this.info_training_session.training_session.session_date}}</p>
+              <p>Deporte: {{this.info_training_session.training_session.sport_type}}</p>
+              <a href="{{ this.info_map_link }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Ver Mapa</a>
+              <span>&nbsp;</span>
+              <a *ngIf="this.info_training_session.route?.route_type === 'virtual'"
+                href="{{ this.info_training_session.route?.link }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Link
+                de Evento</a>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

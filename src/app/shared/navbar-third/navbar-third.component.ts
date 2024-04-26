@@ -25,6 +25,7 @@ export class NavbarThirdComponent implements OnInit {
     this.sessionStorageService.removeItem('typePlan');
     this.sessionStorageService.removeItem('id');
     this.sessionStorageService.removeItem('name');
+    this.sessionStorageService.removeItem('thirdItem');
     this.router.navigate(['/']);
   }
 

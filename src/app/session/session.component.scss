@@ -1,0 +1,33 @@
+.card-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  min-height: 200px;
+  text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+}
+
+.msession {
+  background-image: url('../../assets/mysessions.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.sportsession {
+  background-image: url('../../assets/sport-session.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.statistics {
+  background-image: url('../../assets/statistics.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.subtit {
+  color: bisque !important;
+  text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+}
