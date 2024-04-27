@@ -30,6 +30,7 @@ export class SportSessionComponent implements OnInit {
   sessionType: string = '';
   sportType: string = '';
   dateSelected: string = '';
+  warningMessage: string = '';
   cards: SEvent[] = [];
   base_cards: SEvent[] = [];
   selected_cards: SEvent[] = [];
@@ -135,7 +136,7 @@ export class SportSessionComponent implements OnInit {
         });
       }
       if(session_cards.length === 0) {
-        this.toastr.info('No hay eventos disponibles para el usuario.', 'Información');
+        this.warningMessage = 'No hay eventos disponibles para el usuario.';
       }
       this.base_cards = session_cards;
       this.resetCards();
@@ -148,6 +149,9 @@ export class SportSessionComponent implements OnInit {
 
   resetCards(): void {
     this.cards = this.base_cards;
+    if(this.cards.length === 0) {
+      this.warningMessage = 'No hay eventos disponibles para el usuario.';
+    }
   }
 
   selectCard(card: SEvent): void {
@@ -226,6 +230,9 @@ export class SportSessionComponent implements OnInit {
       filteredCards.push(card);
     });
     this.cards = filteredCards;
+    if(this.cards.length === 0) {
+      this.warningMessage = 'No hay eventos disponibles con los filtros aplicados.';
+    }
   }
 
   limpiarFiltros(): void {
