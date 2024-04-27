@@ -241,6 +241,34 @@ describe('SportSession Component', async () => {
     component.limpiarFiltros();
     component.cancelAction();
   });
+
+  it('should return no events', () => {
+    const responseGetTrainingSessionsByUserID = {
+      "content": [],
+      "message": "Se encontró la sesión de entrenamiento exitosamente",
+      "code": 200,
+      "error": ""
+    }
+
+    const responseGetAllEvents = {
+      "message": "OK",
+      "content": [],
+      "code": 200,
+      "error": ""
+    }
+
+    const responseGetAllRoutes = {
+      "message": "OK",
+      "content": [],
+      "code": 200,
+      "error": ""
+    }
+    mockService.getTrainingSessionsByUserID.and.returnValue(asyncData(responseGetTrainingSessionsByUserID));
+    mockService.getAllEvents.and.returnValue(asyncData(responseGetAllEvents));
+    mockService.getAllRoutes.and.returnValue(asyncData(responseGetAllRoutes));
+    mockService.getCombinedData.and.returnValue(asyncData([responseGetAllEvents, responseGetAllRoutes, responseGetTrainingSessionsByUserID]));
+    component.ngOnInit();
+  });
 });
 
 describe('SportSession Service', () => {
