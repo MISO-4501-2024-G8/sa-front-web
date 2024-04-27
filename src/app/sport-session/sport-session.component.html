@@ -93,6 +93,9 @@
             </div>
           </div>
         </div>
+        <div *ngIf="this.cards.length === 0 && this.warningMessage !== ''" class="alert alert-warning" role="alert">
+          {{this.warningMessage}}
+        </div>
       </div>
     </div>
   </div>
