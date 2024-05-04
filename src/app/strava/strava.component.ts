@@ -41,6 +41,10 @@ export class StravaComponent implements OnInit {
     this.id = this.sessionStorageService.getItem('id') ?? '';
     this.route.queryParams.subscribe(params => {
       console.log("Params: ", params);
+      params["error"] ? this.error = params["error"] : this.error = '';
+      if(this.error !== '') {
+        this.toastr.error('Error al conectar con Strava [' + this.error + ']', 'Error');
+      }
     });
     this.getUserActive();
   }
@@ -48,11 +52,11 @@ export class StravaComponent implements OnInit {
   getUserActive() {
     this.stravaService.isUserActive(this.id).subscribe((res) => {
       console.log(res);
-      if(res.code == 200) {
+      if (res.code == 200) {
         this.activeUser = true;
         this.stravaUser = res.strava_user as StravaUser;
         this.getStravaData();
-      }else {
+      } else {
         this.activeUser = false;
       }
     });
@@ -61,30 +65,37 @@ export class StravaComponent implements OnInit {
   getStravaData() {
     this.stravaService.getAthleteData(this.id).subscribe((res) => {
       console.log(res);
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.baseAtlhete = res.athlete as Athlete;
         this.isProcessing = true;
         this.stravaService.getAthleteActivities(this.id).subscribe((res) => {
           console.log(res);
-          if(res.code === 200) {
+          if (res.code === 200) {
             this.userActivities = res.activities as StravaActivity[];
-            if(this.userActivities?.length === 0) {
+            if (this.userActivities?.length === 0) {
               this.toastr.info('No hay actividades para mostrar', 'Info');
             }
             this.isProcessing = false;
-          }else {
+          } else {
             this.toastr.error('Error obteniendo actividades de Strava', 'Error');
             this.isProcessing = false;
           }
         });
-      }else{
+      } else {
         this.toastr.error('Error obteniendo datos de Strava', 'Error');
       }
     });
   }
 
   goToConnectStrava() {
-    const redirect_uri = environment.strava_redirect_uri + '/' + this.id;
+    //console.log(process.env["NODE_ENV"]);
+    const node_env = process.env["NODE_ENV"];
+    let redirect_uri = '';
+    if (node_env === 'development') {
+      redirect_uri = environment.strava_redirect_uri.replace('auth_callback', 'auth_callback_local') + this.id;
+    } else {
+      redirect_uri = environment.strava_redirect_uri + this.id;
+    }
     window.location.href = `https://www.strava.com/oauth/authorize?client_id=125884&response_type=code&redirect_uri=${redirect_uri}&approval_prompt=force&scope=read,activity:read_all,activity:write&state=register`;
   }
 
@@ -106,11 +117,11 @@ export class StravaComponent implements OnInit {
     this.toastr.info('Sincronizando Datos', 'Syncing');
     this.stravaService.syncAthleteData(this.id).subscribe((res) => {
       console.log(res);
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.toastr.clear();
         this.toastr.success('Data Sincronizada Satisfactoriamente', 'Success');
         this.getUserActive();
-      }else {
+      } else {
         this.toastr.error('Error syncing data', 'Error');
       }
     });

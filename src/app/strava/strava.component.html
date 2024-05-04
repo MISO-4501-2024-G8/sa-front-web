@@ -40,7 +40,7 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <table *ngIf="!isProcessing && this.userActivities && this.userActivities.length > 0" class="table table-striped table-hover">
+    <table *ngIf="!isProcessing && this.stravaUser.last_sync !== null && this.userActivities && this.userActivities.length > 0" class="table table-striped table-hover">
       <thead>
         <tr>
           <th scope="col">ID</th>
