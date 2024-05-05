@@ -37,7 +37,6 @@ describe('Third Component', async () => {
   let mockToastrService: jasmine.SpyObj<ToastrService>;
   let mockRouter: jasmine.SpyObj<Router>;
   let mockSessionStorageService: jasmine.SpyObj<SessionStorageService>;
-  let location: Location;
 
 
   beforeEach(async () => {
@@ -55,7 +54,6 @@ describe('Third Component', async () => {
         { provide: ToastrService, useValue: mockToastrService },
         { provide: Router, useValue: mockRouter },
         { provide: SessionStorageService, useValue: mockSessionStorageService },
-        Location
       ]
     });
 
@@ -359,6 +357,10 @@ describe('Third Component', async () => {
 
   it('should syncData', async () => {
     await component.syncData();
+  });
+
+  it('should connect Strava', async () => {
+    await component.goToConnectStrava(true);
   });
 
   it('should get strava data', async () => {

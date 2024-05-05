@@ -87,8 +87,7 @@ export class StravaComponent implements OnInit {
     });
   }
 
-  goToConnectStrava() {
-    //console.log(process.env["NODE_ENV"]);
+  goToConnectStrava(isTest: boolean = false) {
     const node_env = process.env["NODE_ENV"];
     let redirect_uri = '';
     if (node_env === 'development') {
@@ -96,7 +95,9 @@ export class StravaComponent implements OnInit {
     } else {
       redirect_uri = environment.strava_redirect_uri + this.id;
     }
-    window.location.href = `https://www.strava.com/oauth/authorize?client_id=125884&response_type=code&redirect_uri=${redirect_uri}&approval_prompt=force&scope=read,activity:read_all,activity:write&state=register`;
+    if(!isTest) {
+    window.location.href = `https://www.strava.com/oauth/authorize?client_id=125884&response_type=code&redirect_uri=${redirect_uri}&approval_prompt=force&scope=read,activity:read_all,activity:write&state=register`; // NOSONAR
+    }
   }
 
   goToSProfile() {
