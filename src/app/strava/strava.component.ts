@@ -39,7 +39,7 @@ export class StravaComponent implements OnInit {
     this.token = this.sessionStorageService.getItem('token') ?? '';
     this.role = this.sessionStorageService.getItem('userType') ?? '';
     this.id = this.sessionStorageService.getItem('id') ?? '';
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams?.subscribe(params => {
       console.log("Params: ", params);
       params["error"] ? this.error = params["error"] : this.error = '';
       if(this.error !== '') {
