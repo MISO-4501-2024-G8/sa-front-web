@@ -20,6 +20,7 @@ import { ThirdProductAddComponent } from './third-product-add/third-product-add.
 import { ThirdDetailComponent } from './third-detail/third-detail.component';
 import { SportSessionComponent } from './sport-session/sport-session.component';
 import { MySessionComponent } from './my-session/my-session.component';
+import { StravaComponent } from './strava/strava.component';
 
 const routes: Routes = [
   { path: '', component: StartpComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'sport-session', component: SportSessionComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
   { path: 'my-session', component: MySessionComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
   { path: 'payment', component: PaymentComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
+  { path: 'strava', component: StravaComponent, canActivate: [RoleGuard], data: { expectedRole: '1' }},
   { path: 'third-home', component: ThirdHomeComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
   { path: 'third-product', component: ThirdProductComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
   { path: 'third-product-add', component: ThirdProductAddComponent, canActivate: [RoleGuard], data: { expectedRole: '2' }},
