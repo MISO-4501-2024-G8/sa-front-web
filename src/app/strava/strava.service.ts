@@ -15,26 +15,26 @@ export class StravaService {
 
   isUserActive(id_user:string): Observable<any> {
     //this.apiUrl = environment.baseUrl + 'strava/athlete';
-    this.apiUrl = environment.workout_manager_url +"active_user?user_id=" + id_user;
+    this.apiUrl = environment.baseUrl +"active_user?user_id=" + id_user;
     return this.http.get<any>(this.apiUrl);
   }
 
 
   getAthleteData(id_user: string): Observable<WorkoutResponse> {
     //this.apiUrl = environment.baseUrl + 'strava/athlete';
-    this.apiUrl = environment.workout_manager_url + 'strava_athlete?user_id=' + id_user;
+    this.apiUrl = environment.baseUrl + 'strava_athlete?user_id=' + id_user;
     return this.http.get<WorkoutResponse>(this.apiUrl);
   }
 
   syncAthleteData(id_user: string): Observable<WorkoutResponse> {
     //this.apiUrl = environment.baseUrl + 'strava/sync';
-    this.apiUrl = environment.workout_manager_url + "sync_activities?user_id=" + id_user;
+    this.apiUrl = environment.baseUrl + "sync_activities?user_id=" + id_user;
     return this.http.post<WorkoutResponse>(this.apiUrl, {});
   }
 
   getAthleteActivities(id_user: string): Observable<WorkoutResponse> {
     //this.apiUrl = environment.baseUrl + 'strava/activities';
-    this.apiUrl = environment.workout_manager_url + "strava_activities?user_id=" + id_user;
+    this.apiUrl = environment.baseUrl + "strava_activities?user_id=" + id_user;
     return this.http.get<WorkoutResponse>(this.apiUrl);
   }
 

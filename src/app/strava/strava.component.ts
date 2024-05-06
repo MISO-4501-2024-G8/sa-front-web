@@ -91,9 +91,11 @@ export class StravaComponent implements OnInit {
     const node_env = process.env["NODE_ENV"];
     let redirect_uri = '';
     if (node_env === 'development') {
-      redirect_uri = environment.strava_redirect_uri.replace('auth_callback', 'auth_callback_local') + this.id;
+      //redirect_uri = environment.strava_redirect_uri.replace('auth_callback', 'auth_callback_local') + this.id;
+      redirect_uri = environment.baseUrl + 'auth_callback_local/' + this.id;
     } else {
-      redirect_uri = environment.strava_redirect_uri + this.id;
+      //redirect_uri = environment.strava_redirect_uri + this.id;
+      redirect_uri = environment.baseUrl + 'auth_callback/' + this.id;
     }
     if(!isTest) {
     window.location.href = `https://www.strava.com/oauth/authorize?client_id=125884&response_type=code&redirect_uri=${redirect_uri}&approval_prompt=force&scope=read,activity:read_all,activity:write&state=register`; // NOSONAR
