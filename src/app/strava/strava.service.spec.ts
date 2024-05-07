@@ -691,7 +691,7 @@ describe('ThirdProductService', () => {
     service.isUserActive('1').subscribe(response => {
       expect(response).toEqual(activeUserResponse);
     });
-    const req = httpMock.expectOne(`${environment.workout_manager_url}active_user?user_id=1`);
+    const req = httpMock.expectOne(`${environment.baseUrl}active_user?user_id=1`);
     expect(req.request.method).toBe('GET');
     req.flush(activeUserResponse); // Provide the mockResponse as the response
   });
@@ -700,7 +700,7 @@ describe('ThirdProductService', () => {
     service.getAthleteData('1').subscribe(response => {
       expect(response).toEqual(getAthleteDataResponse);
     });
-    const req = httpMock.expectOne(`${environment.workout_manager_url}strava_athlete?user_id=1`);
+    const req = httpMock.expectOne(`${environment.baseUrl}strava_athlete?user_id=1`);
     expect(req.request.method).toBe('GET');
     req.flush(getAthleteDataResponse); // Provide the mockResponse as the response
   });
@@ -709,7 +709,7 @@ describe('ThirdProductService', () => {
     service.syncAthleteData('1').subscribe(response => {
       expect(response).toEqual(syncAthleteDataResponse);
     });
-    const req = httpMock.expectOne(`${environment.workout_manager_url}sync_activities?user_id=1`);
+    const req = httpMock.expectOne(`${environment.baseUrl}sync_activities?user_id=1`);
     expect(req.request.method).toBe('POST');
     req.flush(syncAthleteDataResponse); // Provide the mockResponse as the response
   });
@@ -718,7 +718,7 @@ describe('ThirdProductService', () => {
     service.getAthleteActivities('1').subscribe(response => {
       expect(response).toEqual(getAthleteActivitiesResponse);
     });
-    const req = httpMock.expectOne(`${environment.workout_manager_url}strava_activities?user_id=1`);
+    const req = httpMock.expectOne(`${environment.baseUrl}strava_activities?user_id=1`);
     expect(req.request.method).toBe('GET');
     req.flush(getAthleteActivitiesResponse); // Provide the mockResponse as the response
   });
