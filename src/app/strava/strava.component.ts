@@ -91,10 +91,8 @@ export class StravaComponent implements OnInit {
     const node_env = process.env["NODE_ENV"];
     let redirect_uri = '';
     if (node_env === 'development') {
-      //redirect_uri = environment.strava_redirect_uri.replace('auth_callback', 'auth_callback_local') + this.id;
       redirect_uri = environment.baseUrl + 'auth_callback_local/' + this.id;
     } else {
-      //redirect_uri = environment.strava_redirect_uri + this.id;
       redirect_uri = environment.baseUrl + 'auth_callback/' + this.id;
     }
     if(!isTest) {
