@@ -21,12 +21,14 @@ import { ThirdDetailComponent } from './third-detail/third-detail.component';
 import { SportSessionComponent } from './sport-session/sport-session.component';
 import { MySessionComponent } from './my-session/my-session.component';
 import { StravaComponent } from './strava/strava.component';
+import { EventDetailComponent } from './event-detail/event-detail.component';
 
 const routes: Routes = [
   { path: '', component: StartpComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'event', component: EventComponent },
+  { path: 'event-detail', component: EventDetailComponent },
   { path: 'third', component: ThirdComponent },
   { path: 'third-detail', component: ThirdDetailComponent },
   { path: 'third-signup', component: ThirdSignupComponent },
