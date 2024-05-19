@@ -1,4 +1,19 @@
 <section class="content">
-  <app-navbar></app-navbar>
-  EVENTS
+  <app-navbar *ngIf="!this.isSportUser"></app-navbar>
+  <app-navbar-user *ngIf="this.isSportUser"></app-navbar-user>
+  <div class="container container-padding">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <!-- Iterar sobre los elementos usando *ngFor -->
+      <div class="col" *ngFor="let item of events; let i = index">
+        <div class="card h-100">
+          <img [src]="item.src" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.event_name !== '' ? item.event_name : "Titulo" }}</h5>
+            <p class="card-text">{{ item.event_description !== '' ? item.event_description : 'No descripcion' }}</p>
+            <button class="btn btn-primary" (click)="goToEvent(item)">Ver mas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

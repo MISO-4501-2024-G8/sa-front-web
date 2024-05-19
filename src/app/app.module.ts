@@ -28,6 +28,7 @@ import { ThirdDetailModule } from './third-detail/third-detail.module';
 import { SportSessionModule } from './sport-session/sport-session.module';
 import { MySessionModule } from './my-session/my-session.module';
 import { StravaModule } from './strava/strava.module';
+import { EventDetailModule } from './event-detail/event-detail.module';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { StravaModule } from './strava/strava.module';
     SignupModule,
     LoginModule,
     EventModule,
+    EventDetailModule,
     PlanModule,
     HomeModule,
     PaymentModule,
