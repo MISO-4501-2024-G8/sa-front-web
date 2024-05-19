@@ -7,7 +7,7 @@
         <div class="col-md-4">
           <img [src]="this.randomSRC" class="rounded border border-2 img-fluid" alt="representa un servicio"
             width="200px">
-          <h2>{{this.evento.event_name}}</h2>
+          <h2>{{(this.evento.event_name) ? this.evento.event_name : "Titulo"}}</h2>
         </div>
         <div class="col-md-1 ms-auto divider d-none d-md-block">
           <div class="d-flex" style="height: 250px;">

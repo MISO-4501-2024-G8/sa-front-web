@@ -5,6 +5,7 @@ import { SessionStorageService } from '../utils/session-storage.service';
 import { EventDetailService } from './event-detail.service';
 import { SportEvent } from '../models/sport_event';
 import { TrainingSession } from '../models/training_session';
+import { get } from 'http';
 
 @Component({
   selector: 'app-event-detail',
@@ -46,6 +47,7 @@ export class EventDetailComponent implements OnInit {
     this.role = this.sessionStorageService.getItem('userType') ?? '';
     this.id = this.sessionStorageService.getItem('id') ?? '';
     this.eventId = this.sessionStorageService.getItem('eventId') ?? '';
+    this.randomSRC = this.sessionStorageService.getItem('eventSrc') ?? this.getRandomImageSource();
     if(this.token !== '' && this.role === '1' ){
       this.isSportUser = true;
     }
@@ -58,7 +60,6 @@ export class EventDetailComponent implements OnInit {
       (response) => {
         console.log("Event detail: ", response)
         this.evento = response.content as SportEvent;
-        this.randomSRC = this.getRandomImageSource();
       },
       (error) => {
         console.error("An error occurred: ", error)

@@ -8,6 +8,6 @@ export class SportEvent {
     public event_date: string,
     public sport: string,
     public link: string,
-    public src: string | null | undefined,
+    public src: string | undefined | null  = null
   ) { }
 }

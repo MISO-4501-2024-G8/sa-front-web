@@ -40,6 +40,7 @@ export class EventComponent implements OnInit {
     this.role = this.sessionStorageService.getItem('userType') ?? '';
     this.id = this.sessionStorageService.getItem('id') ?? '';
     this.sessionStorageService.removeItem('eventId');
+    this.sessionStorageService.removeItem('eventSrc');
     if(this.token !== '' && this.role === '1' ){
       this.isSportUser = true;
     }
@@ -73,6 +74,9 @@ export class EventComponent implements OnInit {
   goToEvent(event: SportEvent) {
     console.log("Event: ", event)
     this.sessionStorageService.setItem('eventId', event.id);
+    this.sessionStorageService.setItem('eventSrc', event.src);
+    console.log("Event id: ", event.id)
+    console.log("Event src: ", event.src)
     this.router.navigate(['event-detail']);
   }
 
