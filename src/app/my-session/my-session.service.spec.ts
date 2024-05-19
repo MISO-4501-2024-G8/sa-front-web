@@ -105,7 +105,8 @@ describe('SportSession Component', async () => {
         "link": "http://linkreu.edu",
         "event_date": "2024-05-28T14:30:00",
         "createdAt": "2024-04-26T00:16:35",
-        "updatedAt": "2024-04-26T00:19:33"
+        "updatedAt": "2024-04-26T00:19:33",
+        "src": ""
       },
       "code": 200,
       "error": ""
@@ -179,6 +180,7 @@ describe('SportSession Component', async () => {
         sport: "",
         link: "",
         event_date: "",
+        "src": ""
       },
       route: null
     }
@@ -326,7 +328,8 @@ describe('Mysession Service', () => {
       "link": "http://linkreu.edu",
       "event_date": "2024-05-28T14:30:00",
       "createdAt": "2024-04-26T00:16:35",
-      "updatedAt": "2024-04-26T00:19:33"
+      "updatedAt": "2024-04-26T00:19:33",
+      "src": ""
     },
     "code": 200,
     "error": ""
